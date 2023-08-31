@@ -1,4 +1,4 @@
-import React, { Fragment, useRef } from "react";
+import React, { Fragment, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import { useDispatch } from "react-redux";
@@ -11,6 +11,7 @@ import {
 import { Spinner } from "../../shared/UI/Loader/Spinner";
 import { Button } from "../../shared/UI/Button";
 import { TAuth } from "../../../types/auth";
+import sprite from "../../../assets/icons/sprite.svg";
 
 interface SignInProps {
   onUpdateLabel: (label: string) => void;
@@ -19,6 +20,7 @@ interface SignInProps {
 export const SignIn: React.FC<SignInProps> = (props) => {
   const phoneNumberRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
+  const [showPassword, setShowPassword] = useState<Boolean>(false);
   const dispatch: any = useDispatch();
 
   const { isLoading, mutate } = useMutation({
@@ -49,11 +51,6 @@ export const SignIn: React.FC<SignInProps> = (props) => {
     const password = passwordRef.current && passwordRef.current.value;
 
     if (!phoneNumber || !password) return;
-    console.log("phoneNumber");
-    console.log(phoneNumber);
-    console.log("password");
-    console.log(password);
-
     mutate({ phoneNumber: phoneNumber, password: password });
   };
 
@@ -65,23 +62,23 @@ export const SignIn: React.FC<SignInProps> = (props) => {
     <Fragment>
       <form
         onSubmit={(event) => signInHandler(event)}
-        className="p-4 sm:p-8 sm:w-3/5"
+        className="p-4 sm:p-8 full"
       >
         <div className="mb-6">
           <h1 className="font-bold text-3xl text-gray-dark-3">Welcome back</h1>
-          <p>Sign in your account</p>
+          <p>Log into your account</p>
         </div>
         <div className="flex flex-col justify-center relative space-y-[4px] mb-4">
-          <label htmlFor="email" className="text-gray-dark-3">
+          <label htmlFor="phoneNumber" className="text-gray-dark-3">
             Phone number
           </label>
           <input
-            className="border-[1px] border-gray-400 focus:border-primary
+            className="border-[2px] border-gray-400 focus:border-primary
                  focus:bg-gray-200 transition-all outline-none p-2  rounded
                  bg-gray-light-1 text-sm"
-            type="email"
+            type="text"
             ref={phoneNumberRef}
-            placeholder="Enter your email"
+            placeholder="Enter your phone number"
             required
           />
         </div>
@@ -97,14 +94,32 @@ export const SignIn: React.FC<SignInProps> = (props) => {
             Forgot password?
           </Link>
           <input
-            className="border-[1px] border-gray-400 focus:border-primary
+            className="border-[2px] border-gray-400 focus:border-primary
                focus:bg-gray-200 transition-all outline-none  p-2 rounded
                bg-gray-light-1 text-sm"
-            type="password"
+            type={showPassword ? "text" : "password"}
             ref={passwordRef}
             placeholder="Enter your password"
             required
           />
+          {!showPassword && (
+            <svg
+              className="w-6 h-6 fill-gray-dark-2 absolute right-3 top-[45%]
+                 cursor-pointer"
+              onClick={() => setShowPassword(!showPassword)}
+            >
+              <use href={`${sprite}#icon-eye`}></use>
+            </svg>
+          )}
+          {showPassword && (
+            <svg
+              className="w-6 h-6 fill-gray-dark-2 absolute right-3 top-[45%]
+               cursor-pointer"
+              onClick={() => setShowPassword(!showPassword)}
+            >
+              <use href={`${sprite}#icon-eyeclosed`}></use>
+            </svg>
+          )}
         </div>
         <div
           className="w-full mt-6 flex items-center justify-center
@@ -115,7 +130,7 @@ export const SignIn: React.FC<SignInProps> = (props) => {
               Log in
             </Button>
           )}
-          {isLoading && <Spinner label="Signing in" className="w-40" />}
+          {isLoading && <Spinner label="Logging in" className="w-40" />}
         </div>
         <div className="w-full mt-4">
           <span>Don't have an account?</span>

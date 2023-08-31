@@ -72,7 +72,8 @@ export const SignUp: React.FC<SignUpProps> = (props) => {
     <Fragment>
       <form
         onSubmit={(event) => signUpHandler(event)}
-        className="min-w-[300px] p-4 sm:p-8 sm:w-3/5"
+        // className="min-w-[300px] p-4 sm:p-8 sm:w-3/5"
+        className="p-4 sm:p-8 w-full"
       >
         <div className="mb-6">
           <h1 className="font-bold text-3xl text-gray-dark-3">Welcome!</h1>
