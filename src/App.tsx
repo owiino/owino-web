@@ -1,13 +1,15 @@
-import { useState, Fragment } from "react";
-
-import "./App.css";
+import { Fragment } from "react";
+// import "./App.css";
+import { AppRouter } from "./routes/AppRouter";
+import { AppProviders } from "./providers/AppProvider";
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
     <Fragment>
-      <div className="bg-green-400">App routes here</div>
+      {/* <div className="bg-green-400">App routes here</div> */}
+      <AppProviders>
+        <AppRouter />
+      </AppProviders>
     </Fragment>
   );
 }
