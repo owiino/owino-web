@@ -30,14 +30,9 @@ const ModalContent: React.FC<ModalContentProps> = ({
   return (
     <div
       className={twMerge(
-        `fixed top-[10vh] left-[5%] w-[90%] md:left-[15%]
-          md:w-[70%] xl:left-[20%] xl:w-[60%] p-0  rounded-lg z-[1000]
-          bg-gray-light-1 shadow-2xl animate-slideDown`,
+        `p-0 rounded-lg z-[1000] bg-gray-light-1 shadow-2xl animate-slideDown`,
         className
       )}
-      // className={`fixed top-[10vh] left-[5%] w-[90%] md:left-[15%]
-      // md:w-[70%] xl:left-[20%] xl:w-[60%] p-0  rounded-lg z-[1000]
-      // bg-gray-light-1 shadow-2xl animate-slideDown`}
     >
       <svg
         className="w-[20px] h-[20px] fill-gray-dark-2 absolute right-4 top-4 z-[2000]"
@@ -76,7 +71,7 @@ export const Modal: React.FC<ModalProps> = (props) => {
   return (
     <Fragment>
       {ReactDOM.createPortal(
-        <div>
+        <div className="w-[100vw] h-[100vh] fixed top-0 left-0 flex items-center justify-center">
           <ModalOverlay onClose={() => onCloseHandler()} />
           <ModalContent
             content={props.children}
