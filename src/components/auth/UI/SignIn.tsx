@@ -12,15 +12,38 @@ import { Spinner } from "../../shared/UI/Loader/Spinner";
 import { Button } from "../../shared/UI/Button";
 import { TAuth } from "../../../types/auth";
 import sprite from "../../../assets/icons/sprite.svg";
+import { useInputValidation } from "../../../hooks/useInputValidation";
+
+const validatePhoneNumber = (phoneNumber: string) =>
+  phoneNumber.trim().startsWith("2567") && phoneNumber.trim().length === 12;
+const validatePassword = (password: string) =>
+  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/.test(password);
 
 interface SignInProps {
   onUpdateLabel: (label: string) => void;
 }
 
 export const SignIn: React.FC<SignInProps> = (props) => {
-  const phoneNumberRef = useRef<HTMLInputElement>(null);
-  const passwordRef = useRef<HTMLInputElement>(null);
   const [showPassword, setShowPassword] = useState<Boolean>(false);
+
+  const {
+    value: phoneNumberValue,
+    hasError: phoneNumberHasError,
+    inputBlurHandler: phoneNumberInputBlurHandler,
+    valueChangeHandler: phoneNumberValueChangeHandler,
+
+    isValid: phoneNumberIsValid,
+  } = useInputValidation(validatePhoneNumber);
+
+  const {
+    value: passwordValue,
+    hasError: passwordHasError,
+    inputBlurHandler: passwordInputBlurHandler,
+    valueChangeHandler: passwordValueChangeHandler,
+
+    isValid: passwordIsValid,
+  } = useInputValidation(validatePassword);
+
   const dispatch: any = useDispatch();
 
   const { isLoading, mutate } = useMutation({
@@ -47,11 +70,18 @@ export const SignIn: React.FC<SignInProps> = (props) => {
 
   const signInHandler = (event: React.FormEvent) => {
     event.preventDefault();
-    const phoneNumber = phoneNumberRef.current && phoneNumberRef.current.value;
-    const password = passwordRef.current && passwordRef.current.value;
 
-    if (!phoneNumber || !password) return;
-    mutate({ phoneNumber: phoneNumber, password: password });
+    const formIsValid = phoneNumberIsValid && passwordIsValid;
+    if (!formIsValid) {
+      showCardNotification({
+        type: "error",
+        message: "Please check the form errors",
+      });
+    }
+    mutate({
+      phoneNumber: phoneNumberValue,
+      password: passwordValue,
+    });
   };
 
   const updateAuthLabel = (label: string) => {
@@ -69,56 +99,65 @@ export const SignIn: React.FC<SignInProps> = (props) => {
           <p>Log into your account</p>
         </div>
         <div className="flex flex-col justify-center relative space-y-[4px] mb-4">
-          <label htmlFor="phoneNumber" className="text-gray-dark-3">
+          <label htmlFor="email" className="text-gray-dark-3">
             Phone number
           </label>
           <input
             className="border-[2px] border-gray-400 focus:border-primary
-                 focus:bg-gray-200 transition-all outline-none p-2  rounded
-                 bg-gray-light-1 text-sm"
+                   focus:bg-gray-200 transition-all outline-none p-2  rounded
+                    bg-gray-light-1 text-sm"
             type="text"
-            ref={phoneNumberRef}
+            value={phoneNumberValue}
+            onChange={phoneNumberValueChangeHandler}
+            onBlur={phoneNumberInputBlurHandler}
             placeholder="Enter your phone number"
             required
           />
+          {phoneNumberHasError && (
+            <span className="text-red-500 w-full text-start">
+              Please provide a valid phone number
+            </span>
+          )}
         </div>
-        <div className="flex flex-col justify-center relative space-y-[4px]">
+        <div className="flex flex-col justify-center relative space-y-[4px] mb-4">
           <label htmlFor="password" className="text-gray-dark-3">
             Password
           </label>
-          <Link
-            to="/forgot-password"
-            className="text-sm text-primary-dark hover:underline focus:underline
-                absolute right-0 top-[-2px] outline-none"
-          >
-            Forgot password?
-          </Link>
-          <input
-            className="border-[2px] border-gray-400 focus:border-primary
-               focus:bg-gray-200 transition-all outline-none  p-2 rounded
+          <div className="flex flex-col justify-center relative">
+            <input
+              className="border-[2px] border-gray-400 focus:border-primary
+               focus:bg-gray-200 transition-all outline-none  p-2  rounded
                bg-gray-light-1 text-sm"
-            type={showPassword ? "text" : "password"}
-            ref={passwordRef}
-            placeholder="Enter your password"
-            required
-          />
-          {!showPassword && (
-            <svg
-              className="w-6 h-6 fill-gray-dark-2 absolute right-3 top-[45%]
+              type={showPassword ? "text" : "password"}
+              value={passwordValue}
+              onChange={passwordValueChangeHandler}
+              onBlur={passwordInputBlurHandler}
+              placeholder="Enter your password"
+              required
+            />
+            {!showPassword && (
+              <svg
+                className="w-6 h-6 fill-gray-500 absolute right-3 top-[20%]
                  cursor-pointer"
-              onClick={() => setShowPassword(!showPassword)}
-            >
-              <use href={`${sprite}#icon-eye`}></use>
-            </svg>
-          )}
-          {showPassword && (
-            <svg
-              className="w-6 h-6 fill-gray-dark-2 absolute right-3 top-[45%]
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                <use href={`${sprite}#icon-eye`}></use>
+              </svg>
+            )}
+            {showPassword && (
+              <svg
+                className="w-6 h-6 fill-gray-500 absolute right-3 top-[20%]
                cursor-pointer"
-              onClick={() => setShowPassword(!showPassword)}
-            >
-              <use href={`${sprite}#icon-eyeclosed`}></use>
-            </svg>
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                <use href={`${sprite}#icon-eyeclosed`}></use>
+              </svg>
+            )}
+          </div>
+          {passwordHasError && (
+            <span className="text-red-500 w-full text-start">
+              Please provide a valid password
+            </span>
           )}
         </div>
         <div
