@@ -2,6 +2,7 @@ import React, { Fragment, useState, useEffect } from "react";
 import { Modal } from "../../shared/UI/Modal";
 import { SignIn } from "../UI/SignIn";
 import { SignUp } from "../UI/SignUp";
+import { ForgotPassword } from "../UI/ForgotPassword";
 import { uppercaseFirstLetter } from "../../../utils.ts";
 
 interface AuthLayoutProps {
@@ -31,6 +32,10 @@ export const AuthLayout: React.FC<AuthLayoutProps> = (props) => {
     {
       label: "register",
       component: <SignUp onUpdateLabel={labelHandler} />,
+    },
+    {
+      label: "forgotPassword",
+      component: <ForgotPassword onUpdateLabel={labelHandler} />,
     },
   ];
 

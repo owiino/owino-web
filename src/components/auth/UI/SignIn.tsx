@@ -122,6 +122,13 @@ export const SignIn: React.FC<SignInProps> = (props) => {
           <label htmlFor="password" className="text-gray-dark-3">
             Password
           </label>
+          <span
+            onClick={() => updateAuthLabel("forgotPassword")}
+            className="text-sm text-primary-dark hover:underline focus:underline
+                absolute right-0 top-[-2px] outline-none cursor-pointer"
+          >
+            Forgot password?
+          </span>
           <div className="flex flex-col justify-center relative">
             <input
               className="border-[2px] border-gray-400 focus:border-primary

@@ -45,3 +45,25 @@ export const signUp = async ({
   }
   return await response.json();
 };
+
+export const forgotPassword = async ({
+  phoneNumber,
+}: {
+  phoneNumber: string;
+}) => {
+  const response = await fetch(`${url}/users/forgot-password`, {
+    method: "POST",
+    body: JSON.stringify({
+      phoneNumber,
+    }),
+    headers: {
+      "Content-type": "application/json",
+    },
+  });
+
+  if (!response.ok) {
+    const error = await response.json();
+    throw new Error(error.message);
+  }
+  return await response.json();
+};
