@@ -161,7 +161,7 @@ export const SignIn: React.FC<SignInProps> = (props) => {
         </div>
         <div
           className="w-full mt-6 flex items-center justify-center
-                bg-primary rounded"
+                bg-primary rounded py-[2px]"
         >
           {!isLoading && (
             <Button className="font-bold" type="submit">

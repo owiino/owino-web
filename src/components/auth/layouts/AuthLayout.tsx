@@ -2,6 +2,7 @@ import React, { Fragment, useState, useEffect } from "react";
 import { Modal } from "../../shared/UI/Modal";
 import { SignIn } from "../UI/SignIn";
 import { SignUp } from "../UI/SignUp";
+import { uppercaseFirstLetter } from "../../../utils.ts";
 
 interface AuthLayoutProps {
   label: string;
@@ -39,9 +40,6 @@ export const AuthLayout: React.FC<AuthLayoutProps> = (props) => {
     setLabel(defaultLabel);
 
     return () => {
-      console.log("on closing the modal");
-      console.log("label on closing the modal");
-      console.log(defaultLabel);
       setLabel(defaultLabel);
     };
   }, [modalClosed, setLabel, defaultLabel]);
@@ -49,7 +47,9 @@ export const AuthLayout: React.FC<AuthLayoutProps> = (props) => {
   return (
     <Fragment>
       <Modal
-        openModalElement={<span className="cursor-pointer">{label}</span>}
+        openModalElement={
+          <span className="cursor-pointer">{uppercaseFirstLetter(label)}</span>
+        }
         onModalClose={modalCloseHandler}
         className="w-96 h-auto sm:max-h-[80vh]"
       >

@@ -269,7 +269,7 @@ export const SignUp: React.FC<SignUpProps> = (props) => {
               {showConfirmPassword && (
                 <svg
                   className="w-6 h-6 fill-gray-500 absolute right-3 top-[20%]
-               cursor-pointer"
+                cursor-pointer"
                   onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                 >
                   <use href={`${sprite}#icon-eyeclosed`}></use>
@@ -285,7 +285,7 @@ export const SignUp: React.FC<SignUpProps> = (props) => {
         </div>
         <div
           className="w-full mt-6 flex items-center justify-center
-          bg-primary rounded border-t-[1px] border-gray-opacity"
+          bg-primary rounded border-t-[1px] border-gray-opacity py-[2px]"
         >
           {!isLoading && (
             <Button className="font-bold" type="submit">
@@ -299,7 +299,7 @@ export const SignUp: React.FC<SignUpProps> = (props) => {
           <span
             onClick={() => updateAuthLabel("signin")}
             className="cursor-pointer focus:underline hover:underline
-                  text-primary ml-2"
+            text-primary ml-2"
           >
             LogIn
           </span>
