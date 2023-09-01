@@ -3,6 +3,8 @@ import { Modal } from "../../shared/UI/Modal";
 import { SignIn } from "../UI/SignIn";
 import { SignUp } from "../UI/SignUp";
 import { ForgotPassword } from "../UI/ForgotPassword";
+import { ResetPassword } from "../UI/ResetPassword";
+import { ValidatePasswordResetToken } from "../UI/ValidatePasswordResetToken";
 import { uppercaseFirstLetter } from "../../../utils.ts";
 
 interface AuthLayoutProps {
@@ -36,6 +38,14 @@ export const AuthLayout: React.FC<AuthLayoutProps> = (props) => {
     {
       label: "forgotPassword",
       component: <ForgotPassword onUpdateLabel={labelHandler} />,
+    },
+    {
+      label: "resetPassword",
+      component: <ResetPassword onUpdateLabel={labelHandler} />,
+    },
+    {
+      label: "validatePasswordResetToken",
+      component: <ValidatePasswordResetToken onUpdateLabel={labelHandler} />,
     },
   ];
 

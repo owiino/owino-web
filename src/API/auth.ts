@@ -67,3 +67,50 @@ export const forgotPassword = async ({
   }
   return await response.json();
 };
+
+export const validatePasswordResetToken = async ({
+  resetToken,
+}: {
+  resetToken: string;
+}) => {
+  const response = await fetch(`${url}/users/validate-reset-token`, {
+    method: "POST",
+    body: JSON.stringify({
+      resetToken: resetToken,
+    }),
+    headers: {
+      "Content-type": "application/json",
+    },
+  });
+
+  if (!response.ok) {
+    const error = await response.json();
+    throw new Error(error.message);
+  }
+  return await response.json();
+};
+
+export const resetPassword = async ({
+  password,
+  userId,
+}: {
+  userId: number;
+  password: string;
+}) => {
+  const response = await fetch(`${url}/users/reset-password`, {
+    method: "PATCH",
+    body: JSON.stringify({
+      userId: userId,
+      password: password,
+    }),
+    headers: {
+      "Content-type": "application/json",
+    },
+  });
+
+  if (!response.ok) {
+    const error = await response.json();
+    throw new Error(error.message);
+  }
+  return await response.json();
+};

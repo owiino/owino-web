@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { useDispatch } from "react-redux";
-import { forgotPassword } from "../../../API/auth";
+import { validatePasswordResetToken } from "../../../API/auth";
 import {
   showCardNotification,
   hideCardNotification,
@@ -10,41 +10,39 @@ import { Spinner } from "../../shared/UI/Loader/Spinner";
 import { Button } from "../../shared/UI/Button";
 import { useInputValidation } from "../../../hooks/useInputValidation";
 
-const validatePhoneNumber = (phoneNumber: string) =>
-  phoneNumber.trim().startsWith("2567") && phoneNumber.trim().length === 12;
+const validateResetToken = (resetToken: string) => resetToken.trim() !== "";
 
 interface ForgotPasswordProps {
   onUpdateLabel: (label: string) => void;
 }
 
-export const ForgotPassword: React.FC<ForgotPasswordProps> = (props) => {
+export const ValidatePasswordResetToken: React.FC<ForgotPasswordProps> = (
+  props
+) => {
   const {
-    value: phoneNumberValue,
-    hasError: phoneNumberHasError,
-    inputBlurHandler: phoneNumberInputBlurHandler,
-    valueChangeHandler: phoneNumberValueChangeHandler,
+    value: resetTokenValue,
+    hasError: resetTokenHasError,
+    inputBlurHandler: resetTokenInputBlurHandler,
+    valueChangeHandler: resetTokenValueChangeHandler,
 
-    isValid: phoneNumberIsValid,
-  } = useInputValidation(validatePhoneNumber);
-  const [tokenRequestSuccessful, setTokenRequestSuccessful] = useState(false);
+    isValid: resetTokenIsValid,
+  } = useInputValidation(validateResetToken);
+  const [isValidToken, setIsValidToken] = useState(false);
 
   const dispatch: any = useDispatch();
 
+  const saveUserIdToStorage = (userId: number) => {
+    localStorage.setItem(
+      "forgotPasswordUserId",
+      JSON.stringify({ userId: userId })
+    );
+  };
+
   const { isLoading, mutate } = useMutation({
-    mutationFn: forgotPassword,
+    mutationFn: validatePasswordResetToken,
     onSuccess: (data) => {
-      setTokenRequestSuccessful(
-        (tokenRequestSuccessful) => !tokenRequestSuccessful
-      );
-      dispatch(
-        showCardNotification({
-          type: "success",
-          message: data.message,
-        })
-      );
-      setTimeout(() => {
-        dispatch(hideCardNotification());
-      }, 5000);
+      saveUserIdToStorage(data.data.user.userId);
+      setIsValidToken((isValidToken) => !isValidToken);
     },
     onError: (error: any) => {
       dispatch(showCardNotification({ type: "error", message: error.message }));
@@ -57,7 +55,7 @@ export const ForgotPassword: React.FC<ForgotPasswordProps> = (props) => {
   const forgotPasswordHandler = (event: React.FormEvent) => {
     event.preventDefault();
 
-    const formIsValid = phoneNumberIsValid;
+    const formIsValid = resetTokenIsValid;
     if (!formIsValid) {
       showCardNotification({
         type: "error",
@@ -65,18 +63,25 @@ export const ForgotPassword: React.FC<ForgotPasswordProps> = (props) => {
       });
     }
     mutate({
-      phoneNumber: phoneNumberValue,
+      resetToken: resetTokenValue,
     });
   };
 
   useEffect(() => {
-    if (tokenRequestSuccessful) {
+    const getUserId = () => {
+      const forgotPasswordUserId = localStorage.getItem("forgotPasswordUserId");
+      const userId =
+        forgotPasswordUserId && JSON.parse(forgotPasswordUserId).userId;
+      return userId;
+    };
+    const userId = getUserId();
+    if (userId) {
       const updateAuthLabel = (label: string) => {
         props.onUpdateLabel(label);
       };
-      updateAuthLabel("validatePasswordResetToken");
+      updateAuthLabel("resetPassword");
     }
-  }, [tokenRequestSuccessful, setTokenRequestSuccessful]);
+  }, [isValidToken, setIsValidToken]);
 
   return (
     <Fragment>
@@ -88,36 +93,36 @@ export const ForgotPassword: React.FC<ForgotPasswordProps> = (props) => {
           <h1 className="font-bold text-3xl text-gray-dark-3">
             Password Reset
           </h1>
-          <p>Lets reset password for your account</p>
+          <p>Lets verify token sent to your number</p>
         </div>
         <div className="flex flex-col justify-center relative space-y-[4px] mb-4">
           <label htmlFor="email" className="text-gray-dark-3">
-            Enter your phone number and we'll send you a reset token
+            Enter reset token sent your number
           </label>
           <input
             className="border-[2px] border-gray-400 focus:border-primary
                focus:bg-gray-200 transition-all outline-none p-2  rounded
                 bg-gray-light-1 text-sm"
             type="text"
-            value={phoneNumberValue}
-            onChange={phoneNumberValueChangeHandler}
-            onBlur={phoneNumberInputBlurHandler}
-            placeholder="Enter your phone number"
+            value={resetTokenValue}
+            onChange={resetTokenValueChangeHandler}
+            onBlur={resetTokenInputBlurHandler}
+            placeholder="Enter token"
             required
           />
-          {phoneNumberHasError && (
+          {resetTokenHasError && (
             <span className="text-red-500 w-full text-start">
-              Please provide a valid phone number
+              Please provide a valid token
             </span>
           )}
         </div>
         <div className="w-full mt-6 flex items-center justify-start rounded py-[2px]">
           {!isLoading && (
             <Button className="font-bold" type="submit">
-              Reset Password
+              Verify Token
             </Button>
           )}
-          {isLoading && <Spinner label="Logging in" className="w-40" />}
+          {isLoading && <Spinner label="Verifying" className="w-40" />}
         </div>
       </form>
     </Fragment>
