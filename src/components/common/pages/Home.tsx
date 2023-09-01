@@ -13,7 +13,7 @@ export const Home: React.FC = () => {
                 <AuthLayout label="register" />
               </li>
               <li>
-                <AuthLayout label="login" />
+                <AuthLayout label="logIn" />
               </li>
             </ul>
           </nav>

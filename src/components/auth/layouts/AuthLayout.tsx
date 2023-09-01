@@ -25,7 +25,7 @@ export const AuthLayout: React.FC<AuthLayoutProps> = (props) => {
 
   const auths = [
     {
-      label: "login",
+      label: "logIn",
       component: <SignIn onUpdateLabel={labelHandler} />,
     },
     {
