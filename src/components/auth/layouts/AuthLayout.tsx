@@ -4,21 +4,23 @@ import { SignIn } from "../UI/SignIn";
 import { SignUp } from "../UI/SignUp";
 
 interface AuthLayoutProps {
-  label?: string;
+  label: string;
 }
 
 export const AuthLayout: React.FC<AuthLayoutProps> = (props) => {
   const [label, setLabel] = useState<string>(
     props?.label ? props.label : "signin"
   );
+  const defaultLabel: string = props.label;
+  const [modalClosed, setModalClosed] = useState<Boolean>(false);
 
-  const [propsLabel, setPropsLabel] = useState<string | undefined>(
-    props?.label
-  );
+  const modalCloseHandler = (modalState: Boolean) => {
+    if (modalState) {
+      setModalClosed((modalState) => !modalState);
+    }
+  };
 
   const labelHandler = (label: string) => {
-    console.log("Label updated from the child component");
-    console.log(label);
     setLabel(label);
   };
 
@@ -34,18 +36,21 @@ export const AuthLayout: React.FC<AuthLayoutProps> = (props) => {
   ];
 
   useEffect(() => {
+    setLabel(defaultLabel);
+
     return () => {
-      console.log("Unmounting");
+      console.log("on closing the modal");
       console.log("label on closing the modal");
-      console.log(propsLabel);
-      setLabel(propsLabel || "signin");
+      console.log(defaultLabel);
+      setLabel(defaultLabel);
     };
-  }, [propsLabel]);
+  }, [modalClosed, setLabel, defaultLabel]);
 
   return (
     <Fragment>
       <Modal
         openModalElement={<span className="cursor-pointer">{label}</span>}
+        onModalClose={modalCloseHandler}
         className="w-96 h-auto sm:max-h-[80vh]"
       >
         <div className="sm:w-full relative">

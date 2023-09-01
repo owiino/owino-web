@@ -47,6 +47,7 @@ const ModalContent: React.FC<ModalContentProps> = ({
 
 interface ModalProps {
   openModalElement: ReactNode;
+  onModalClose: (modalState: Boolean) => void;
   className?: string;
   children: ReactNode;
 }
@@ -60,6 +61,10 @@ export const Modal: React.FC<ModalProps> = (props) => {
     return <div onClick={() => onOpenHandler()}>{props.openModalElement}</div>;
   }
 
+  const onModalClose = () => {
+    props.onModalClose(true);
+  };
+
   const createAppendPortalElement = () => {
     const portalElement = document.createElement("div");
     portalElement.setAttribute("id", "portal");
@@ -72,10 +77,16 @@ export const Modal: React.FC<ModalProps> = (props) => {
     <Fragment>
       {ReactDOM.createPortal(
         <div className="w-[100vw] h-[100vh] fixed top-0 left-0 flex items-center justify-center">
-          <ModalOverlay onClose={() => onCloseHandler()} />
+          <ModalOverlay
+            onClose={() => {
+              onCloseHandler(), onModalClose();
+            }}
+          />
           <ModalContent
             content={props.children}
-            onClose={() => onCloseHandler()}
+            onClose={() => {
+              onCloseHandler(), onModalClose();
+            }}
             className={props?.className}
           />
         </div>,
