@@ -173,7 +173,7 @@ export const SignIn: React.FC<SignInProps> = (props) => {
         <div className="w-full mt-4">
           <span>Don't have an account?</span>
           <span
-            onClick={() => updateAuthLabel("signup")}
+            onClick={() => updateAuthLabel("register")}
             className="cursor-pointer focus:underline hover:underline
                   text-primary ml-2"
           >

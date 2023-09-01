@@ -9,9 +9,7 @@ interface AuthLayoutProps {
 }
 
 export const AuthLayout: React.FC<AuthLayoutProps> = (props) => {
-  const [label, setLabel] = useState<string>(
-    props?.label ? props.label : "signin"
-  );
+  const [label, setLabel] = useState<string>(props.label);
   const defaultLabel: string = props.label;
   const [modalClosed, setModalClosed] = useState<Boolean>(false);
 
@@ -27,11 +25,11 @@ export const AuthLayout: React.FC<AuthLayoutProps> = (props) => {
 
   const auths = [
     {
-      label: "signin",
+      label: "login",
       component: <SignIn onUpdateLabel={labelHandler} />,
     },
     {
-      label: "signup",
+      label: "register",
       component: <SignUp onUpdateLabel={labelHandler} />,
     },
   ];

@@ -10,10 +10,10 @@ export const Home: React.FC = () => {
             <span>Owino</span>
             <ul className="flex items-center gap-x-6">
               <li>
-                <AuthLayout label="signup" />
+                <AuthLayout label="register" />
               </li>
               <li>
-                <AuthLayout label="signin" />
+                <AuthLayout label="login" />
               </li>
             </ul>
           </nav>
