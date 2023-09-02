@@ -9,11 +9,17 @@ import { Notification } from "../components/shared/UI/Notification";
 // import { socketUrl, url } from "../store";
 import { TAuthState, TAuth } from "../types/auth";
 import { TNotificationState } from "../types/notification";
+import { useReAuthenticate } from "../hooks/useReAuthenticate";
 
 export const AppRouter: React.FC = () => {
   const auth = useSelector((state: TAuthState) => state.auth);
   const isLoggedIn = auth.isLoggedIn;
   //   const socket = io.connect(socketUrl) as Socket;
+  const { reAuthenticate } = useReAuthenticate();
+
+  console.log("reAuthenticate");
+  // console.log(reAuthenticate());
+
   const dispatch: any = useDispatch();
 
   const notification = useSelector(
@@ -31,10 +37,9 @@ export const AppRouter: React.FC = () => {
     }, 4000);
   }, [dispatch]);
 
+  // TODO: increase factors for that run the useEffect
   useEffect(() => {
     const tryLogin = async () => {
-      // TODO: cater for freshToken here as well to avoid logout the user with valid refreshToken
-
       const strAuthData = localStorage.getItem("auth");
       const parsedAuthData: TAuth = strAuthData && JSON.parse(strAuthData);
 
@@ -43,12 +48,19 @@ export const AppRouter: React.FC = () => {
         return <Navigate to="/" />;
       }
 
-      const { user, accessToken, expirationTime } = parsedAuthData;
+      const { user, accessToken, expirationTime, refreshToken } =
+        parsedAuthData;
+
       if (!user || !accessToken) {
         localStorage.clear();
         return <Navigate to="/" />;
       }
-      // TODO: Convert expirationTime into browser's time zone
+
+      if (refreshToken) {
+        reAuthenticate();
+        return;
+      }
+
       const expiryTime = new Date(expirationTime);
       const currentTime = new Date(Date.now());
       const isExpired = expiryTime < currentTime;

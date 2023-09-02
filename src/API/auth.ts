@@ -46,6 +46,24 @@ export const signUp = async ({
   return await response.json();
 };
 
+export const reSignIn = async ({ refreshToken }: { refreshToken: string }) => {
+  const response = await fetch(`${url}/users/re-signin`, {
+    method: "POST",
+    body: JSON.stringify({
+      refreshToken: refreshToken,
+    }),
+    headers: {
+      "Content-type": "application/json",
+    },
+  });
+
+  if (!response.ok) {
+    const error = await response.json();
+    throw new Error(error.message);
+  }
+  return await response.json();
+};
+
 export const forgotPassword = async ({
   phoneNumber,
 }: {

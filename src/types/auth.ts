@@ -47,3 +47,9 @@ export type TSignupInput = {
   password: string;
   // location: string;
 };
+
+export type TAuthToken = {
+  exp: number;
+  iat: number;
+  userId: number;
+};
