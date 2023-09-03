@@ -1,5 +1,5 @@
 import React, { MouseEvent, Fragment } from "react";
-import sprite from "../../assets/icons/sprite.svg";
+import sprite from "../../../assets/icons/sprite.svg";
 import { twMerge } from "tailwind-merge";
 
 interface IconButtonProps {
