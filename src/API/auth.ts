@@ -133,6 +133,33 @@ export const resetPassword = async ({
   return await response.json();
 };
 
+export const editPersonalDetails = async ({
+  userId,
+  firstName,
+  lastName,
+}: {
+  userId: number;
+  firstName: string;
+  lastName: string;
+}) => {
+  const response = await fetch(`${url}/users/edit-user-details/${userId}`, {
+    method: "PATCH",
+    body: JSON.stringify({
+      firstName: firstName,
+      lastName: lastName,
+    }),
+    headers: {
+      "Content-type": "application/json",
+    },
+  });
+
+  if (!response.ok) {
+    const error = await response.json();
+    throw new Error(error.message);
+  }
+  return await response.json();
+};
+
 export const changePassword = async ({
   currentPassword,
   newPassword,
