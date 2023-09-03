@@ -17,9 +17,6 @@ export const AppRouter: React.FC = () => {
   //   const socket = io.connect(socketUrl) as Socket;
   const { reAuthenticate } = useReAuthenticate();
 
-  console.log("reAuthenticate");
-  // console.log(reAuthenticate());
-
   const dispatch: any = useDispatch();
 
   const notification = useSelector(

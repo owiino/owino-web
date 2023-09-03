@@ -17,16 +17,13 @@ export const useReAuthenticate = () => {
     mutationFn: reSignIn,
     onSuccess: (auth: TAuth) => {
       dispatch(authenticate(auth));
-      console.log("The user re-authenticated");
     },
     onError: (error: any) => {
-      console.log("error while re-authenticating");
       console.error(error);
     },
   });
 
   const isExpiredAccessToken = (): Boolean => {
-    console.log("accessToken :", accessToken);
     const decoded: TAuthToken = jwt_decode(accessToken);
     const tokenExpiry = decoded.exp; //seconds
     const now = Math.floor(Date.now() / 1000); //seconds
@@ -35,7 +32,6 @@ export const useReAuthenticate = () => {
   };
 
   const isValidRefreshToken = (): Boolean => {
-    console.log("refreshToken :", refreshToken);
     const decoded: TAuthToken = jwt_decode(refreshToken);
     const tokenExpiry = decoded.exp; //seconds
     const now = Math.floor(Date.now() / 1000); //seconds
