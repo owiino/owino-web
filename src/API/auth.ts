@@ -160,6 +160,30 @@ export const editPersonalDetails = async ({
   return await response.json();
 };
 
+export const uploadUserImage = async ({
+  userId,
+  formData,
+  accessToken,
+}: {
+  userId: number;
+  formData: any;
+  accessToken: string;
+}) => {
+  const response = await fetch(`${url}/users/upload-user-image/${userId}`, {
+    method: "PATCH",
+    body: formData,
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+
+  if (!response.ok) {
+    const error = await response.json();
+    throw new Error(error.message);
+  }
+  return await response.json();
+};
+
 export const changePassword = async ({
   currentPassword,
   newPassword,

@@ -9,6 +9,7 @@ import {
 import { Spinner } from "../../shared/UI/Loader/Spinner";
 import { Button } from "../../shared/UI/Button";
 import { useInputValidation } from "../../../hooks/useInputValidation";
+import { UploadUserImage } from "./UploadUserImage";
 
 const validFirstName = (firstName: string) => firstName.trim() !== "";
 const validLastName = (lastName: string) => lastName.trim() !== "";
@@ -84,7 +85,10 @@ export const EditPersonalDetails: React.FC = () => {
   };
   return (
     <Fragment>
-      <Fragment>
+      <div>
+        <div className="sm:w-80 flex items-center justify-center my-4">
+          <UploadUserImage />
+        </div>
         <form
           onSubmit={(event) => editPersonalChangeHandler(event)}
           className="w-full flex  flex-col items-start justify-center 
@@ -154,7 +158,7 @@ export const EditPersonalDetails: React.FC = () => {
             {isLoading && <Spinner label="Editing" className="w-40" />}
           </div>
         </form>
-      </Fragment>
+      </div>
     </Fragment>
   );
 };
