@@ -10,6 +10,7 @@ import { Notification } from "../components/shared/UI/Notification";
 import { TAuthState, TAuth } from "../types/auth";
 import { TNotificationState } from "../types/notification";
 import { useReAuthenticate } from "../hooks/useReAuthenticate";
+import { Settings } from "../components/common/pages/Settings";
 
 export const AppRouter: React.FC = () => {
   const auth = useSelector((state: TAuthState) => state.auth);
@@ -102,7 +103,9 @@ export const AppRouter: React.FC = () => {
                 />
               )}
               <Routes>
-                <Route path="/" element={<div>LoggedIn Routes Here</div>} />
+                {/* <Route path="/" element={<div>LoggedIn Routes Here</div>} /> */}
+                {/* <Route path="/settings" element={<Settings />} /> */}
+                <Route path="/" element={<Settings />} />
               </Routes>
             </Fragment>
           )}

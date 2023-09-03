@@ -1,24 +1,19 @@
-import React, { Fragment, useState, ReactNode } from "react";
+import React, { Fragment, useState } from "react";
 import { Link } from "react-router-dom";
 import sprite from "../../../assets/icons/sprite.svg";
-
-type pageLink = {
-  linkValue: string;
-  linkName: string;
-  linkComponent: ReactNode;
-};
+import { TPageLink } from "../../../types/page";
 
 interface PageLayoutProps {
   pageIcon: string;
   pageLabel: string;
-  pageLinks: pageLink[];
+  pageLinks: TPageLink[];
 }
 
 export const PageLayout: React.FC<PageLayoutProps> = (props) => {
   const pageLinks = props.pageLinks;
   const [activePageLink, setActivePageLink] = useState(pageLinks[0]);
 
-  const setActiveLinkHandler = (pageLink: pageLink) => {
+  const setActiveLinkHandler = (pageLink: TPageLink) => {
     setActivePageLink(() => pageLink);
   };
 
