@@ -74,7 +74,7 @@ export const AppRouter: React.FC = () => {
 
   return (
     <Fragment>
-      <div className="bg-gray-light-1 text-base overflow-x-hidden">
+      <div className="text-base overflow-x-hidden">
         <BrowserRouter>
           {!isLoggedIn && (
             <Fragment>
