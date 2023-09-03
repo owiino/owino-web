@@ -159,3 +159,27 @@ export const changePassword = async ({
   }
   return await response.json();
 };
+
+export const changePhoneNumber = async ({
+  phoneNumber,
+  userId,
+}: {
+  userId: number;
+  phoneNumber: string;
+}) => {
+  const response = await fetch(`${url}/users/change-phone-number/${userId}`, {
+    method: "PATCH",
+    body: JSON.stringify({
+      phoneNumber: phoneNumber,
+    }),
+    headers: {
+      "Content-type": "application/json",
+    },
+  });
+
+  if (!response.ok) {
+    const error = await response.json();
+    throw new Error(error.message);
+  }
+  return await response.json();
+};

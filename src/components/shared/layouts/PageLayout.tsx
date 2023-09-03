@@ -49,7 +49,9 @@ export const PageLayout: React.FC<PageLayoutProps> = (props) => {
                   }`}
                   onClick={() => setActiveLinkHandler(pageLink)}
                 >
-                  <Link to={pageLink.linkValue}>{pageLink.linkName}</Link>
+                  <Link to={`/settings#${pageLink.linkValue}`}>
+                    {pageLink.linkName}
+                  </Link>
                 </li>
               ))}
             </ul>
