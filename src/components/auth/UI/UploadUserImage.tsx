@@ -14,6 +14,7 @@ import { Modal } from "../../shared/UI/Modal";
 import sprite from "../../../assets/icons/sprite.svg";
 
 const OpenModalElement = () => {
+  // TODO: svg icon should be changed to edit icon
   return (
     <Fragment>
       <div>
@@ -78,24 +79,40 @@ export const UploadUserImage: React.FC = () => {
 
   return (
     <Fragment>
-      <Modal openModalElement={<OpenModalElement />} onModalClose={() => {}}>
-        <div>
-          {imageArrayBuffer && (
-            <img src={imageURL()} className="w-[60px] h-[60px] rounded-lg" />
-          )}
-          <ImagePicker onSave={imageSelectHandler} />
-          {!isLoading && (
-            <Button
-              type="submit"
-              className="rounded-md px-4 font-bold"
-              onClick={() => {
-                uploadUserImageHandler();
-              }}
-            >
-              Upload
-            </Button>
-          )}
-          {isLoading && <Spinner className="w-40" label="Uploading" />}
+      <Modal
+        openModalElement={<OpenModalElement />}
+        onModalClose={() => {}}
+        className="sm:w-96"
+      >
+        <div className="px-4">
+          <div className="py-3 text-lg">
+            <span>Upload image</span>
+          </div>
+          <div
+            className="flex items-center justify-center bg-gray-300 
+                w-full h-72 rounded-md"
+          >
+            {imageArrayBuffer && (
+              <img src={imageURL()} className="w-40 h-40 rounded-[50%]" />
+            )}
+          </div>
+          <div className="flex items-center justify-between py-3">
+            <ImagePicker onSave={imageSelectHandler} />
+            {imageArrayBuffer && !isLoading && (
+              <Button
+                type="submit"
+                className="rounded-md px-4 font-bold"
+                onClick={() => {
+                  uploadUserImageHandler();
+                }}
+              >
+                Upload
+              </Button>
+            )}
+            {imageArrayBuffer && isLoading && (
+              <Spinner className="w-40" label="Uploading" />
+            )}
+          </div>
         </div>
       </Modal>
     </Fragment>

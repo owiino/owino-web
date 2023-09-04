@@ -1,6 +1,7 @@
 import React, { useEffect, Fragment, useState } from "react";
 import { useFilePicker } from "use-file-picker";
 import { IconButton } from "./IconButton";
+import { Button } from "./Button";
 
 interface ImagePickerProps {
   onSave: (photo: string) => void;
@@ -36,20 +37,22 @@ export const ImagePicker: React.FC<ImagePickerProps> = (props) => {
     <Fragment>
       <div className="flex items-center justify-center gap-x-2">
         {!photo && (
+          // TODO: To change to download icon
           <IconButton
             icon="cloud-check"
             onClick={() => openFileSelector()}
-            label="Choose from computer"
+            label="Pick image"
             iconClass="w-6 h-6 fill-gray-light-2"
+            className="font-bold"
           />
         )}
         {photo && (
-          <IconButton
-            icon="cross"
+          <Button
             onClick={() => setPhoto(null)}
-            label="Cancel"
-            iconClass="w-3 h-3 fill-gray-light-2"
-          />
+            className="rounded-md px-4 font-bold"
+          >
+            Cancel
+          </Button>
         )}
       </div>
     </Fragment>
