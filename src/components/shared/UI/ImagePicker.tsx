@@ -4,6 +4,7 @@ import { useFilePicker } from "use-file-picker";
 import Webcam from "react-webcam";
 import { IconButton } from "./IconButton";
 import { Button } from "./Button";
+import { DragDrop } from "./DragDrop";
 import { dataUriToArrayBuffer } from "../../../utils.ts";
 import sprite from "../../../assets/icons/sprite.svg";
 
@@ -59,7 +60,10 @@ export const ImagePicker: React.FC<ImagePickerProps> = (props) => {
     const imgBuffer = await dataUriToArrayBuffer(imageSrc);
     setPhoto(() => imgBuffer);
   }, [webcamRef]);
-  //   TODO: include drag and drop
+
+  const onDragHandler = (file: any) => {
+    setPhoto(file);
+  };
 
   const saveHandler = () => {
     props.onSave(photo);
@@ -74,6 +78,11 @@ export const ImagePicker: React.FC<ImagePickerProps> = (props) => {
         className="flex items-center justify-between gap-x-2 relative
             w-full"
       >
+        {!photo && (
+          <div className="absolute -top-64 left-20">
+            <DragDrop onDrag={onDragHandler} />
+          </div>
+        )}
         {!photo && (
           <IconButton
             icon="upload"
@@ -104,10 +113,7 @@ export const ImagePicker: React.FC<ImagePickerProps> = (props) => {
           />
         )}
         {!photo && showCamera && (
-          <div
-            className="flex flex-col items-center justify-center
-             absolute -top-[264px] left-16"
-          >
+          <div className="absolute -top-[264px] left-16">
             <Webcam
               audio={false}
               height={200}
