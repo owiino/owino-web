@@ -11,6 +11,7 @@ import { TAuthState, TAuth } from "../types/auth";
 import { TNotificationState } from "../types/notification";
 import { useReAuthenticate } from "../hooks/useReAuthenticate";
 import { Settings } from "../components/common/pages/Settings";
+import { ChatLayout } from "../components/chat/layouts/ChatLayout";
 
 export const AppRouter: React.FC = () => {
   const auth = useSelector((state: TAuthState) => state.auth);
@@ -94,27 +95,30 @@ export const AppRouter: React.FC = () => {
           )}
 
           {isLoggedIn && (
-            <Fragment>
-              {notification.showCardNotification && (
-                <Notification
-                  type={notification.cardNotificationType}
-                  message={notification.cardMessage}
-                  onClose={closeCardHandler}
-                />
-              )}
-              <Routes>
-                <Route
-                  path="/"
-                  element={
-                    <div>
-                      <p>LoggedIn welcome component here</p>
-                      <Link to="/settings">Settings here</Link>
-                    </div>
-                  }
-                />
-                <Route path="/settings" element={<Settings />} />
-              </Routes>
-            </Fragment>
+            <>
+              <ChatLayout />
+              <Fragment>
+                {notification.showCardNotification && (
+                  <Notification
+                    type={notification.cardNotificationType}
+                    message={notification.cardMessage}
+                    onClose={closeCardHandler}
+                  />
+                )}
+                <Routes>
+                  <Route
+                    path="/"
+                    element={
+                      <div>
+                        <p>LoggedIn welcome component here</p>
+                        <Link to="/settings">Settings here</Link>
+                      </div>
+                    }
+                  />
+                  <Route path="/settings" element={<Settings />} />
+                </Routes>
+              </Fragment>
+            </>
           )}
         </BrowserRouter>
       </div>
