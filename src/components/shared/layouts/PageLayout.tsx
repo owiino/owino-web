@@ -17,9 +17,7 @@ export const PageLayout: React.FC<PageLayoutProps> = (props) => {
     setActivePageLink(() => pageLink);
   };
 
-  const activeLinkStyles = `font-semibold rounded bg-gray-200 relative before:absolute 
-                             before:w-2 before:h-full before:top-0 before:-left-0 
-                             before:bg-primary before:rounded-tl-[4px] before:rounded-bl-[4px]`;
+  const activeLinkStyles = `font-semibold rounded bg-gray-300`;
   return (
     <Fragment>
       <div className="px-8 py-9 text-gray-800">
@@ -43,7 +41,7 @@ export const PageLayout: React.FC<PageLayoutProps> = (props) => {
               {pageLinks?.map((pageLink, index) => (
                 <li
                   key={index}
-                  className={`pl-4 px-3 py-1 ${
+                  className={`pl-4 px-3 py-2 ${
                     pageLink.linkValue === activePageLink.linkValue &&
                     activeLinkStyles
                   }`}
