@@ -22,7 +22,7 @@ export const ChatLayout: React.FC = () => {
     <Fragment>
       <div
         className="fixed bottom-[5vh] right-[10%] w-96 h-[90vh]
-         bg-gray-50 rounded-md shadow-2xl p-4 z-[500] border-[1px]
+         bg-gray-50 rounded-md shadow-2xl p-4 pt-3 z-[500] border-[1px]
          border-gray-200 space-y-4 flex flex-col items-start 
           "
       >
