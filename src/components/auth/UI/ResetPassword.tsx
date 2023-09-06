@@ -21,9 +21,18 @@ const validatePassword = (password: string) =>
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/.test(password);
 
 export const ResetPassword: React.FC<ResetPasswordProps> = (props) => {
+  console.log(props);
   const [showPassword, setShowPassword] = useState<Boolean>(false);
   const [showConfirmPassword, setShowConfirmPassword] =
     useState<Boolean>(false);
+  const [isFocused, setIsFocused] = useState<boolean>(false);
+  const [activeInputField, setActiveInputField] = useState<string>("");
+
+  const onFocusHandler = () => setIsFocused(true);
+  const onBlurHandler = () => setIsFocused(false);
+  const isActiveField = (activeField: string) => {
+    return isFocused && activeInputField === activeField;
+  };
 
   const getUserId = () => {
     const forgotPasswordUserId = localStorage.getItem("forgotPasswordUserId");
@@ -113,21 +122,39 @@ export const ResetPassword: React.FC<ResetPasswordProps> = (props) => {
         </div>
         <div className="overflow-x-hidden h-44 pr-2">
           <div className="flex flex-col justify-center relative space-y-[4px] mb-4">
-            <label htmlFor="password" className="text-gray-dark-3">
+            <label
+              htmlFor="newPassword"
+              className={`${
+                isActiveField("newPassword") ? "text-primary" : "text-gray-800"
+              }`}
+            >
               New password
             </label>
             <div className="flex flex-col justify-center relative">
-              <input
-                className="border-[2px] border-gray-400 focus:border-primary
-               focus:bg-gray-200 transition-all outline-none  p-2  rounded
-               bg-gray-light-1 text-sm"
-                type={showPassword ? "text" : "password"}
-                value={passwordValue}
-                onChange={passwordValueChangeHandler}
-                onBlur={passwordInputBlurHandler}
-                placeholder="Enter your new password"
-                required
-              />
+              <div className="relative w-full">
+                <input
+                  className={`outline-none p-[10px] rounded w-full bg-gray-300 text-sm 
+              ${isActiveField("newPassword") && "animate-border"}`}
+                  type={showPassword ? "text" : "password"}
+                  value={passwordValue}
+                  onChange={passwordValueChangeHandler}
+                  onBlur={() => {
+                    passwordInputBlurHandler(), onBlurHandler();
+                  }}
+                  onFocus={() => {
+                    onFocusHandler(), setActiveInputField(() => "newPassword");
+                  }}
+                  placeholder="Enter your new password"
+                  required
+                />
+                <div className="absolute bottom-[0.5px] inset-x-0 h-[2px] bg-gray-400 x-10" />
+                {isActiveField("newPassword") && (
+                  <div
+                    className="absolute bottom-[0.5px] inset-x-0 h-[3px] bg-primary
+                   animate-radiate z-40"
+                  />
+                )}
+              </div>
               {!showPassword && (
                 <svg
                   className="w-6 h-6 fill-gray-500 absolute right-3 top-[20%]
@@ -154,19 +181,39 @@ export const ResetPassword: React.FC<ResetPasswordProps> = (props) => {
             )}
           </div>
           <div className="flex flex-col justify-center relative space-y-[4px] mb-4">
-            <label htmlFor="confirm password" className="text-gray-dark-3">
+            <label
+              htmlFor="confirm password"
+              className={`${
+                isActiveField("confirmPassword")
+                  ? "text-primary"
+                  : "text-gray-800"
+              }`}
+            >
               Confirm new password
             </label>
             <div className="flex flex-col justify-center relative">
-              <input
-                className="border-[2px] border-gray-400 focus:border-primary
-               focus:bg-gray-200 transition-all outline-none  p-2  rounded
-               bg-gray-light-1 text-sm"
-                type={showConfirmPassword ? "text" : "password"}
-                onChange={confirmPasswordValueChangeHandler}
-                placeholder="Enter confirm password"
-                required
-              />
+              <div className="relative w-full">
+                <input
+                  className={`outline-none p-[10px] rounded w-full bg-gray-300 text-sm 
+              ${isActiveField("confirmPassword") && "animate-border"}`}
+                  type={showConfirmPassword ? "text" : "password"}
+                  onChange={confirmPasswordValueChangeHandler}
+                  onBlur={() => onBlurHandler()}
+                  onFocus={() => {
+                    onFocusHandler(),
+                      setActiveInputField(() => "confirmPassword");
+                  }}
+                  placeholder="Enter confirm password"
+                  required
+                />
+                <div className="absolute bottom-[0.5px] inset-x-0 h-[2px] bg-gray-400 x-10" />
+                {isActiveField("confirmPassword") && (
+                  <div
+                    className="absolute bottom-[0.5px] inset-x-0 h-[3px] bg-primary
+                   animate-radiate z-40"
+                  />
+                )}
+              </div>
               {!showConfirmPassword && (
                 <svg
                   className="w-6 h-6 fill-gray-500 absolute right-3 top-[20%]

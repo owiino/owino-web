@@ -107,7 +107,7 @@ export const SignIn: React.FC<SignInProps> = (props) => {
         </div>
         <div className="flex flex-col justify-center relative space-y-[4px] mb-4">
           <label
-            htmlFor="email"
+            htmlFor="phoneNumber"
             className={`${
               isActiveField("phoneNumber") ? "text-primary" : "text-gray-800"
             }`}
