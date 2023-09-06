@@ -34,6 +34,8 @@ export default {
         slideDown: "slideDown 0.5s ease-out forwards",
         moveInRight: "moveInRight 0.35s ease-out",
         rotate: "rotate 0.8s linear infinite",
+        border: "border-color .5s ease",
+        radiate: "radiate 0.5s ease",
       },
       keyframes: {
         slideDown: {
@@ -47,6 +49,14 @@ export default {
         rotate: {
           "0%": { transform: "rotate(0deg)" },
           "100%": { transform: "rotate(360deg)" },
+        },
+        "border-color": {
+          "0%, 100": { borderColor: "transparent" },
+          "50%": { borderColor: "blue" },
+        },
+        radiate: {
+          "0%": { transform: "scaleX(0)" },
+          "100%": { transform: "scaleX(1)" },
         },
       },
     },
