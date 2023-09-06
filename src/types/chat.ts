@@ -1,6 +1,6 @@
 import { TUser } from "./auth";
 export interface IChatMessage {
-  messageId?: string;
+  messageId?: number;
   chatRoomId: string;
   senderId: number;
   recipientId: number;

@@ -2,23 +2,108 @@ import React, { Fragment } from "react";
 import { MessagePrimary } from "./MessagePrimary";
 import { MessageSecondary } from "./MessageSecondary";
 import { Messages } from "../../../utils/index.ts";
-import { AppDate } from "../../../utils/index.ts";
 import { TUser } from "../../../types/auth.ts";
 import { useSelector } from "react-redux";
-import { IChatMessage } from "../../../types/chat.ts";
+import { IChatMessage, IOrganizedChatMessage } from "../../../types/chat.ts";
+import { MessageDay } from "./MessageDay.tsx";
 
 interface ChatMessagesProps {
   messages: IChatMessage[];
 }
 
 export const ChatMessages: React.FC<ChatMessagesProps> = (props) => {
-  const day = (date: string) => new AppDate(date).day();
   const currentUser: TUser = useSelector((state: any) => state.auth.user);
-  let recipient: any;
+
+  console.log(props); //To be removed
+
+  const recipient: TUser = {
+    userId: 6,
+    firstName: "Muhumuza",
+    imageUrl: null,
+    lastName: "Nicholas",
+    phoneNumber: "256754108280",
+    role: "buyer",
+    createdAt: "2023-09-02T15:29:13.532Z",
+    updatedAt: "2023-09-02T15:29:13.532Z",
+  };
+
+  const messageList = [
+    {
+      messageId: 1,
+      chatRoomId: "chatroomIdOne",
+      senderId: 5,
+      recipientId: 6,
+      message: "Hello brother Nicholas",
+      isRead: false,
+      isDelivered: false,
+      createdAt: "2023-09-06T01:51:45.278Z",
+    },
+    {
+      messageId: 2,
+      chatRoomId: "chatroomIdOne",
+      senderId: 5,
+      recipientId: 6,
+      message: "How are you doing",
+      isRead: false,
+      isDelivered: false,
+      createdAt: "2023-09-06T01:51:55.287Z",
+    },
+    {
+      messageId: 3,
+      chatRoomId: "chatroomIdOne",
+      senderId: 5,
+      recipientId: 6,
+      message: "How looking for to hearing from you",
+      isRead: false,
+      isDelivered: false,
+      createdAt: "2023-09-06T01:52:35.288Z",
+    },
+    {
+      messageId: 4,
+      chatRoomId: "chatroomIdOne",
+      senderId: 6,
+      recipientId: 5,
+      message: "Hey Dankan long time",
+      isRead: false,
+      isDelivered: false,
+      createdAt: "2023-09-06T01:53:45.288Z",
+    },
+    {
+      messageId: 5,
+      chatRoomId: "chatroomIdOne",
+      senderId: 6,
+      recipientId: 5,
+      message: "am fine and you",
+      isRead: false,
+      isDelivered: false,
+      createdAt: "2023-09-06T02:01:45.288Z",
+    },
+    {
+      messageId: 6,
+      chatRoomId: "chatroomIdOne",
+      senderId: 5,
+      recipientId: 6,
+      message: "Am fine but very busy bro, like very busy",
+      isRead: false,
+      isDelivered: false,
+      createdAt: "2023-09-06T05:51:45.288Z",
+    },
+  ];
 
   const messages = new Messages(currentUser, recipient).organize(
-    props.messages
+    // props.messages
+    messageList
   );
+
+  console.log("Organized messages", messages);
+
+  const isPrimaryButNotFirstMessage = (
+    message: IOrganizedChatMessage,
+    index: number
+  ): boolean => {
+    if (message.isPrimaryMessage && index !== 0) return true;
+    return false;
+  };
 
   return (
     <Fragment>
@@ -30,20 +115,19 @@ export const ChatMessages: React.FC<ChatMessagesProps> = (props) => {
         )}
         {messages[0] && (
           <div
-            className="p-4 pt-8 h-[55vh] overflow-x-hidden relative"
+            className="h-[55vh] overflow-x-hidden relative"
             id="message-container"
           >
             {messages.map((message, index) => {
               return (
-                <div key={index + 1}>
+                <div
+                  key={index + 1}
+                  className={`${
+                    isPrimaryButNotFirstMessage(message, index) && "mt-4"
+                  }`}
+                >
                   {message.showDay && (
-                    <p className="flex items-center justify-between mb-3">
-                      <span className="h-[1px] grow bg-gray-light-4"></span>
-                      <span className="bg-gray-300 px-2 py-1 rounded-md mx-2 text-gray-700">
-                        {day(message.createdAt)}
-                      </span>
-                      <span className="h-[1px] grow bg-gray-light-4"></span>
-                    </p>
+                    <MessageDay createdAt={message.createdAt} />
                   )}
                   {message.isPrimaryMessage && <MessagePrimary msg={message} />}
                   {!message.isPrimaryMessage && (

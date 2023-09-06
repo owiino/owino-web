@@ -7,13 +7,13 @@ export const MessageSecondary = (props: any) => {
   return (
     <Fragment>
       <div>
-        <div className="mt-1 ml-9  inline-block">
+        <div className="mt-1 ml-12  inline-block">
           <p
             className={`text-sm ${
               msg.currentUserIsSender
                 ? "bg-primary text-gray-light-2"
                 : "bg-gray-light-3 text-gray-900"
-            } p-4 rounded-2xl 
+            } p-4 rounded-xl 
             relative w-auto max-w-full min-h-8`}
           >
             {msg.message}

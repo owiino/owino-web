@@ -33,14 +33,14 @@ class Messages {
     prevMessageObj: IChatMessage
   ) {
     const currentSenderId = currentMessageObj.senderId;
-    const prevSenderId = prevMessageObj.senderId;
+    const prevSenderId = prevMessageObj && prevMessageObj.senderId;
     const isDifferentSender = currentSenderId !== prevSenderId;
 
     const currentDate = currentMessageObj.createdAt;
-    const prevDate = prevMessageObj.createdAt;
+    const prevDate = prevMessageObj && prevMessageObj.createdAt;
     const hasDifferentMinute = this.hasDifferentMinute(prevDate, currentDate);
 
-    if (isDifferentSender && hasDifferentMinute) {
+    if (isDifferentSender || hasDifferentMinute) {
       return {
         isPrimaryMessage: true,
       };
