@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { useDispatch, useSelector } from "react-redux";
 import { editPersonalDetails } from "../../../API/auth";
@@ -16,6 +16,14 @@ const validLastName = (lastName: string) => lastName.trim() !== "";
 
 export const EditPersonalDetails: React.FC = () => {
   const userId: number = useSelector((state: any) => state.auth.user.userId);
+  const [isFocused, setIsFocused] = useState<boolean>(false);
+  const [activeInputField, setActiveInputField] = useState<string>("");
+
+  const onFocusHandler = () => setIsFocused(true);
+  const onBlurHandler = () => setIsFocused(false);
+  const isActiveField = (activeField: string) => {
+    return isFocused && activeInputField === activeField;
+  };
 
   const {
     value: firstNameValue,
@@ -98,21 +106,39 @@ export const EditPersonalDetails: React.FC = () => {
             className="flex flex-col justify-center relative space-y-[4px]
              mb-4 w-full"
           >
-            <label htmlFor="firstName" className="text-gray-dark-3">
+            <label
+              htmlFor="firstName"
+              className={`${
+                isActiveField("firstName") ? "text-primary" : "text-gray-800"
+              }`}
+            >
               First name
             </label>
             <div className="flex flex-col justify-center relative ">
-              <input
-                className="border-[2px] border-gray-400 focus:border-primary
-               focus:bg-gray-200 transition-all outline-none  p-2  rounded
-               bg-gray-light-1 text-sm"
-                type="text"
-                value={firstNameValue}
-                onChange={firstNameValueChangeHandler}
-                onBlur={firstNameInputBlurHandler}
-                placeholder="Enter your first name"
-                required
-              />
+              <div className="relative w-full">
+                <input
+                  className={`outline-none p-[10px] rounded w-full bg-gray-300 text-sm 
+              ${isActiveField("firstName") && "animate-border"}`}
+                  type="text"
+                  value={firstNameValue}
+                  onChange={firstNameValueChangeHandler}
+                  onBlur={() => {
+                    firstNameInputBlurHandler(), onBlurHandler();
+                  }}
+                  onFocus={() => {
+                    onFocusHandler(), setActiveInputField(() => "firstName");
+                  }}
+                  placeholder="Enter your first name"
+                  required
+                />
+                <div className="absolute bottom-[0.5px] inset-x-0 h-[2px] bg-gray-400 x-10" />
+                {isActiveField("firstName") && (
+                  <div
+                    className="absolute bottom-[0.5px] inset-x-0 h-[3px] bg-primary
+                   animate-radiate z-40"
+                  />
+                )}
+              </div>
             </div>
             {firstNameHasError && (
               <span className="text-red-500 w-full text-start text-sm">
@@ -124,21 +150,39 @@ export const EditPersonalDetails: React.FC = () => {
             className="flex flex-col justify-center relative space-y-[4px]
              mb-4 w-full"
           >
-            <label htmlFor="lastName" className="text-gray-dark-3">
+            <label
+              htmlFor="lastName"
+              className={`${
+                isActiveField("lastName") ? "text-primary" : "text-gray-800"
+              }`}
+            >
               Last name
             </label>
-            <div className="flex flex-col justify-center relative ">
-              <input
-                className="border-[2px] border-gray-400 focus:border-primary
-               focus:bg-gray-200 transition-all outline-none  p-2  rounded
-               bg-gray-light-1 text-sm"
-                type="text"
-                value={lastNameValue}
-                onChange={lastNameValueChangeHandler}
-                onBlur={lastNameInputBlurHandler}
-                placeholder="Enter your last name"
-                required
-              />
+            <div className="flex flex-col justify-center relative">
+              <div className="relative w-full">
+                <input
+                  className={`outline-none p-[10px] rounded w-full bg-gray-300 text-sm 
+              ${isActiveField("lastName") && "animate-border"}`}
+                  type="text"
+                  value={lastNameValue}
+                  onChange={lastNameValueChangeHandler}
+                  onBlur={() => {
+                    lastNameInputBlurHandler(), onBlurHandler();
+                  }}
+                  onFocus={() => {
+                    onFocusHandler(), setActiveInputField(() => "lastName");
+                  }}
+                  placeholder="Enter your last name"
+                  required
+                />
+                <div className="absolute bottom-[0.5px] inset-x-0 h-[2px] bg-gray-400 x-10" />
+                {isActiveField("lastName") && (
+                  <div
+                    className="absolute bottom-[0.5px] inset-x-0 h-[3px] bg-primary
+                   animate-radiate z-40"
+                  />
+                )}
+              </div>
             </div>
             {lastNameHasError && (
               <span className="text-red-500 w-full text-start text-sm">
