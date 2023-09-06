@@ -6,6 +6,7 @@ import { TUser } from "../../../types/auth.ts";
 import { useSelector } from "react-redux";
 import { IChatMessage, IOrganizedChatMessage } from "../../../types/chat.ts";
 import { MessageDay } from "./MessageDay.tsx";
+import { MessagePlaceholder } from "./MessagePlaceholder.tsx";
 
 interface ChatMessagesProps {
   messages: IChatMessage[];
@@ -108,14 +109,10 @@ export const ChatMessages: React.FC<ChatMessagesProps> = (props) => {
   return (
     <Fragment>
       <div className="w-full flex-1">
-        {!messages[0] && (
-          <div className="w-full h-full grid place-items-center">
-            <span className="text-center">Your messages will appear here</span>
-          </div>
-        )}
+        {!messages[0] && <MessagePlaceholder />}
         {messages[0] && (
           <div
-            className="h-[55vh] overflow-x-hidden relative"
+            className="overflow-x-hidden w-full h-[50vh] max-h-[55vh]  relative"
             id="message-container"
           >
             {messages.map((message, index) => {
