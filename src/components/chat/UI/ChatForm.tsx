@@ -28,11 +28,12 @@ export const ChatForm: React.FC<ChatFormProps> = (props) => {
           required
           ref={messageRef}
           placeholder="Type message here"
-          className="flex-1 outline-none bg-inherit"
+          className="flex-1 outline-none bg-inherit placeholder:text-gray-600
+          cursor-text-blue-500"
         />
         <button type="submit">
-          <svg className="w-6 h-6 fill-gray-700">
-            <use href={`${sprite}#icon-cross-small`}></use>
+          <svg className="w-6 h-6 fill-gray-600 hover:fill-primary transition-all">
+            <use href={`${sprite}#icon-send`}></use>
           </svg>
         </button>
       </form>
