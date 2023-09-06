@@ -25,9 +25,13 @@ interface SignInProps {
 export const SignIn: React.FC<SignInProps> = (props) => {
   const [showPassword, setShowPassword] = useState<Boolean>(false);
   const [isFocused, setIsFocused] = useState<boolean>(false);
+  const [activeInputField, setActiveInputField] = useState<string>("");
 
   const onFocusHandler = () => setIsFocused(true);
   const onBlurHandler = () => setIsFocused(false);
+  const isActiveField = (activeField: string) => {
+    return isFocused && activeInputField === activeField;
+  };
 
   const {
     value: phoneNumberValue,
@@ -104,26 +108,30 @@ export const SignIn: React.FC<SignInProps> = (props) => {
         <div className="flex flex-col justify-center relative space-y-[4px] mb-4">
           <label
             htmlFor="email"
-            className={`${isFocused ? "text-primary" : "text-gray-800"}`}
+            className={`${
+              isActiveField("phoneNumber") ? "text-primary" : "text-gray-800"
+            }`}
           >
             Phone number
           </label>
           <div className="relative w-full">
             <input
               className={`outline-none p-[10px] rounded w-full bg-gray-300 text-sm 
-              ${isFocused && "animate-border"}`}
+              ${isActiveField("phoneNumber") && "animate-border"}`}
               type="text"
               value={phoneNumberValue}
               onChange={phoneNumberValueChangeHandler}
               onBlur={() => {
                 phoneNumberInputBlurHandler(), onBlurHandler();
               }}
-              onFocus={onFocusHandler}
+              onFocus={() => {
+                onFocusHandler(), setActiveInputField(() => "phoneNumber");
+              }}
               placeholder="Enter your phone number"
               required
             />
             <div className="absolute bottom-[0.5px] inset-x-0 h-[2px] bg-gray-400 x-10" />
-            {isFocused && (
+            {isActiveField("phoneNumber") && (
               <div
                 className="absolute bottom-[0.5px] inset-x-0 h-[3px] bg-primary
                    animate-radiate z-40"
@@ -137,7 +145,12 @@ export const SignIn: React.FC<SignInProps> = (props) => {
           )}
         </div>
         <div className="flex flex-col justify-center relative space-y-[4px] mb-4">
-          <label htmlFor="password" className="text-gray-dark-3">
+          <label
+            htmlFor="password"
+            className={`${
+              isActiveField("password") ? "text-primary" : "text-gray-800"
+            }`}
+          >
             Password
           </label>
           <span
@@ -148,17 +161,30 @@ export const SignIn: React.FC<SignInProps> = (props) => {
             Forgot password?
           </span>
           <div className="flex flex-col justify-center relative">
-            <input
-              className="border-[2px] border-gray-400 focus:border-primary
-               focus:bg-gray-200 transition-all outline-none  p-2  rounded
-               bg-gray-light-1 text-sm"
-              type={showPassword ? "text" : "password"}
-              value={passwordValue}
-              onChange={passwordValueChangeHandler}
-              onBlur={passwordInputBlurHandler}
-              placeholder="Enter your password"
-              required
-            />
+            <div className="relative w-full">
+              <input
+                className={`outline-none p-[10px] rounded w-full bg-gray-300 text-sm 
+              ${isActiveField("password") && "animate-border"}`}
+                type={showPassword ? "text" : "password"}
+                value={passwordValue}
+                onChange={passwordValueChangeHandler}
+                placeholder="Enter your password"
+                onBlur={() => {
+                  passwordInputBlurHandler(), onBlurHandler();
+                }}
+                onFocus={() => {
+                  onFocusHandler(), setActiveInputField(() => "password");
+                }}
+                required
+              />
+              <div className="absolute bottom-[0.5px] inset-x-0 h-[2px] bg-gray-400 x-10" />
+              {isActiveField("password") && (
+                <div
+                  className="absolute bottom-[0.5px] inset-x-0 h-[3px] bg-primary
+                   animate-radiate z-40"
+                />
+              )}
+            </div>
             {!showPassword && (
               <svg
                 className="w-6 h-6 fill-gray-500 absolute right-3 top-[20%]
