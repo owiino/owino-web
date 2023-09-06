@@ -14,13 +14,23 @@ import { Modal } from "../../shared/UI/Modal";
 import sprite from "../../../assets/icons/sprite.svg";
 
 const OpenModalElement = () => {
-  // TODO: svg icon should be changed to edit icon
   return (
     <Fragment>
-      <div>
-        <svg className="w-16 h-16 fill-gray-500 bg-gray-300 rounded-[50%] cursor-pointer">
-          <use href={`${sprite}#icon-person-circle`}></use>
+      <div
+        className="bg-gray-300s bg-primary-light flex items-center justify-center 
+           w-16 h-16 rounded-[50%] relative"
+      >
+        <svg className="w-10 h-10 fill-gray-600s fill-gray-200">
+          <use href={`${sprite}#icon-person-filled`}></use>
         </svg>
+        <div
+          className="w-8 h-8 bg-primary-lights bg-gray-300 grid rounded-[50%]
+               place-items-center absolute -right-[9px] bottom-0"
+        >
+          <svg className="w-[14px] h-[14px] fill-gray-800 cursor-pointer">
+            <use href={`${sprite}#icon-edit`}></use>
+          </svg>
+        </div>
       </div>
     </Fragment>
   );
