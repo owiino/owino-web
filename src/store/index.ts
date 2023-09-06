@@ -1,10 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { authSlice } from "./reducers/auth";
 import { notificationSlice } from "./reducers/notification";
+import { chatSlice } from "./reducers/chat";
 export const store = configureStore({
   reducer: {
     auth: authSlice.reducer,
     notification: notificationSlice.reducer,
+    chat: chatSlice.reducer,
   },
 });
 
@@ -20,3 +22,4 @@ if (!process.env.NODE_ENV || process.env.NODE_ENV === "development") {
 export { url, socketUrl };
 export const authActions = authSlice.actions;
 export const notificationActions = notificationSlice.actions;
+export const chatActions = chatSlice.actions;

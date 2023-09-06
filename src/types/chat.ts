@@ -1,3 +1,4 @@
+import { TUser } from "./auth";
 export interface IChatMessage {
   messageId?: string;
   chatRoomId: string;
@@ -18,3 +19,29 @@ export interface IOrganizedChatMessage extends IChatMessage {
   firstName: string;
   lastName: string;
 }
+
+export type TChat = {
+  chatRecipientList: TUser[];
+  currentRecipient: TUser;
+  messageList: IChatMessage[];
+};
+
+export type TChatState = {
+  chat: TChat;
+};
+
+export type TRecipientListPayload = {
+  chatRecipientList: TUser[];
+};
+
+export type TCurrentRecipientPayload = {
+  currentRecipient: TUser;
+};
+
+export type TMessageListPayload = {
+  messageList: IChatMessage[];
+};
+
+export type TMessagePayload = {
+  message: IChatMessage;
+};

@@ -1,16 +1,17 @@
-enum Role {
-  Seller = "seller",
-  Buyer = "buyer",
-  Admin = "admin",
-  Agent = "agent",
-}
+// enum Role {
+//   Seller = "seller",
+//   Buyer = "buyer",
+//   Admin = "admin",
+//   Agent = "agent",
+// }
 
 export type TUser = {
   userId: number;
   firstName: string;
   lastName: string;
   phoneNumber: string;
-  role: Role;
+  // role: Role;
+  role: "seller" | "buyer" | "admin" | "agent";
   imageUrl: string | null;
   createdAt: string;
   updatedAt: string;
