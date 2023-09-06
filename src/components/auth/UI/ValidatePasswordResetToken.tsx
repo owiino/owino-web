@@ -19,6 +19,15 @@ interface ForgotPasswordProps {
 export const ValidatePasswordResetToken: React.FC<ForgotPasswordProps> = (
   props
 ) => {
+  const [isFocused, setIsFocused] = useState<boolean>(false);
+  const [activeInputField, setActiveInputField] = useState<string>("");
+
+  const onFocusHandler = () => setIsFocused(true);
+  const onBlurHandler = () => setIsFocused(false);
+  const isActiveField = (activeField: string) => {
+    return isFocused && activeInputField === activeField;
+  };
+
   const {
     value: resetTokenValue,
     hasError: resetTokenHasError,
@@ -96,20 +105,39 @@ export const ValidatePasswordResetToken: React.FC<ForgotPasswordProps> = (
           <p>Lets verify token sent to your number</p>
         </div>
         <div className="flex flex-col justify-center relative space-y-[4px] mb-4">
-          <label htmlFor="email" className="text-gray-dark-3">
+          <label
+            htmlFor="email"
+            className={`${
+              isActiveField("token") ? "text-primary" : "text-gray-800"
+            }`}
+          >
             Enter reset token sent your number
           </label>
-          <input
-            className="border-[2px] border-gray-400 focus:border-primary
-               focus:bg-gray-200 transition-all outline-none p-2  rounded
-                bg-gray-light-1 text-sm"
-            type="text"
-            value={resetTokenValue}
-            onChange={resetTokenValueChangeHandler}
-            onBlur={resetTokenInputBlurHandler}
-            placeholder="Enter token"
-            required
-          />
+
+          <div className="relative w-full">
+            <input
+              className={`outline-none p-[10px] rounded w-full bg-gray-300 text-sm 
+              ${isActiveField("token") && "animate-border"}`}
+              type="text"
+              value={resetTokenValue}
+              onChange={resetTokenValueChangeHandler}
+              onBlur={() => {
+                resetTokenInputBlurHandler(), onBlurHandler();
+              }}
+              onFocus={() => {
+                onFocusHandler(), setActiveInputField(() => "token");
+              }}
+              placeholder="Enter token"
+              required
+            />
+            <div className="absolute bottom-[0.5px] inset-x-0 h-[2px] bg-gray-400 x-10" />
+            {isActiveField("token") && (
+              <div
+                className="absolute bottom-[0.5px] inset-x-0 h-[3px] bg-primary
+                   animate-radiate z-40"
+              />
+            )}
+          </div>
           {resetTokenHasError && (
             <span className="text-red-500 w-full text-start">
               Please provide a valid token
