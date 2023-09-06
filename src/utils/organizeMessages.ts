@@ -16,15 +16,13 @@ class Messages {
       return {
         currentUserIsSender: true,
         userImageUrl: this.currentUser.imageUrl,
-        firstName: this.currentUser.firstName,
-        lastName: this.currentUser.lastName,
+        username: "You",
       };
     }
     return {
       currentUserIsSender: false,
       userImageUrl: this.recipient.imageUrl,
-      firstName: this.recipient.firstName,
-      lastName: this.recipient.lastName,
+      username: `${this.recipient.firstName} ${this.recipient.lastName}`,
     };
   }
 
@@ -99,8 +97,7 @@ class Messages {
       const currentUserIsSender = this.currentUserIsSender(messageObj);
       msgObj.currentUserIsSender = currentUserIsSender.currentUserIsSender;
       msgObj.userImageUrl = currentUserIsSender.userImageUrl;
-      msgObj.firstName = currentUserIsSender.firstName;
-      msgObj.lastName = currentUserIsSender.lastName;
+      msgObj.username = currentUserIsSender.username;
 
       organizedMessageList.push(msgObj);
     });

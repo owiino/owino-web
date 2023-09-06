@@ -16,8 +16,7 @@ export interface IOrganizedChatMessage extends IChatMessage {
   showDay: boolean;
   showTime: boolean;
   userImageUrl: string | null;
-  firstName: string;
-  lastName: string;
+  username: string;
 }
 
 export type TChat = {
