@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { useDispatch, useSelector } from "react-redux";
 import { changePhoneNumber } from "../../../API/auth";
@@ -14,6 +14,14 @@ const validatePhoneNumber = (phoneNumber: string) =>
   phoneNumber.trim().startsWith("2567") && phoneNumber.trim().length === 12;
 export const ChangePhoneNumber: React.FC = () => {
   const userId: number = useSelector((state: any) => state.auth.user.userId);
+  const [isFocused, setIsFocused] = useState<boolean>(false);
+  const [activeInputField, setActiveInputField] = useState<string>("");
+
+  const onFocusHandler = () => setIsFocused(true);
+  const onBlurHandler = () => setIsFocused(false);
+  const isActiveField = (activeField: string) => {
+    return isFocused && activeInputField === activeField;
+  };
 
   const {
     value: phoneNumberValue,
@@ -81,21 +89,39 @@ export const ChangePhoneNumber: React.FC = () => {
             className="flex flex-col justify-center relative space-y-[4px]
              mb-4 w-full"
           >
-            <label htmlFor="phoneNumber" className="text-gray-dark-3">
+            <label
+              htmlFor="phoneNumber"
+              className={`${
+                isActiveField("phoneNumber") ? "text-primary" : "text-gray-800"
+              }`}
+            >
               New phone number
             </label>
             <div className="flex flex-col justify-center relative ">
-              <input
-                className="border-[2px] border-gray-400 focus:border-primary
-               focus:bg-gray-200 transition-all outline-none  p-2  rounded
-               bg-gray-light-1 text-sm"
-                type="text"
-                value={phoneNumberValue}
-                onChange={phoneNumberValueChangeHandler}
-                onBlur={phoneNumberInputBlurHandler}
-                placeholder="Enter your current password"
-                required
-              />
+              <div className="relative w-full">
+                <input
+                  className={`outline-none p-[10px] rounded w-full bg-gray-300 text-sm 
+              ${isActiveField("phoneNumber") && "animate-border"}`}
+                  type="text"
+                  value={phoneNumberValue}
+                  onChange={phoneNumberValueChangeHandler}
+                  onBlur={() => {
+                    phoneNumberInputBlurHandler(), onBlurHandler();
+                  }}
+                  onFocus={() => {
+                    onFocusHandler(), setActiveInputField(() => "phoneNumber");
+                  }}
+                  placeholder="Enter new phone number"
+                  required
+                />
+                <div className="absolute bottom-[0.5px] inset-x-0 h-[2px] bg-gray-400 x-10" />
+                {isActiveField("phoneNumber") && (
+                  <div
+                    className="absolute bottom-[0.5px] inset-x-0 h-[3px] bg-primary
+                   animate-radiate z-40"
+                  />
+                )}
+              </div>
             </div>
             {phoneNumberHasError && (
               <span className="text-red-500 w-full text-start text-sm">
