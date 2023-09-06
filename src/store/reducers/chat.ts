@@ -20,6 +20,7 @@ const initialState: TChat = {
     updatedAt: "",
   },
   messageList: [],
+  showChat: false,
 };
 export const chatSlice = createSlice({
   name: "chat",
@@ -43,7 +44,13 @@ export const chatSlice = createSlice({
     addToMessageList(state, action: PayloadAction<TMessagePayload>) {
       state.messageList = [...state.messageList, action.payload.message];
     },
-    clearChat(state, _) {
+    showChat(state) {
+      state.showChat = true;
+    },
+    hideChat(state) {
+      state.showChat = false;
+    },
+    clearChat(state) {
       state.chatRecipientList = [];
       state.currentRecipient = {
         userId: 0,

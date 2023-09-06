@@ -11,7 +11,8 @@ import { TAuthState, TAuth } from "../types/auth";
 import { TNotificationState } from "../types/notification";
 import { useReAuthenticate } from "../hooks/useReAuthenticate";
 import { Settings } from "../components/common/pages/Settings";
-import { ChatLayout } from "../components/chat/layouts/ChatLayout";
+// import { ChatLayout } from "../components/chat/layouts/ChatLayout";
+import { Chat } from "../components/chat/pages/Chat";
 
 export const AppRouter: React.FC = () => {
   const auth = useSelector((state: TAuthState) => state.auth);
@@ -76,7 +77,7 @@ export const AppRouter: React.FC = () => {
 
   return (
     <Fragment>
-      <div className="text-base overflow-x-hidden">
+      <div className="text-base overflow-x-hidden bg-gray-100">
         <BrowserRouter>
           {!isLoggedIn && (
             <Fragment>
@@ -96,7 +97,8 @@ export const AppRouter: React.FC = () => {
 
           {isLoggedIn && (
             <>
-              <ChatLayout />
+              {/* <ChatLayout /> */}
+              <Chat />
               <Fragment>
                 {notification.showCardNotification && (
                   <Notification

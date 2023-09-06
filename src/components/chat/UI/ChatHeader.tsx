@@ -1,5 +1,7 @@
 import React, { Fragment } from "react";
 import sprite from "../../../assets/icons/sprite.svg";
+import { useDispatch } from "react-redux";
+import { hideChat } from "../../../store/actions/chat";
 
 interface ChatHeaderProps {
   recipientImageUrl: string;
@@ -9,6 +11,11 @@ interface ChatHeaderProps {
 }
 
 export const ChatHeader: React.FC<ChatHeaderProps> = (props) => {
+  const dispatch: any = useDispatch();
+
+  const hideChatHandler = () => {
+    dispatch(hideChat());
+  };
   return (
     <Fragment>
       <div className="bg-blue-400s flex items-center justify-between w-full">
@@ -42,7 +49,10 @@ export const ChatHeader: React.FC<ChatHeaderProps> = (props) => {
           </div>
         </div>
         <div>
-          <svg className="w-6 h-6 fill-gray-700" onClick={props.onChatClose}>
+          <svg
+            className="w-6 h-6 fill-gray-700 cursor-pointer"
+            onClick={() => hideChatHandler()}
+          >
             <use href={`${sprite}#icon-cross-small`}></use>
           </svg>
         </div>

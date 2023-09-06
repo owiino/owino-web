@@ -23,6 +23,7 @@ export type TChat = {
   chatRecipientList: TUser[];
   currentRecipient: TUser;
   messageList: IChatMessage[];
+  showChat: boolean;
 };
 
 export type TChatState = {
