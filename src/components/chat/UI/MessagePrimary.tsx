@@ -1,6 +1,6 @@
 import { Fragment } from "react";
 import sprite from "../../../assets/icons/sprite.svg";
-import { AppDate } from "../../../utils.ts";
+import { AppDate } from "../../../utils/index.ts";
 import { IOrganizedChatMessage } from "../../../types/chat.ts";
 
 export const MessagePrimary = (props: any) => {

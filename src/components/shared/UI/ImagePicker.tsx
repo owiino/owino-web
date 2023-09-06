@@ -5,7 +5,7 @@ import Webcam from "react-webcam";
 import { IconButton } from "./IconButton";
 import { Button } from "./Button";
 import { DragDrop } from "./DragDrop";
-import { dataUriToArrayBuffer } from "../../../utils.ts";
+import { dataUriToArrayBuffer } from "../../../utils/index.ts";
 import sprite from "../../../assets/icons/sprite.svg";
 
 const CloseCamera = ({ onClose }: { onClose: any }) => {

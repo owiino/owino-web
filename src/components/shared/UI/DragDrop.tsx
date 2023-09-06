@@ -1,6 +1,6 @@
 import React, { useState, useEffect, Fragment } from "react";
 import { FileUploader } from "react-drag-drop-files";
-import { inputFileToArrayBuffer } from "../../../utils.ts";
+import { inputFileToArrayBuffer } from "../../../utils/index.ts";
 import { useDispatch } from "react-redux";
 import {
   showCardNotification,

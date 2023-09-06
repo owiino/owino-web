@@ -1,4 +1,4 @@
-import { AppDate } from "./";
+import { AppDate } from ".";
 import { TUser } from "../types/auth";
 import { IChatMessage, IOrganizedChatMessage } from "../types/chat";
 

@@ -5,7 +5,7 @@ import { SignUp } from "../UI/SignUp";
 import { ForgotPassword } from "../UI/ForgotPassword";
 import { ResetPassword } from "../UI/ResetPassword";
 import { ValidatePasswordResetToken } from "../UI/ValidatePasswordResetToken";
-import { uppercaseFirstLetter } from "../../../utils.ts";
+import { uppercaseFirstLetter } from "../../../utils/index.ts";
 
 interface AuthLayoutProps {
   label: string;

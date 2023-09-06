@@ -1,8 +1,8 @@
 import React, { Fragment } from "react";
 import { MessagePrimary } from "./MessagePrimary";
 import { MessageSecondary } from "./MessageSecondary";
-import { Messages } from "../../../utils.ts";
-import { AppDate } from "../../../utils.ts";
+import { Messages } from "../../../utils/index.ts";
+import { AppDate } from "../../../utils/index.ts";
 import { TUser } from "../../../types/auth.ts";
 import { useSelector } from "react-redux";
 import { IChatMessage } from "../../../types/chat.ts";
