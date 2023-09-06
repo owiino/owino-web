@@ -27,6 +27,14 @@ export const ForgotPassword: React.FC<ForgotPasswordProps> = (props) => {
     isValid: phoneNumberIsValid,
   } = useInputValidation(validatePhoneNumber);
   const [tokenRequestSuccessful, setTokenRequestSuccessful] = useState(false);
+  const [isFocused, setIsFocused] = useState<boolean>(false);
+  const [activeInputField, setActiveInputField] = useState<string>("");
+
+  const onFocusHandler = () => setIsFocused(true);
+  const onBlurHandler = () => setIsFocused(false);
+  const isActiveField = (activeField: string) => {
+    return isFocused && activeInputField === activeField;
+  };
 
   const dispatch: any = useDispatch();
 
@@ -91,20 +99,38 @@ export const ForgotPassword: React.FC<ForgotPasswordProps> = (props) => {
           <p>Lets reset password for your account</p>
         </div>
         <div className="flex flex-col justify-center relative space-y-[4px] mb-4">
-          <label htmlFor="email" className="text-gray-dark-3">
+          <label
+            htmlFor="phoneNumber"
+            className={`${
+              isActiveField("phoneNumber") ? "text-primary" : "text-gray-800"
+            }`}
+          >
             Enter your phone number and we'll send you a reset token
           </label>
-          <input
-            className="border-[2px] border-gray-400 focus:border-primary
-               focus:bg-gray-200 transition-all outline-none p-2  rounded
-                bg-gray-light-1 text-sm"
-            type="text"
-            value={phoneNumberValue}
-            onChange={phoneNumberValueChangeHandler}
-            onBlur={phoneNumberInputBlurHandler}
-            placeholder="Enter your phone number"
-            required
-          />
+          <div className="relative w-full">
+            <input
+              className={`outline-none p-[10px] rounded w-full bg-gray-300 text-sm 
+              ${isActiveField("phoneNumber") && "animate-border"}`}
+              type="text"
+              value={phoneNumberValue}
+              onChange={phoneNumberValueChangeHandler}
+              onBlur={() => {
+                phoneNumberInputBlurHandler(), onBlurHandler();
+              }}
+              onFocus={() => {
+                onFocusHandler(), setActiveInputField(() => "phoneNumber");
+              }}
+              placeholder="Enter your phone number"
+              required
+            />
+            <div className="absolute bottom-[0.5px] inset-x-0 h-[2px] bg-gray-400 x-10" />
+            {isActiveField("phoneNumber") && (
+              <div
+                className="absolute bottom-[0.5px] inset-x-0 h-[3px] bg-primary
+                   animate-radiate z-40"
+              />
+            )}
+          </div>
           {phoneNumberHasError && (
             <span className="text-red-500 w-full text-start">
               Please provide a valid phone number
