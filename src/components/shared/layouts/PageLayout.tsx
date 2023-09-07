@@ -20,7 +20,7 @@ export const PageLayout: React.FC<PageLayoutProps> = (props) => {
   const activeLinkStyles = `font-semibold rounded bg-gray-300`;
   return (
     <Fragment>
-      <div className="px-8 py-9 text-gray-800">
+      <div className="mb-12 px-8 py-9 text-gray-800">
         <div>
           <div
             className="mb-4 border-[1px] border-gray-300 
@@ -35,8 +35,11 @@ export const PageLayout: React.FC<PageLayoutProps> = (props) => {
             <span className="text-xl text-gray-800">{props.pageLabel}</span>
           </div>
         </div>
-        <div className="flex items-start justify-start w-full gap-x-8">
-          <aside className="w-auto text-gray-600">
+        <div className="sm:flex items-start justify-start w-full gap-x-8">
+          <aside
+            className="my-8 sm:my-0 w-auto text-gray-600 rounded-md
+                  border-[1px] p-6 border-gray-300"
+          >
             <ul className="">
               {pageLinks?.map((pageLink, index) => (
                 <li
