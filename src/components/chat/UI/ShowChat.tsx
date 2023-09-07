@@ -20,7 +20,7 @@ export const ShowChat: React.FC = () => {
     <Fragment>
       <div
         className="grid place-items-center w-12 h-12 rounded-[50px]
-            bg-primary fixed  bottom-[5vh] right-[5vh] shadow-2xl"
+            bg-primary fixed  bottom-[5vh] right-[5vh] shadow-2xl z-500"
       >
         {!showChatValue && (
           <svg

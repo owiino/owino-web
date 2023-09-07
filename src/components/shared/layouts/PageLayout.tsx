@@ -64,7 +64,7 @@ export const PageLayout: React.FC<PageLayoutProps> = (props) => {
             >
               {activePageLink.linkName}
             </p>
-            <div className="mb-6">{activePageLink.linkComponent}</div>
+            <div className="mb-6 z-20">{activePageLink.linkComponent}</div>
           </main>
         </div>
       </div>

@@ -21,8 +21,8 @@ export const ChatLayout: React.FC = () => {
   return (
     <Fragment>
       <div
-        className="w-[90vw] sm:w-96 h-[90vh] fixed bottom-[5vh] z-[500]
-         right-[5vw] sm:right-[15%] lg:right-[10%] flex items-end justify-center"
+        className="w-[90%] sm:w-96 h-[90vh] fixed bottom-[5vh] z-[500]
+         right-[5%] sm:right-[15%] lg:right-[10%] flex items-end justify-center"
       >
         <div
           className=" bg-gray-50 rounded-md shadow-2xl p-4 pt-3 borders-[1px]
