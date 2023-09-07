@@ -132,7 +132,7 @@ export const ChangePassword: React.FC = () => {
                 <input
                   className={`outline-none p-[10px] rounded w-full bg-gray-300 text-sm 
               ${isActiveField("currentPassword") && "animate-border"}`}
-                  type={showCurrentPassword ? "text" : "currentPassword"}
+                  type={showCurrentPassword ? "text" : "password"}
                   value={currentPasswordValue}
                   onChange={currentPasswordValueChangeHandler}
                   onBlur={() => {
@@ -153,20 +153,20 @@ export const ChangePassword: React.FC = () => {
                   />
                 )}
               </div>
-              {!showNewPassword && (
+              {!showCurrentPassword && (
                 <svg
                   className="w-6 h-6 fill-gray-500 absolute right-3 top-[20%]
                  cursor-pointer"
-                  onClick={() => setShowCurrentPassword(!showNewPassword)}
+                  onClick={() => setShowCurrentPassword(!showCurrentPassword)}
                 >
                   <use href={`${sprite}#icon-eye`}></use>
                 </svg>
               )}
-              {showNewPassword && (
+              {showCurrentPassword && (
                 <svg
                   className="w-6 h-6 fill-gray-500 absolute right-3 top-[20%]
                cursor-pointer"
-                  onClick={() => setShowCurrentPassword(!showNewPassword)}
+                  onClick={() => setShowCurrentPassword(!showCurrentPassword)}
                 >
                   <use href={`${sprite}#icon-eyeclosed`}></use>
                 </svg>
