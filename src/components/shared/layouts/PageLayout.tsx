@@ -27,10 +27,10 @@ export const PageLayout: React.FC<PageLayoutProps> = (props) => {
              flex items-center justify-start gap-x-3 p-3 rounded-md"
           >
             <svg
-              className="w-[20px] h-[20px] fill-gray-800 cursor-pointer 
+              className="w-7 h-7 fill-gray-600 cursor-pointer 
                          group-hover:fill-gray-400 font-light"
             >
-              <use href={`${sprite}#${props.pageIcon}`}></use>
+              <use href={`${sprite}#icon-${props.pageIcon}`}></use>
             </svg>
             <span className="text-xl text-gray-800">{props.pageLabel}</span>
           </div>

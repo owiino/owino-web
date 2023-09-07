@@ -24,5 +24,11 @@ export const Settings: React.FC = () => {
     },
   ];
 
-  return <PageLayout pageIcon="" pageLabel="Settings" pageLinks={pageLinks} />;
+  return (
+    <PageLayout
+      pageIcon="settings"
+      pageLabel="Settings"
+      pageLinks={pageLinks}
+    />
+  );
 };
