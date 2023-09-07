@@ -10,7 +10,7 @@ export const Chat: React.FC = () => {
     <Fragment>
       <div>
         {showChatValue && <ChatLayout />}
-        <ShowChat />
+        {!showChatValue && <ShowChat />}
       </div>
     </Fragment>
   );

@@ -21,20 +21,24 @@ export const ChatLayout: React.FC = () => {
   return (
     <Fragment>
       <div
-        className="fixed bottom-[5vh] right-[10%] w-96 h-[90vh]
-         bg-gray-50 rounded-md shadow-2xl p-4 pt-3 z-[500] borders-[1px]
-         border-gray-200 space-y-4 flex flex-col items-start 
-          "
+        className="w-[90vw] sm:w-96 h-[90vh] fixed bottom-[5vh] z-[500]
+         right-[5vw] sm:right-[15%] lg:right-[10%] flex items-end justify-center"
       >
-        <ChatHeader
-          recipientName={"Tibesigwa"}
-          recipientRole={"Buyer"}
-          recipientImageUrl={""}
-          onChatClose={() => {}}
-        />
-        <ChatNotification message={notificationMessage} type={"default"} />
-        <ChatMessages messages={[]} />
-        <ChatForm onSubmit={onSubmitHandler} />
+        <div
+          className=" bg-gray-50 rounded-md shadow-2xl p-4 pt-3 borders-[1px]
+         border-gray-200 space-y-4 flex flex-col items-start  h-auto
+          "
+        >
+          <ChatHeader
+            recipientName={"Tibesigwa"}
+            recipientRole={"Buyer"}
+            recipientImageUrl={""}
+            onChatClose={() => {}}
+          />
+          <ChatNotification message={notificationMessage} type={"default"} />
+          <ChatMessages messages={[]} />
+          <ChatForm onSubmit={onSubmitHandler} />
+        </div>
       </div>
     </Fragment>
   );
