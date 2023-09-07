@@ -1,5 +1,5 @@
 import { Fragment } from "react";
-// import "./App.css";
+import "./App.css";
 import { AppRouter } from "./routes/AppRouter";
 import { AppProviders } from "./providers/AppProvider";
 
