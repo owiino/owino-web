@@ -96,7 +96,7 @@ export const ValidatePasswordResetToken: React.FC<ForgotPasswordProps> = (
     <Fragment>
       <form
         onSubmit={(event) => forgotPasswordHandler(event)}
-        className="p-4 sm:p-8 full"
+        className="p-8 full"
       >
         <div className="mb-6">
           <h1 className="font-bold text-3xl text-gray-dark-3">

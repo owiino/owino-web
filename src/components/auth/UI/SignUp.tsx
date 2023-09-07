@@ -138,10 +138,7 @@ export const SignUp: React.FC<SignUpProps> = (props) => {
 
   return (
     <Fragment>
-      <form
-        onSubmit={(event) => signUpHandler(event)}
-        className="p-4 sm:p-8 w-full"
-      >
+      <form onSubmit={(event) => signUpHandler(event)} className="p-8 full">
         <div className="mb-6">
           <h1 className="font-bold text-3xl text-gray-dark-3">Welcome!</h1>
           <p>Lets create your account</p>

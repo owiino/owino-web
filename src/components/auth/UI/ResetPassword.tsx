@@ -112,7 +112,7 @@ export const ResetPassword: React.FC<ResetPasswordProps> = (props) => {
     <Fragment>
       <form
         onSubmit={(event) => resetPasswordHandler(event)}
-        className="p-4 sm:p-8 w-full"
+        className="p-8 full"
       >
         <div className="mb-6">
           <h1 className="font-bold text-3xl text-gray-dark-3">

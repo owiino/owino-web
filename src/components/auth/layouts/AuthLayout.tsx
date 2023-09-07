@@ -64,7 +64,7 @@ export const AuthLayout: React.FC<AuthLayoutProps> = (props) => {
           <span className="cursor-pointer">{uppercaseFirstLetter(label)}</span>
         }
         onModalClose={modalCloseHandler}
-        className="w-96 h-auto sm:max-h-[80vh]"
+        className="w-[90%] sm:w-96 h-auto sm:max-h-[80vh]"
       >
         <div className="sm:w-full relative">
           {auths.map((auth) => {

@@ -97,10 +97,7 @@ export const SignIn: React.FC<SignInProps> = (props) => {
 
   return (
     <Fragment>
-      <form
-        onSubmit={(event) => signInHandler(event)}
-        className="p-4 sm:p-8 full"
-      >
+      <form onSubmit={(event) => signInHandler(event)} className="p-8 full">
         <div className="mb-6">
           <h1 className="font-bold text-3xl text-gray-dark-3">Welcome back</h1>
           <p>Log into your account</p>
