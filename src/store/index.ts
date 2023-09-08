@@ -15,8 +15,8 @@ if (!process.env.NODE_ENV || process.env.NODE_ENV === "development") {
   url = "http://localhost:8000/api/v1";
   socketUrl = "http://localhost:8000";
 } else {
-  url = "https://reserve-now-backend.onrender.com/api/v1";
-  socketUrl = "https://reserve-now-backend.onrender.com";
+  url = "https://owino-backend.onrender.com/api/v1";
+  socketUrl = "https://owino-backend.onrender.com";
 }
 
 export { url, socketUrl };
