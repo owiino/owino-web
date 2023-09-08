@@ -6,7 +6,7 @@ const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       staleTime: 2000,
-      networkMode: "cache-and-network",
+      // networkMode: "cache-and-network",
       cacheTime: 20000,
     },
     mutations: {
