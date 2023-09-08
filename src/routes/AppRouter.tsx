@@ -1,23 +1,23 @@
 import React, { Fragment, useEffect } from "react";
 import { BrowserRouter, Routes, Route, Navigate, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-// import { io, Socket } from "socket.io-client";
+import { io, Socket } from "socket.io-client";
 import { authenticate } from "../store/actions/auth";
 import { notificationActions } from "../store";
 import { Home } from "../components/common/pages/Home";
 import { Notification } from "../components/shared/UI/Notification";
-// import { socketUrl, url } from "../store";
+import { socketUrl } from "../store";
 import { TAuthState, TAuth } from "../types/auth";
 import { TNotificationState } from "../types/notification";
 import { useReAuthenticate } from "../hooks/useReAuthenticate";
 import { Settings } from "../components/common/pages/Settings";
-// import { ChatLayout } from "../components/chat/layouts/ChatLayout";
 import { Chat } from "../components/chat/pages/Chat";
 
 export const AppRouter: React.FC = () => {
   const auth = useSelector((state: TAuthState) => state.auth);
   const isLoggedIn = auth.isLoggedIn;
-  //   const socket = io.connect(socketUrl) as Socket;
+  const socket: Socket = io(socketUrl);
+
   const { reAuthenticate } = useReAuthenticate();
 
   const dispatch: any = useDispatch();
@@ -97,8 +97,7 @@ export const AppRouter: React.FC = () => {
 
           {isLoggedIn && (
             <>
-              {/* <ChatLayout /> */}
-              <Chat />
+              <Chat socket={socket} />
               <Fragment>
                 {notification.showCardNotification && (
                   <Notification

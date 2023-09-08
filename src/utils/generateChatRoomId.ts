@@ -5,10 +5,12 @@
 export const generateChatRoomId = (
   currentUserId: number,
   recipientId: number
-) => {
+): string => {
   const areParametersNumbers =
     Number.isInteger(currentUserId) && Number.isInteger(recipientId);
-  if (areParametersNumbers === false) return;
+  if (!areParametersNumbers) {
+    throw new Error("Parameter are not numbers");
+  }
   if (currentUserId > recipientId) {
     return "ctRib#td@owino" + recipientId + "&" + currentUserId + "#cvsn";
   } else {
