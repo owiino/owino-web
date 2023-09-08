@@ -16,7 +16,7 @@ export const MessagePrimary = (props: any) => {
         >
           {msg.userImageUrl && (
             <img
-              src={"recipient.imageUrl"}
+              src={msg.userImageUrl}
               alt={"recipient.username"}
               className="w-full  h-full rounded-[50%]"
             />
