@@ -43,6 +43,7 @@ export const ChatLayout: React.FC<ChatLayoutProps> = (props) => {
     isRead: false,
     isDelivered: false,
     createdAt: createdAt,
+    showMessage: true,
   };
 
   useEffect(() => {

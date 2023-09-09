@@ -10,6 +10,7 @@ export interface IChatMessage {
   subscriptionRequired?: boolean;
   createdAt: string;
   type?: string;
+  showMessage: boolean;
 }
 
 export interface IOrganizedChatMessage extends IChatMessage {
