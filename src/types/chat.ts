@@ -48,3 +48,8 @@ export type TMessageListPayload = {
 export type TMessagePayload = {
   message: IChatMessage;
 };
+
+export type TAlertMessage = {
+  message: string;
+  type: string;
+};

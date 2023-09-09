@@ -10,6 +10,8 @@ import { IChatMessage } from "../../../types/chat";
 import { TUser } from "../../../types/auth";
 import { Messages } from "../../../utils";
 import { Socket } from "socket.io-client";
+import { ChatRecipientList } from "../UI/ChatRecipientList";
+import { TAlertMessage } from "../../../types/chat";
 
 interface ChatLayoutProps {
   socket: Socket;
@@ -19,6 +21,10 @@ export const ChatLayout: React.FC<ChatLayoutProps> = (props) => {
   // TODO: hook to constantly check internet connectivity
   // TODO: hook to auto-reconnection to the chatroom
   const [chatMessage, setChatMessage] = useState<string>("");
+  const [alertMessage, setAlertMessage] = useState<TAlertMessage>({
+    message: "",
+    type: "",
+  });
 
   const onSubmitHandler = (message: string) => {
     setChatMessage(message);
@@ -50,7 +56,7 @@ export const ChatLayout: React.FC<ChatLayoutProps> = (props) => {
     const sendMessageHandler = () => {
       if (!chatMessage) return;
       dispatch(addToMessageList(newMessage));
-      props.socket.emit("sendMessage", newMessage);
+      props.socket.emit("sendChatMessage", newMessage);
       console.log("message sent", newMessage);
     };
     sendMessageHandler();
@@ -58,8 +64,19 @@ export const ChatLayout: React.FC<ChatLayoutProps> = (props) => {
 
   useEffect(() => {
     if (effectRan.current === false) {
-      props.socket.on("receiveMessage", (message: IChatMessage) => {
+      props.socket.on("receiveChatMessage", (message: IChatMessage) => {
         dispatch(addToMessageList(message));
+      });
+      return () => {
+        effectRan.current = true;
+      };
+    }
+  }, [props.socket]);
+
+  useEffect(() => {
+    if (effectRan.current === false) {
+      props.socket.on("receiveAlertMessage", (message: TAlertMessage) => {
+        setAlertMessage(() => message);
       });
       return () => {
         effectRan.current = true;
@@ -81,11 +98,12 @@ export const ChatLayout: React.FC<ChatLayoutProps> = (props) => {
   return (
     <Fragment>
       <div
-        className="w-[90%] sm:w-96 h-[90vh] fixed bottom-[5vh] z-[500]
-         right-[5%] sm:right-[15%] lg:right-[10%] flex items-end justify-center"
+        className="w-[90%] sm:w-96s sm:w-[600px] h-[90vh] fixed bottom-[5vh] z-[500]
+         right-[5%] md:right-[8%]s lg:right-[15%] flex items-end justify-center gap-x-2"
       >
+        <ChatRecipientList socket={props.socket} />
         <div
-          className=" bg-gray-50 rounded-md shadow-2xl p-4 pt-3 borders-[1px]
+          className=" w-full sm:w-96 bg-gray-50 rounded-md shadow-2xl p-4 pt-3 borders-[1px]
          border-gray-200 space-y-4 flex flex-col items-start  h-auto
           "
         >
@@ -95,7 +113,12 @@ export const ChatLayout: React.FC<ChatLayoutProps> = (props) => {
             recipientImageUrl={""}
             onChatClose={() => {}}
           />
-          <ChatNotification message={notificationMessage} type={"default"} />
+          <ChatNotification
+            message={
+              alertMessage.message ? alertMessage.message : notificationMessage
+            }
+            type={alertMessage.type ? alertMessage.type : "default"}
+          />
           <ChatMessages messages={[]} />
           <ChatForm onSubmit={onSubmitHandler} />
         </div>
