@@ -38,6 +38,7 @@ export const ChatMessages: React.FC<ChatMessagesProps> = (props) => {
       isRead: false,
       isDelivered: false,
       createdAt: "2023-09-06T01:51:45.278Z",
+      showMessage: true,
     },
     {
       messageId: 2,
@@ -48,6 +49,7 @@ export const ChatMessages: React.FC<ChatMessagesProps> = (props) => {
       isRead: false,
       isDelivered: false,
       createdAt: "2023-09-06T01:51:55.287Z",
+      showMessage: true,
     },
     {
       messageId: 3,
@@ -58,6 +60,7 @@ export const ChatMessages: React.FC<ChatMessagesProps> = (props) => {
       isRead: false,
       isDelivered: false,
       createdAt: "2023-09-06T01:52:35.288Z",
+      showMessage: true,
     },
     {
       messageId: 4,
@@ -68,6 +71,7 @@ export const ChatMessages: React.FC<ChatMessagesProps> = (props) => {
       isRead: false,
       isDelivered: false,
       createdAt: "2023-09-06T01:53:45.288Z",
+      showMessage: true,
     },
     {
       messageId: 5,
@@ -78,6 +82,7 @@ export const ChatMessages: React.FC<ChatMessagesProps> = (props) => {
       isRead: false,
       isDelivered: false,
       createdAt: "2023-09-06T02:01:45.288Z",
+      showMessage: true,
     },
     {
       messageId: 6,
@@ -88,6 +93,7 @@ export const ChatMessages: React.FC<ChatMessagesProps> = (props) => {
       isRead: false,
       isDelivered: false,
       createdAt: "2023-09-06T05:51:45.288Z",
+      showMessage: true,
     },
   ];
 

@@ -9,8 +9,8 @@ export const MessageDay = (props: any) => {
       <div className="flex  items-center justify-between mb-3">
         <span className="h-[1px] grow bg-gray-light-4"></span>
         <span
-          className="bg-gray-300 px-3 py-1 rounded-md mx-2
-        text-gray-700 text-base font-semibold shadow-sm"
+          className="bg-gray-300 px-3 py-2 rounded-md mx-2
+        text-gray-700 text-sm font-semibold shadow-sm"
         >
           {day()}
         </span>
