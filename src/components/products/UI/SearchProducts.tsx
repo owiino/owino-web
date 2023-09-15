@@ -9,8 +9,9 @@ export const SearchProducts: React.FC = () => {
           type="text"
           className="w-full p-2  sm:pr-9 outline-none rounded
            placeholder:text-gray-600 cursor-text-blue-500
-           text-gray-800 bg-gray-100"
-          placeholder="Search for products"
+           text-gray-800 bg-gray-100 focus:bg-gray-200
+            transition-all"
+          placeholder="search owino"
           required
         />
         <svg className="w-5 h-5 fill-primary absolute top-[10px] right-2">
