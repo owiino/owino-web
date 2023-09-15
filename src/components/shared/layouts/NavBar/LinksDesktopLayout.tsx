@@ -62,7 +62,7 @@ export const LinksDesktopLayout: React.FC = () => {
           </ul>
         )}
         {!isLoggedIn && (
-          <ul className="flex justify-center items-center space-x-2">
+          <ul className="flex justify-center items-center space-x-2 text-gray-200">
             <li>
               <AuthLayout label="logIn" />
             </li>
