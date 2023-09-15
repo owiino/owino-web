@@ -3,13 +3,13 @@ import { Link } from "react-router-dom";
 import sprite from "../../../assets/icons/sprite.svg";
 import { TPageLink } from "../../../types/page";
 
-interface PageLayoutProps {
+interface PageContentLayoutProps {
   pageIcon: string;
   pageLabel: string;
   pageLinks: TPageLink[];
 }
 
-export const PageLayout: React.FC<PageLayoutProps> = (props) => {
+export const PageContentLayout: React.FC<PageContentLayoutProps> = (props) => {
   const pageLinks = props.pageLinks;
   const [activePageLink, setActivePageLink] = useState(pageLinks[0]);
 
