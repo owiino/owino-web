@@ -5,7 +5,7 @@ import { HeaderContent } from "./HeaderContent";
 export const Header: React.FC = () => {
   return (
     <Fragment>
-      <header className="">
+      <header className="relative pt-12">
         <NavBar />
         <HeaderContent />
       </header>

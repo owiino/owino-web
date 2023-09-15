@@ -6,9 +6,10 @@ export const HeaderContent: React.FC = () => {
   return (
     <Fragment>
       <div
-        className="w-full flex flex-col gap-y-8 sm:gap-y-0 sm:flex-row sm:items-center sm:justify-center sm:gap-x-8
-         lg:gap-x-16 px-8 py-16 text-gray-200 bg-gradient-to-tr
-       from-primary-dark via-primary to-primary-light transition-all"
+        className="w-full flex flex-col gap-y-8 sm:gap-y-0 sm:flex-row 
+         sm:items-center sm:justify-center sm:gap-x-8 lg:gap-x-16 px-8
+         py-16 text-gray-200 bg-gradient-to-tr from-primary-dark
+        via-primary to-primary-light transition-all"
       >
         <div
           className="flex flex-col items-center justify-center rounded-md

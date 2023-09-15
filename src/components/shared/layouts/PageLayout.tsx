@@ -13,7 +13,10 @@ interface PageLayoutProps {
 export const PageLayout: React.FC<PageLayoutProps> = (props) => {
   return (
     <Fragment>
-      <div className="space-y-8 min-h-[100vh] h-auto">
+      <div
+        className="space-y-8 min-h-[100vh] h-auto relative
+           pt-10"
+      >
         <NavBar />
         <PageContentLayout
           pageIcon={props.pageIcon}
