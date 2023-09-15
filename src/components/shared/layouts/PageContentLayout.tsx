@@ -20,7 +20,7 @@ export const PageContentLayout: React.FC<PageContentLayoutProps> = (props) => {
   const activeLinkStyles = `font-semibold rounded bg-gray-300`;
   return (
     <Fragment>
-      <div className="mb-12 px-8 py-9 text-gray-800">
+      <div className="mb-12 px-8 py-9 text-gray-800 transition-all">
         <div>
           <div
             className="mb-4 border-[1px] border-gray-300 
