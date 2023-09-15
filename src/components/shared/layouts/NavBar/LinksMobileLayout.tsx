@@ -29,7 +29,7 @@ export const LinksMobileLayout: React.FC = () => {
       <nav className="relatives">
         {showLinks && (
           <div
-            className="bg-gray-50 p-2 rounded-[50%] cursor-pointer"
+            className="bg-gray-100 p-2 rounded-[50%] cursor-pointer"
             onClick={() => setShowLinks(false)}
           >
             <svg className="w-6 h-6 fill-gray-800 ">
@@ -39,7 +39,7 @@ export const LinksMobileLayout: React.FC = () => {
         )}
         {!showLinks && (
           <div
-            className="bg-gray-50 p-2 rounded-[50%] cursor-pointer"
+            className="bg-gray-100 p-2 rounded-[50%] cursor-pointer"
             onClick={() => setShowLinks(true)}
           >
             <svg className="w-6 h-6 text-gray-600 ">
@@ -51,7 +51,7 @@ export const LinksMobileLayout: React.FC = () => {
           <ul
             className="flex flex-col items-start justify-center sm:flex-row 
               sm:items-center sm:space-x-2 fixed top-16 right-0 left-0 sm:static
-             bg-gray-50 sm:bg-primary pb-2 sm:pb-0 animate-opacityZeroToFull
+             bg-gray-100 sm:bg-primary pb-2 sm:pb-0 animate-opacityZeroToFull
               sm:animate-none shadow-md sm:shadow-none z-[200]"
           >
             <li className="w-full">
@@ -60,8 +60,8 @@ export const LinksMobileLayout: React.FC = () => {
                 className="flex items-center gap-x-2 hover:bg-gray-300 px-4 py-2
                 w-full transition-all"
               >
-                <span className="bg-gray-50 p-1 grid place-items-center rounded-[50%]">
-                  <svg className="w-5 h-5 fill-gray-600 hover:fill-inherit">
+                <span className="bg-gray-100 p-1 grid place-items-center rounded-[50%]">
+                  <svg className="w-5 h-5 fill-gray-600">
                     <use href={`${sprite}#icon-bookmark-filled`}></use>
                   </svg>
                 </span>
@@ -74,7 +74,7 @@ export const LinksMobileLayout: React.FC = () => {
                 className="flex items-center gap-x-2 hover:bg-gray-300 px-4 py-2
                  w-full transition-all"
               >
-                <span className="bg-gray-50 p-1 grid place-items-center rounded-[50%]">
+                <span className="bg-gray-100 p-1 grid place-items-center rounded-[50%]">
                   <svg className="w-5 h-5 fill-gray-600 ">
                     <use href={`${sprite}#icon-notification`}></use>
                   </svg>
@@ -89,7 +89,7 @@ export const LinksMobileLayout: React.FC = () => {
                 className="flex items-center gap-x-2 hover:bg-gray-300 px-4 py-2
                 w-full transition-all"
               >
-                <span className="bg-gray-50 p-1 grid place-items-center rounded-[50%]">
+                <span className="bg-gray-100 p-1 grid place-items-center rounded-[50%]">
                   <svg className="w-5 h-5 text-gray-600 ">
                     <use href={`${sprite}#icon-chat`}></use>
                   </svg>
@@ -103,8 +103,8 @@ export const LinksMobileLayout: React.FC = () => {
                 className="flex items-center gap-x-2 hover:bg-gray-300 px-4 py-2
                 w-full transition-all"
               >
-                <span className="bg-gray-50 p-1 grid place-items-center rounded-[50%]">
-                  <svg className="w-5 h-5 fill-gray-500 bg-gray-50">
+                <span className="bg-gray-100 p-1 grid place-items-center rounded-[50%]">
+                  <svg className="w-5 h-5 fill-gray-500 bg-gray-100">
                     <use href={`${sprite}#icon-video-call`}></use>
                   </svg>
                 </span>
@@ -117,7 +117,7 @@ export const LinksMobileLayout: React.FC = () => {
                 className="flex items-center gap-x-2 hover:bg-gray-300 px-4 py-2
                 w-full transition-all"
               >
-                <span className="bg-gray-50 p-1 grid place-items-center rounded-[50%]">
+                <span className="bg-gray-100 p-1 grid place-items-center rounded-[50%]">
                   <svg className="w-5 h-5 fill-gray-500">
                     <use href={`${sprite}#icon-person-filled`}></use>
                   </svg>
@@ -130,7 +130,7 @@ export const LinksMobileLayout: React.FC = () => {
         {!isLoggedIn && showLinks && (
           <ul
             className="flex flex-col items-start justify-center 
-             fixed top-16 right-0 left-0 bg-gray-50 pb-2 
+             fixed top-16 right-0 left-0 bg-gray-100 pb-2 
              animate-opacityZeroToFull  shadow-md  z-[20]"
           >
             <li className="w-full">

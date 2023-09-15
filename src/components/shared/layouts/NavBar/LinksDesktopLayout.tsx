@@ -16,7 +16,7 @@ export const LinksDesktopLayout: React.FC = () => {
           <ul className="flex justify-center items-center space-x-2">
             <li className="w-full">
               <NavLink to="#" className="flex items-center gap-x-2">
-                <span className="bg-gray-50 p-1 grid place-items-center rounded-[50%]">
+                <span className="bg-gray-100 p-1 grid place-items-center rounded-[50%]">
                   <svg className="w-5 h-5 fill-gray-600">
                     <use href={`${sprite}#icon-bookmark-filled`}></use>
                   </svg>
@@ -25,7 +25,7 @@ export const LinksDesktopLayout: React.FC = () => {
             </li>
             <li className="w-full">
               <NavLink to="#" className="flex items-center gap-x-2">
-                <span className="bg-gray-50 p-1 grid place-items-center rounded-[50%]">
+                <span className="bg-gray-100 p-1 grid place-items-center rounded-[50%]">
                   <svg className="w-5 h-5 fill-gray-600 ">
                     <use href={`${sprite}#icon-notification`}></use>
                   </svg>
@@ -34,7 +34,7 @@ export const LinksDesktopLayout: React.FC = () => {
             </li>
             <li className="w-full">
               <NavLink to="#" className="flex items-center gap-x-2">
-                <span className="bg-gray-50 p-1 grid place-items-center rounded-[50%]">
+                <span className="bg-gray-100 p-1 grid place-items-center rounded-[50%]">
                   <svg className="w-5 h-5 text-gray-600 ">
                     <use href={`${sprite}#icon-chat`}></use>
                   </svg>
@@ -43,8 +43,8 @@ export const LinksDesktopLayout: React.FC = () => {
             </li>
             <li className="w-full">
               <NavLink to="#" className="flex items-center gap-x-2">
-                <span className="bg-gray-50 p-1 grid place-items-center rounded-[50%]">
-                  <svg className="w-5 h-5 fill-gray-500 bg-gray-50">
+                <span className="bg-gray-100 p-1 grid place-items-center rounded-[50%]">
+                  <svg className="w-5 h-5 fill-gray-500">
                     <use href={`${sprite}#icon-video-call`}></use>
                   </svg>
                 </span>
@@ -52,7 +52,7 @@ export const LinksDesktopLayout: React.FC = () => {
             </li>
             <li className="w-full">
               <NavLink to="#" className="flex items-center gap-x-2">
-                <span className="bg-gray-50 p-1 grid place-items-center rounded-[50%]">
+                <span className="bg-gray-100 p-1 grid place-items-center rounded-[50%]">
                   <svg className="w-5 h-5 fill-gray-500">
                     <use href={`${sprite}#icon-person-filled`}></use>
                   </svg>
