@@ -6,16 +6,16 @@ export const HeaderContent: React.FC = () => {
   return (
     <Fragment>
       <div
-        className="w-full flex items-center justify-center sm:gap-x-24
-            bg-gray-100  py-16 text-gray-200 bg-gradient-to-tr
-             from-primary-dark via-primary to-primary-light"
+        className="w-full flex flex-col gap-y-8 sm:gap-y-0 sm:flex-row sm:items-center sm:justify-center sm:gap-x-8
+         lg:gap-x-16 px-8 py-16 text-gray-200 bg-gradient-to-tr
+       from-primary-dark via-primary to-primary-light transition-all"
       >
         <div
           className="flex flex-col items-center justify-center rounded-md
            p-4 gap-4 shadow-2xl bg-gradient-to-tr from-primary
            via-primary-light to-primary-dark"
         >
-          <span>Sell your products live</span>
+          <span className="text-center">Sell your products live</span>
           <span className="bg-gray-200 p-2 grid place-items-center rounded-[50%]">
             <svg className="w-5 h-5 fill-primary-light">
               <use href={`${sprite}#icon-video-call`}></use>
@@ -28,7 +28,7 @@ export const HeaderContent: React.FC = () => {
             p-4 gap-4 shadow-2xl bg-gradient-to-tr from-primary
             via-primary-light to-primary-dark"
         >
-          <span>How to buy on owino.com</span>
+          <span className="text-center">How to buy on owino.com</span>
           <span className="bg-gray-200 p-2 grid place-items-center rounded-[50%]">
             <svg className="w-5 h-5 fill-primary-light">
               <use href={`${sprite}#icon-bookmark-filled`}></use>
@@ -43,7 +43,7 @@ export const HeaderContent: React.FC = () => {
             p-4 gap-4 shadow-2xl bg-gradient-to-tr from-primary
             via-primary-light to-primary-dark"
         >
-          <span>Got something to sell</span>
+          <span className="text-center">Got something to sell</span>
           <span className="bg-gray-200 p-2 grid place-items-center rounded-[50%]">
             <svg className="w-5 h-5 fill-primary-light">
               <use href={`${sprite}#icon-plus`}></use>
