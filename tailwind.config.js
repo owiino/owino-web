@@ -32,6 +32,7 @@ export default {
       },
       animation: {
         slideDown: "slideDown 0.5s ease-out forwards",
+        opacityZeroToFull: "opacityZeroToFull 0.5s ease-out forwards",
         moveInRight: "moveInRight 0.35s ease-out",
         rotate: "rotate 0.8s linear infinite",
         border: "border-color .5s ease",
@@ -41,6 +42,10 @@ export default {
         slideDown: {
           "0%": { opacity: "0", transform: "translateY(-300px)" },
           "100%": { opacity: "1", transform: "translateY(0px)" },
+        },
+        opacityZeroToFull: {
+          "0%": { opacity: "0" },
+          "100%": { opacity: "1" },
         },
         moveInRight: {
           "0%": { opacity: "0", transform: "translateX(300px)" },
