@@ -15,7 +15,8 @@ export const PageLayout: React.FC<PageLayoutProps> = (props) => {
     <Fragment>
       <div
         className="space-y-8 min-h-[100vh] h-auto relative
-           pt-10"
+           pt-10 bg-gradient-to-tl from-purple-100
+           via-gray-100 to-blue-50"
       >
         <NavBar />
         <PageContentLayout
