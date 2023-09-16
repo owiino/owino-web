@@ -17,7 +17,6 @@ export const ChangePhoneNumber: React.FC = () => {
   const accessToken: string = useSelector(
     (state: any) => state.auth.accessToken
   );
-  console.log("accessToken", accessToken);
 
   const [isFocused, setIsFocused] = useState<boolean>(false);
   const [activeInputField, setActiveInputField] = useState<string>("");

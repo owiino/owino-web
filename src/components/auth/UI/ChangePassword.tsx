@@ -15,6 +15,10 @@ const validatePassword = (password: string) =>
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/.test(password);
 export const ChangePassword: React.FC = () => {
   const userId: number = useSelector((state: any) => state.auth.user.userId);
+  const accessToken: string = useSelector(
+    (state: any) => state.auth.accessToken
+  );
+
   const [showCurrentPassword, setShowCurrentPassword] =
     useState<Boolean>(false);
   const [showNewPassword, setShowNewPassword] = useState<Boolean>(false);
@@ -103,6 +107,7 @@ export const ChangePassword: React.FC = () => {
       userId: userId,
       currentPassword: currentPasswordValue,
       newPassword: newPasswordValue,
+      accessToken: accessToken,
     });
   };
   return (

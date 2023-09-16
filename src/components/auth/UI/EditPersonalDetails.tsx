@@ -16,6 +16,9 @@ const validLastName = (lastName: string) => lastName.trim() !== "";
 
 export const EditPersonalDetails: React.FC = () => {
   const userId: number = useSelector((state: any) => state.auth.user.userId);
+  const accessToken: string = useSelector(
+    (state: any) => state.auth.accessToken
+  );
   const [isFocused, setIsFocused] = useState<boolean>(false);
   const [activeInputField, setActiveInputField] = useState<string>("");
 
@@ -89,6 +92,7 @@ export const EditPersonalDetails: React.FC = () => {
       userId: userId,
       firstName: firstNameValue,
       lastName: lastNameValue,
+      accessToken: accessToken,
     });
   };
   return (

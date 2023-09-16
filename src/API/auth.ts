@@ -137,10 +137,12 @@ export const editPersonalDetails = async ({
   userId,
   firstName,
   lastName,
+  accessToken,
 }: {
   userId: number;
   firstName: string;
   lastName: string;
+  accessToken: string;
 }) => {
   const response = await fetch(`${url}/users/edit-user-details/${userId}`, {
     method: "PATCH",
@@ -150,6 +152,7 @@ export const editPersonalDetails = async ({
     }),
     headers: {
       "Content-type": "application/json",
+      Authorization: `Bearer ${accessToken}`,
     },
   });
 
@@ -188,10 +191,12 @@ export const changePassword = async ({
   currentPassword,
   newPassword,
   userId,
+  accessToken,
 }: {
   userId: number;
   currentPassword: string;
   newPassword: string;
+  accessToken: string;
 }) => {
   const response = await fetch(`${url}/users/change-password/${userId}`, {
     method: "PATCH",
@@ -201,6 +206,7 @@ export const changePassword = async ({
     }),
     headers: {
       "Content-type": "application/json",
+      Authorization: `Bearer ${accessToken}`,
     },
   });
 
