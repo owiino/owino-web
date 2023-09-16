@@ -10,7 +10,7 @@ interface PageLayoutProps {
   pageLinks: TPageLink[];
 }
 
-export const PageLayout: React.FC<PageLayoutProps> = (props) => {
+export const PageLayoutClassic: React.FC<PageLayoutProps> = (props) => {
   return (
     <Fragment>
       <div

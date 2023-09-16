@@ -1,5 +1,5 @@
 import React from "react";
-import { PageLayout } from "../../shared/layouts/PageLayout";
+import { PageLayoutClassic } from "../../shared/layouts/PageLayoutClassic";
 import { EditPersonalDetails } from "../../auth/UI/EditPersonalDetails";
 import { ChangePassword } from "../../auth/UI/ChangePassword";
 import { ChangePhoneNumber } from "../../auth/UI/ChangePhoneNumber";
@@ -25,7 +25,7 @@ export const Settings: React.FC = () => {
   ];
 
   return (
-    <PageLayout
+    <PageLayoutClassic
       pageIcon="settings"
       pageLabel="Settings"
       pageLinks={pageLinks}
