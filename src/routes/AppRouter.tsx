@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect } from "react";
-import { BrowserRouter, Routes, Route, Navigate, Link } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { io, Socket } from "socket.io-client";
 import { authenticate } from "../store/actions/auth";
@@ -90,6 +90,7 @@ export const AppRouter: React.FC = () => {
               )}
               <Routes>
                 <Route path="/" element={<Home />} />
+                <Route path="/home" element={<Navigate to="/" replace />} />
                 <Route path="*" element={<Navigate to="/" replace />} />
               </Routes>
             </Fragment>
@@ -107,16 +108,10 @@ export const AppRouter: React.FC = () => {
                   />
                 )}
                 <Routes>
-                  <Route
-                    path="/"
-                    element={
-                      <div>
-                        <p>LoggedIn welcome component here</p>
-                        <Link to="/settings">Settings here</Link>
-                      </div>
-                    }
-                  />
+                  <Route path="/" element={<Home />} />
                   <Route path="/settings" element={<Settings />} />
+                  <Route path="/home" element={<Navigate to="/" replace />} />
+                  <Route path="*" element={<Navigate to="/" replace />} />
                 </Routes>
               </Fragment>
             </>
