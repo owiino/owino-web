@@ -27,7 +27,7 @@ export const LinksDesktopLayout: React.FC = () => {
               <NavLink to="#" className="flex items-center gap-x-2">
                 <span className="bg-gray-100 p-1 grid place-items-center rounded-[50%]">
                   <svg className="w-5 h-5 fill-gray-600 ">
-                    <use href={`${sprite}#icon-notification`}></use>
+                    <use href={`${sprite}#icon-notification-filled`}></use>
                   </svg>
                 </span>
               </NavLink>
@@ -35,8 +35,8 @@ export const LinksDesktopLayout: React.FC = () => {
             <li className="w-full">
               <NavLink to="#" className="flex items-center gap-x-2">
                 <span className="bg-gray-100 p-1 grid place-items-center rounded-[50%]">
-                  <svg className="w-5 h-5 text-gray-600 ">
-                    <use href={`${sprite}#icon-chat`}></use>
+                  <svg className="w-5 h-5 fill-gray-600 ">
+                    <use href={`${sprite}#icon-chat-filled`}></use>
                   </svg>
                 </span>
               </NavLink>
@@ -44,7 +44,7 @@ export const LinksDesktopLayout: React.FC = () => {
             <li className="w-full">
               <NavLink to="#" className="flex items-center gap-x-2">
                 <span className="bg-gray-100 p-1 grid place-items-center rounded-[50%]">
-                  <svg className="w-5 h-5 fill-gray-500">
+                  <svg className="w-5 h-5 fill-gray-600">
                     <use href={`${sprite}#icon-video-call`}></use>
                   </svg>
                 </span>
@@ -53,7 +53,7 @@ export const LinksDesktopLayout: React.FC = () => {
             <li className="w-full">
               <NavLink to="#" className="flex items-center gap-x-2">
                 <span className="bg-gray-100 p-1 grid place-items-center rounded-[50%]">
-                  <svg className="w-5 h-5 fill-gray-500">
+                  <svg className="w-5 h-5 fill-gray-600">
                     <use href={`${sprite}#icon-person-filled`}></use>
                   </svg>
                 </span>
