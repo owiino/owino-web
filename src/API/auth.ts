@@ -214,9 +214,11 @@ export const changePassword = async ({
 export const changePhoneNumber = async ({
   phoneNumber,
   userId,
+  accessToken,
 }: {
   userId: number;
   phoneNumber: string;
+  accessToken: string;
 }) => {
   const response = await fetch(`${url}/users/change-phone-number/${userId}`, {
     method: "PATCH",
@@ -225,6 +227,7 @@ export const changePhoneNumber = async ({
     }),
     headers: {
       "Content-type": "application/json",
+      Authorization: `Bearer ${accessToken}`,
     },
   });
 

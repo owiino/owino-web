@@ -14,6 +14,11 @@ const validatePhoneNumber = (phoneNumber: string) =>
   phoneNumber.trim().startsWith("2567") && phoneNumber.trim().length === 12;
 export const ChangePhoneNumber: React.FC = () => {
   const userId: number = useSelector((state: any) => state.auth.user.userId);
+  const accessToken: string = useSelector(
+    (state: any) => state.auth.accessToken
+  );
+  console.log("accessToken", accessToken);
+
   const [isFocused, setIsFocused] = useState<boolean>(false);
   const [activeInputField, setActiveInputField] = useState<string>("");
 
@@ -75,6 +80,7 @@ export const ChangePhoneNumber: React.FC = () => {
     mutate({
       userId: userId,
       phoneNumber: phoneNumberValue,
+      accessToken: accessToken,
     });
   };
   return (
