@@ -10,7 +10,7 @@ export const NavBar: React.FC = () => {
     <Fragment>
       <div
         className="bg-primary flex items-center justify-between 
-            gap-x-2 md:gap-x-4 xl:gap-x-8  p-4 py-2 transition-all
+            gap-x-2 md:gap-x-4 xl:gap-x-8 pl-0 p-4 py-2 transition-all
             shadow-xl border-b-[1px] border-gray-opacity fixed
             top-0 left-0 right-0 z-[100]"
       >
