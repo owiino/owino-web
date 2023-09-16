@@ -1,6 +1,7 @@
 import React, { Fragment, useState } from "react";
 import { addCommasToNumber } from "../../../utils/addComasToNumber";
 import sprite from "../../../assets/icons/sprite.svg";
+import phone from "../../../assets/images/phone.png";
 
 interface ProductProps {
   saved: boolean;
@@ -27,7 +28,7 @@ export const Product: React.FC<ProductProps> = (props) => {
            rounded-trs"
         >
           <img
-            src={"image url"}
+            src={phone}
             alt="product image"
             className="w-full h-full rounded-t"
           />

@@ -1,6 +1,7 @@
 import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
 import sprite from "../../../assets/icons/sprite.svg";
+import electronics from "../../../assets/images/electronics.png";
 
 export const ProductCategories: React.FC = () => {
   const productCategories = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
@@ -9,7 +10,7 @@ export const ProductCategories: React.FC = () => {
     <Fragment>
       <div
         className="rounded shadow-md w-full sm:w-72 p-2 border-[1px]
-       border-gray-300 sticky top-0"
+       border-gray-300 space-y-1"
       >
         <ul>
           {productCategories.map((_, index) => {
@@ -21,7 +22,7 @@ export const ProductCategories: React.FC = () => {
                 >
                   <div className="flex items-center justify-center gap-x-2">
                     <img
-                      src={"image url"}
+                      src={electronics}
                       alt={"category name"}
                       className="w-16 h-10 bg-gray-500"
                     />
