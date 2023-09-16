@@ -125,6 +125,20 @@ export const LinksMobileLayout: React.FC = () => {
                 <span className="text-gray-800">Profile</span>
               </NavLink>
             </li>
+            <li className="w-full">
+              <NavLink
+                to="/settings"
+                className="flex items-center gap-x-2 hover:bg-gray-300 px-4 py-2
+                w-full transition-all"
+              >
+                <span className="bg-gray-100 p-1 grid place-items-center rounded-[50%]">
+                  <svg className="w-5 h-5 fill-gray-500">
+                    <use href={`${sprite}#icon-settings`}></use>
+                  </svg>
+                </span>
+                <span className="text-gray-800">Settings</span>
+              </NavLink>
+            </li>
           </ul>
         )}
         {!isLoggedIn && showLinks && (
