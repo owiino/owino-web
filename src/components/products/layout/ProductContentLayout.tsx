@@ -14,14 +14,14 @@ export const ProductContentLayout: React.FC = () => {
   return (
     <Fragment>
       <div
-        className="sm:flex items-start justify-between gap-3 
+        className="lg:flex items-start justify-between gap-3 
             p-4 sm:p-8 relative"
       >
         <div className="relatives">
           <ProductCategories />
         </div>
-        <div className="flex-1">
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
+        <div className="lg:flex-1">
+          <div className="grid grid-cols-2 sm:grid-cols-4 2xl:grid-cols-5 gap-3">
             {products.map((num) => {
               return (
                 <div key={num}>

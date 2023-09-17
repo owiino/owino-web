@@ -24,13 +24,13 @@ export const Product: React.FC<ProductProps> = (props) => {
          shadow-md rounded mt-4"
       >
         <div
-          className="h-32 w-full bg-gray-400 rounded-t
+          className="h-auto w-full bg-gray-400 rounded-t
            rounded-trs"
         >
           <img
             src={phone}
             alt="product image"
-            className="w-full h-full rounded-t"
+            className="w-full  rounded-t aspect-[4/3]"
           />
         </div>
         <div
