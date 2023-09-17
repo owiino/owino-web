@@ -9,18 +9,21 @@ export const ProductCategories: React.FC = () => {
   return (
     <Fragment>
       <div
-        className="rounded shadow-md w-full sm:w-72 p-2 border-[1px]
-       border-gray-300 space-y-1"
+        className="lg:rounded lg:shadow-md w-full sm:w-72 p-2 lg:border-[1px]
+        border-gray-300"
       >
-        <ul>
+        <ul className="space-4 lg:space-y-1">
           {productCategories.map((_, index) => {
             return (
               <li key={index} className="w-full ">
                 <Link
                   to="#"
-                  className="w-full flex items-center justify-between gap-x-2"
+                  className="w-full flex  items-center justify-between lg:gap-x-2"
                 >
-                  <div className="flex items-center justify-center gap-x-2">
+                  <div
+                    className="flex flex-col lg:flex-row items-center justify-center 
+                       gap-x-2 bg-gray-50"
+                  >
                     <img
                       src={electronics}
                       alt={"category name"}
