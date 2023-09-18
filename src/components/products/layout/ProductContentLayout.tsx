@@ -15,9 +15,9 @@ export const ProductContentLayout: React.FC = () => {
     <Fragment>
       <div
         className="lg:flex items-start justify-between gap-3 
-         p-4 sm:p-8 relative"
+         p-4 sm:p-8"
       >
-        <div className="relatives w-full lg:w-auto">
+        <div className="w-full lg:w-auto lg:sticky lg:top-10">
           <ProductCategories />
         </div>
         <div className="lg:flex-1">

@@ -1,39 +1,36 @@
 import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
-import sprite from "../../../assets/icons/sprite.svg";
+// import sprite from "../../../assets/icons/sprite.svg";
 import electronics from "../../../assets/images/electronics.png";
 
 export const ProductCategories: React.FC = () => {
   const productCategories = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
-  const categoriesStylesDesktop = `lg:inline-block space-x-2 py-0 aspect-none`;
+  const categoriesStylesDesktop = `lg:bg-gray-200 lg:flex-row lg:items-center lg:justify-start lg:p-1
+                                   aspect-none lg:gap-x-2  lg:h-10 lg:w-full`;
   const categoriesStylesMobile = `flex flex-col items-center justify-center p-4 aspect-[4/4]`;
 
   return (
     <Fragment>
       <div
         className="lg:rounded lg:shadow-md w-full lg:w-72 lg:border-[1px]
-        border-gray-300"
+        border-gray-300 lg:p-2"
       >
         <ul
           className="grid grid-cols-3 xs:grid-cols-5 sm:grid-cols-5 grid-rows-auto 
-           gap-[2px] lg:block lg:space-y-1 w-full"
+           gap-[2px] lg:flex flex-col lg:gap-0 w-full"
         >
           {productCategories.map((_, index) => {
             return (
               <li key={index} className="w-full bg-gray-50 lg:bg-gray-100 ">
                 <Link to="#">
-                  {/* <div
-                    className="flex flex-col lg:flex-row items-center justify-center 
-                       gap-x-2 bg-gray-50"
-                  > */}
                   <div
-                    className={`${categoriesStylesMobile} ${categoriesStylesDesktop} space-y-2`}
+                    className={`${categoriesStylesMobile} ${categoriesStylesDesktop}`}
                   >
                     <img
                       src={electronics}
                       alt={"category name"}
-                      className="w-16 h-10 bg-gray-500"
+                      className="w-12 h-auto bg-gray-500 aspect-[4/3]"
                     />
                     <span className="text-center text-sm lg:text-base">
                       Category
