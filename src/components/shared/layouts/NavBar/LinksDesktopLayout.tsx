@@ -9,6 +9,7 @@ export const LinksDesktopLayout: React.FC = () => {
   const isLoggedIn: boolean = useSelector(
     (state: any) => state.auth.isLoggedIn
   );
+  const user = useSelector((state: any) => state.auth.user);
 
   return (
     <Fragment>
@@ -60,11 +61,22 @@ export const LinksDesktopLayout: React.FC = () => {
             <li className="w-full">
               <NavDropDown>
                 <NavLink to="#" className="flex items-center gap-x-2">
-                  <span className="bg-gray-100 p-1 grid place-items-center rounded-[50%]">
-                    <svg className="w-5 h-5 fill-gray-600">
-                      <use href={`${sprite}#icon-person-filled`}></use>
-                    </svg>
-                  </span>
+                  {!user.imageUrl && (
+                    <span className="bg-gray-100 p-1 grid place-items-center rounded-[50%]">
+                      <svg className="w-5 h-5 fill-gray-600">
+                        <use href={`${sprite}#icon-person-filled`}></use>
+                      </svg>
+                    </span>
+                  )}
+                  {user.imageUrl && (
+                    <div className="bg-gray-300 w-8 h-8 grid place-items-center rounded-[50%]">
+                      <img
+                        src={user.imageUrl}
+                        alt={user.firstName}
+                        className="w-full h-full rounded-[50%]"
+                      />
+                    </div>
+                  )}
                 </NavLink>
               </NavDropDown>
             </li>
