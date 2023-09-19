@@ -48,7 +48,7 @@ export const LinksDesktopLayout: React.FC = () => {
               </NavLink>
             </li>
             <li className="w-full">
-              <NavLink to="#" className="flex items-center gap-x-2">
+              <NavLink to="/live" className="flex items-center gap-x-2">
                 <span className="bg-gray-100 p-1 grid place-items-center rounded-[50%]">
                   <svg className="w-5 h-5 fill-gray-600">
                     <use href={`${sprite}#icon-video-call`}></use>

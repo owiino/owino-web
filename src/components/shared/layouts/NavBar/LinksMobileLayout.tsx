@@ -99,7 +99,7 @@ export const LinksMobileLayout: React.FC = () => {
             </li>
             <li className="w-full">
               <NavLink
-                to="#"
+                to="/live"
                 className="flex items-center gap-x-2 hover:bg-gray-300 px-4 py-2
                 w-full transition-all"
               >
