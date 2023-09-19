@@ -36,7 +36,8 @@ export const NavDropDown: React.FC<NavDropDownProps> = (props) => {
         {showDropDown && (
           <ul
             className="absolute sm:right-5 bg-gray-100 py-2 space-y-1 rounded 
-               shadow-lg z-[100] transition-all"
+               shadow-lg z-[100] transition-all border-[1px] border-gray-opacity
+               sm:border-none left-[35%] top-48s top-16"
           >
             <li>
               <NavLink
