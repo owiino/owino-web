@@ -12,6 +12,7 @@ import { TNotificationState } from "../types/notification";
 import { useReAuthenticate } from "../hooks/useReAuthenticate";
 import { Settings } from "../components/common/pages/Settings";
 import { Chat } from "../components/chat/pages/Chat";
+import { SavedProducts } from "../components/products/Pages/SavedProducts";
 
 export const AppRouter: React.FC = () => {
   const auth = useSelector((state: TAuthState) => state.auth);
@@ -109,6 +110,11 @@ export const AppRouter: React.FC = () => {
                 )}
                 <Routes>
                   <Route path="/" element={<Home />} />
+                  <Route path="/saved-adverts" element={<SavedProducts />} />
+                  {/* <Route path="/notifications" element={<Settings />} />
+                  <Route path="/live" element={<Settings />} />
+                  <Route path="/profile" element={<Settings />} />
+                  <Route path="/my-shop" element={<Settings />} /> */}
                   <Route path="/settings" element={<Settings />} />
                   <Route path="/home" element={<Navigate to="/" replace />} />
                   <Route path="*" element={<Navigate to="/" replace />} />

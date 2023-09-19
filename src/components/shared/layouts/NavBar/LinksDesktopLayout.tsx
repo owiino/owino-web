@@ -15,7 +15,10 @@ export const LinksDesktopLayout: React.FC = () => {
         {isLoggedIn && (
           <ul className="flex justify-center items-center space-x-2">
             <li className="w-full">
-              <NavLink to="#" className="flex items-center gap-x-2">
+              <NavLink
+                to="/saved-adverts"
+                className="flex items-center gap-x-2"
+              >
                 <span className="bg-gray-100 p-1 grid place-items-center rounded-[50%]">
                   <svg className="w-5 h-5 fill-gray-600">
                     <use href={`${sprite}#icon-bookmark-filled`}></use>
