@@ -1,6 +1,7 @@
 import React, { Fragment } from "react";
 import { Header } from "../../shared/layouts/Header";
 import { ProductContentLayout } from "../../products/layout/ProductContentLayout";
+import { Footer } from "../../shared/layouts/Footer";
 
 export const Home: React.FC = () => {
   return (
@@ -11,6 +12,7 @@ export const Home: React.FC = () => {
       >
         <Header />
         <ProductContentLayout />
+        <Footer />
       </div>
     </Fragment>
   );
