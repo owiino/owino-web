@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 import sprite from "../../../../assets/icons/sprite.svg";
 import { useSelector } from "react-redux";
 import { AuthLayout } from "../../../auth/layouts/AuthLayout";
+import { NavDropDown } from "../../UI/NavDropDown";
 
 export const LinksDesktopLayout: React.FC = () => {
   const isLoggedIn: boolean = useSelector(
@@ -57,13 +58,15 @@ export const LinksDesktopLayout: React.FC = () => {
               </NavLink>
             </li>
             <li className="w-full">
-              <NavLink to="/profile" className="flex items-center gap-x-2">
-                <span className="bg-gray-100 p-1 grid place-items-center rounded-[50%]">
-                  <svg className="w-5 h-5 fill-gray-600">
-                    <use href={`${sprite}#icon-person-filled`}></use>
-                  </svg>
-                </span>
-              </NavLink>
+              <NavDropDown>
+                <NavLink to="#" className="flex items-center gap-x-2">
+                  <span className="bg-gray-100 p-1 grid place-items-center rounded-[50%]">
+                    <svg className="w-5 h-5 fill-gray-600">
+                      <use href={`${sprite}#icon-person-filled`}></use>
+                    </svg>
+                  </span>
+                </NavLink>
+              </NavDropDown>
             </li>
           </ul>
         )}
