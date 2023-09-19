@@ -15,6 +15,7 @@ import { Chat } from "../components/chat/pages/Chat";
 import { SavedProducts } from "../components/products/Pages/SavedProducts";
 import { UserNotifications } from "../components/user-notifications/pages/UserNotifications";
 import { Live } from "../components/live-video/Pages/Live";
+import { Profile } from "../components/Profile/pages/Profile";
 
 export const AppRouter: React.FC = () => {
   const auth = useSelector((state: TAuthState) => state.auth);
@@ -118,7 +119,7 @@ export const AppRouter: React.FC = () => {
                     element={<UserNotifications />}
                   />
                   <Route path="/live" element={<Live />} />
-                  {/* <Route path="/profile" element={<Settings />} /> */}
+                  <Route path="/profile" element={<Profile />} />
                   {/* <Route path="/my-shop" element={<Settings />} /> */}
                   <Route path="/settings" element={<Settings />} />
                   <Route path="/home" element={<Navigate to="/" replace />} />
