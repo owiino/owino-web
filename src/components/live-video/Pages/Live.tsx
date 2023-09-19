@@ -8,12 +8,12 @@ export const Live: React.FC = () => {
   const pageLinks: TPageLink[] = [
     {
       linkName: "Go live",
-      linkValue: "go-live",
+      linkValue: "live#go-live",
       linkComponent: <GoLive />,
     },
     {
       linkName: "Live videos",
-      linkValue: "live-videos",
+      linkValue: "live#live-videos",
       linkComponent: <WatchLiveVideos />,
     },
   ];

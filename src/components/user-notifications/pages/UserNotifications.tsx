@@ -7,7 +7,7 @@ export const UserNotifications: React.FC = () => {
   const pageLinks: TPageLink[] = [
     {
       linkName: "Notifications",
-      linkValue: "notifications",
+      linkValue: "notifications#notifications",
       linkComponent: <UserNotificationsList />,
     },
   ];

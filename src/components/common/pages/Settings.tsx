@@ -9,17 +9,17 @@ export const Settings: React.FC = () => {
   const pageLinks: TPageLink[] = [
     {
       linkName: "Personal Details",
-      linkValue: "edit-personal-details",
+      linkValue: "settings#edit-personal-details",
       linkComponent: <EditPersonalDetails />,
     },
     {
       linkName: "Change password",
-      linkValue: "change-password",
+      linkValue: "settings#change-password",
       linkComponent: <ChangePassword />,
     },
     {
       linkName: "Change phone number",
-      linkValue: "change-phone-number",
+      linkValue: "settings#change-phone-number",
       linkComponent: <ChangePhoneNumber />,
     },
   ];
