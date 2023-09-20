@@ -18,6 +18,7 @@ import {
   showCardNotification,
 } from "../../../store/actions/notification";
 import { updateMessageList } from "../../../store/actions/chat";
+import { MessageLoader } from "../UI/MessageLoader";
 
 interface ChatLayoutProps {
   socket: Socket;
@@ -81,8 +82,6 @@ export const ChatLayout: React.FC<ChatLayoutProps> = (props) => {
       },
     }
   );
-
-  console.log("isLoading", isLoading);
 
   const newMessage: IChatMessage = {
     senderId: currentUser.userId,
@@ -150,7 +149,7 @@ export const ChatLayout: React.FC<ChatLayoutProps> = (props) => {
           <div
             className=" w-full sm:w-96 bg-gray-50 rounded-md shadow-2xl p-4 pt-3 borders-[1px]
          border-gray-200 space-y-4 flex flex-col items-start  h-auto animate-opacityZeroToFull
-          "
+           relative"
           >
             <ChatHeader
               recipientName={`${recipient.firstName} ${recipient.lastName}`}
@@ -166,6 +165,7 @@ export const ChatLayout: React.FC<ChatLayoutProps> = (props) => {
               }
               type={alertMessage.type ? alertMessage.type : "default"}
             />
+            {isLoading && <MessageLoader />}
             <ChatMessages messages={messageList} />
             <ChatForm onSubmit={onSubmitHandler} />
           </div>
