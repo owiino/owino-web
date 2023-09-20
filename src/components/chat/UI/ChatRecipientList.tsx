@@ -51,7 +51,6 @@ export const ChatRecipientList: React.FC<ChatRecipientListProps> = (props) => {
     },
     {
       onSuccess: (data: any) => {
-        console.log("data for recipient messages", data);
         setRecipientList(() => data.data.recipients);
       },
       onError: (error: any) => {

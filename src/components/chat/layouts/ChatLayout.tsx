@@ -37,7 +37,6 @@ export const ChatLayout: React.FC<ChatLayoutProps> = (props) => {
     setChatMessage(message);
   };
 
-  console.log("chatMessage", chatMessage); //To be removed
   const currentUser: TUser = useSelector((state: any) => state.auth.user);
   const recipient: TUser = useSelector(
     (state: any) => state.chat.currentRecipient
@@ -98,7 +97,6 @@ export const ChatLayout: React.FC<ChatLayoutProps> = (props) => {
       if (!chatMessage) return;
       dispatch(addToMessageList(newMessage));
       props.socket.emit("sendChatMessage", newMessage);
-      console.log("message sent", newMessage);
     };
     sendMessageHandler();
   }, [chatMessage]);
@@ -131,8 +129,6 @@ export const ChatLayout: React.FC<ChatLayoutProps> = (props) => {
 
   const notificationMessage =
     "Messages here are only viewed btn and seller. Not even owino can see the messages";
-
-  console.log("messageList", messageList);
 
   return (
     <Fragment>
