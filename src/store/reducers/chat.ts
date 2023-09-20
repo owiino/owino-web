@@ -21,6 +21,7 @@ const initialState: TChat = {
   },
   messageList: [],
   showChat: false,
+  showChatRecipientList: false,
 };
 export const chatSlice = createSlice({
   name: "chat",
@@ -49,6 +50,12 @@ export const chatSlice = createSlice({
     },
     hideChat(state) {
       state.showChat = false;
+    },
+    showChatRecipientList(state) {
+      state.showChatRecipientList = true;
+    },
+    hideRecipientList(state) {
+      state.showChatRecipientList = false;
     },
     clearChat(state) {
       state.chatRecipientList = [];

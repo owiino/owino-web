@@ -27,6 +27,7 @@ export type TChat = {
   currentRecipient: TUser;
   messageList: IChatMessage[];
   showChat: boolean;
+  showChatRecipientList: boolean;
 };
 
 export type TChatState = {

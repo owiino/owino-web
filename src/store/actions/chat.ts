@@ -53,3 +53,15 @@ export const hideChat = () => {
     dispatch(chatActions.hideChat());
   };
 };
+
+export const showChatRecipientList = () => {
+  return (dispatch: any) => {
+    dispatch(chatActions.showChatRecipientList());
+  };
+};
+
+export const hideChatRecipientList = () => {
+  return (dispatch: any) => {
+    dispatch(chatActions.hideRecipientList());
+  };
+};

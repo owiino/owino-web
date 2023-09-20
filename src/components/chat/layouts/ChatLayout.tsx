@@ -49,6 +49,12 @@ export const ChatLayout: React.FC<ChatLayoutProps> = (props) => {
   const accessToken: string = useSelector(
     (state: any) => state.auth.accessToken
   );
+  const showChatValue: boolean = useSelector(
+    (state: any) => state.chat.showChat
+  );
+  const showChatRecipientListValue = useSelector(
+    (state: any) => state.chat.showChatRecipientList
+  );
 
   // TODO: consider adding the active recipient
   // TODO: add chat message loader component
@@ -133,29 +139,36 @@ export const ChatLayout: React.FC<ChatLayoutProps> = (props) => {
     <Fragment>
       <div
         className="w-[90%] sm:w-96s sm:w-[600px] h-[90vh] fixed bottom-[5vh] z-[500]
-         right-[5%] md:right-[8%]s lg:right-[15%] flex items-end justify-center gap-x-2"
+         right-[5%] md:right-[8%]s lg:right-[15%] flex items-end justify-center gap-x-2
+         transition-all"
       >
-        <ChatRecipientList socket={props.socket} />
-        <div
-          className=" w-full sm:w-96 bg-gray-50 rounded-md shadow-2xl p-4 pt-3 borders-[1px]
+        {showChatRecipientListValue && (
+          <ChatRecipientList socket={props.socket} />
+        )}
+        {showChatValue && (
+          <div
+            className=" w-full sm:w-96 bg-gray-50 rounded-md shadow-2xl p-4 pt-3 borders-[1px]
          border-gray-200 space-y-4 flex flex-col items-start  h-auto
           "
-        >
-          <ChatHeader
-            recipientName={`${recipient.firstName} ${recipient.lastName}`}
-            recipientRole={`${recipient.role}`}
-            recipientImageUrl={`${recipient.imageUrl}`}
-            onChatClose={() => {}}
-          />
-          <ChatNotification
-            message={
-              alertMessage.message ? alertMessage.message : notificationMessage
-            }
-            type={alertMessage.type ? alertMessage.type : "default"}
-          />
-          <ChatMessages messages={messageList} />
-          <ChatForm onSubmit={onSubmitHandler} />
-        </div>
+          >
+            <ChatHeader
+              recipientName={`${recipient.firstName} ${recipient.lastName}`}
+              recipientRole={`${recipient.role}`}
+              recipientImageUrl={`${recipient.imageUrl}`}
+              onChatClose={() => {}}
+            />
+            <ChatNotification
+              message={
+                alertMessage.message
+                  ? alertMessage.message
+                  : notificationMessage
+              }
+              type={alertMessage.type ? alertMessage.type : "default"}
+            />
+            <ChatMessages messages={messageList} />
+            <ChatForm onSubmit={onSubmitHandler} />
+          </div>
+        )}
       </div>
     </Fragment>
   );

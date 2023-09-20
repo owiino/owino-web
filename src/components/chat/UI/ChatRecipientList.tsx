@@ -11,6 +11,8 @@ import {
 } from "../../../store/actions/notification";
 import { Socket } from "socket.io-client";
 import { TUser } from "../../../types/auth";
+import { showChat } from "../../../store/actions/chat";
+import { hideChatRecipientList } from "../../../store/actions/chat";
 
 interface ChatRecipientListProps {
   socket: Socket;
@@ -20,12 +22,19 @@ export const ChatRecipientList: React.FC<ChatRecipientListProps> = (props) => {
   const currentUserId: number = useSelector(
     (state: any) => state.auth.user.userId
   );
+  const recipient: TUser = useSelector(
+    (state: any) => state.chat.currentRecipient
+  );
   const accessToken: string = useSelector(
     (state: any) => state.auth.accessToken
   );
   const dispatch: any = useDispatch();
   const [recipientList, setRecipientList] = useState<TUser[]>([]);
-  const [activeRecipient, setActiveRecipient] = useState<TUser>();
+  const [activeRecipient, setActiveRecipient] = useState<TUser>(recipient);
+
+  const showChatHandler = () => {
+    dispatch(showChat());
+  };
 
   const { isLoading, data } = useQuery(
     ["chatRecipientList"],
@@ -66,6 +75,10 @@ export const ChatRecipientList: React.FC<ChatRecipientListProps> = (props) => {
     setActiveRecipient(recipient);
   };
 
+  const hideRecipientListHandler = () => {
+    dispatch(hideChatRecipientList());
+  };
+
   return (
     <Fragment>
       <div
@@ -77,6 +90,12 @@ export const ChatRecipientList: React.FC<ChatRecipientListProps> = (props) => {
             border-primary p-4 bg-primary rounded-tl-md rounded-tr-md"
         >
           <span className="text-gray-50">Messaging</span>
+          <svg
+            className="w-6 h-6 fill-gray-100 cursor-pointer"
+            onClick={() => hideRecipientListHandler()}
+          >
+            <use href={`${sprite}#icon-cross-small`}></use>
+          </svg>
         </div>
         {/* <div>
           <SearchMessages />
@@ -92,7 +111,9 @@ export const ChatRecipientList: React.FC<ChatRecipientListProps> = (props) => {
                         : "bg-gray-50"
                     }`}
                 key={index + 1}
-                onClick={() => joinChatRoom(recipient)}
+                onClick={() => {
+                  joinChatRoom(recipient), showChatHandler();
+                }}
               >
                 {recipient.imageUrl && (
                   <div

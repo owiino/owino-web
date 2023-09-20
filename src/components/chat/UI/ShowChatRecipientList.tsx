@@ -1,16 +1,23 @@
 import React, { Fragment } from "react";
 import sprite from "../../../assets/icons/sprite.svg";
 import { useDispatch, useSelector } from "react-redux";
-import { showChat, hideChat } from "../../../store/actions/chat";
+import {
+  showChatRecipientList,
+  hideChatRecipientList,
+  hideChat,
+} from "../../../store/actions/chat";
 
-export const ShowChat: React.FC = () => {
-  const showChatValue: boolean = useSelector(
-    (state: any) => state.chat.showChat
+export const ShowChatRecipientList: React.FC = () => {
+  const showChatRecipientListValue = useSelector(
+    (state: any) => state.chat.showChatRecipientList
   );
   const dispatch: any = useDispatch();
 
-  const showChatHandler = () => {
-    dispatch(showChat());
+  const showChatRecipientListHandler = () => {
+    dispatch(showChatRecipientList());
+  };
+  const hideRecipientListHandler = () => {
+    dispatch(hideChatRecipientList());
   };
   const hideChatHandler = () => {
     dispatch(hideChat());
@@ -20,20 +27,22 @@ export const ShowChat: React.FC = () => {
     <Fragment>
       <div
         className="grid place-items-center w-12 h-12 rounded-[50px]
-            bg-primary fixed  bottom-[5vh] right-[5vh] shadow-2xl z-500"
+            bg-primary fixed  bottom-[1vh] right-[5vh] shadow-2xl z-[500]"
       >
-        {!showChatValue && (
+        {!showChatRecipientListValue && (
           <svg
             className="w-7 h-7 text-gray-100 cursor-pointer"
-            onClick={() => showChatHandler()}
+            onClick={() => showChatRecipientListHandler()}
           >
             <use href={`${sprite}#icon-chat`}></use>
           </svg>
         )}
-        {showChatValue && (
+        {showChatRecipientListValue && (
           <svg
             className="w-7 h-7 fill-gray-100 cursor-pointer"
-            onClick={() => hideChatHandler()}
+            onClick={() => {
+              hideRecipientListHandler(), hideChatHandler();
+            }}
           >
             <use href={`${sprite}#icon-cross-small`}></use>
           </svg>
