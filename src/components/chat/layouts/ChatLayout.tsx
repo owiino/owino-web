@@ -62,7 +62,6 @@ export const ChatLayout: React.FC<ChatLayoutProps> = (props) => {
     },
     {
       onSuccess: (data: any) => {
-        console.log("chat messages", data);
         dispatch(updateMessageList(data.data.messages));
       },
       onError: (error: any) => {
