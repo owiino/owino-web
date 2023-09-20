@@ -16,6 +16,9 @@ export const ChatHeader: React.FC<ChatHeaderProps> = (props) => {
   const hideChatHandler = () => {
     dispatch(hideChat());
   };
+
+  const showImage = props.recipientImageUrl !== "null" && true;
+
   return (
     <Fragment>
       <div className="bg-blue-400s flex items-center justify-between w-full">
@@ -24,18 +27,18 @@ export const ChatHeader: React.FC<ChatHeaderProps> = (props) => {
             className="bg-gray-300 flex items-center justify-center 
                 w-12 h-12 rounded-[50%] relative"
           >
-            {/* {showImage && (
+            {showImage && (
               <img
                 src={props.recipientImageUrl}
                 alt={props.recipientName}
                 className="w-full  h-full rounded-[50%]"
               />
-              )} */}
-            {/* {!showImage && ( */}
-            <svg className="w-7 h-7 fill-gray-dark-1">
-              <use href={`${sprite}#icon-person-filled`}></use>
-            </svg>
-            {/* )} */}
+            )}
+            {!showImage && (
+              <svg className="w-7 h-7 fill-gray-dark-1">
+                <use href={`${sprite}#icon-person-filled`}></use>
+              </svg>
+            )}
             {/* TODO: To dynamically change the color od the dot depending 
               on users online status(active[fill-green-600], active-5min-ago[fill-yellow-600] 
               active-beyond-5min[fill-gray-500])  */}
