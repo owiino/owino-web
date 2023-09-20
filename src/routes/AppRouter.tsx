@@ -41,7 +41,6 @@ export const AppRouter: React.FC = () => {
     }, 4000);
   }, [dispatch]);
 
-  // TODO: increase factors for that run the useEffect
   useEffect(() => {
     const tryLogin = async () => {
       const strAuthData = localStorage.getItem("auth");
@@ -61,8 +60,8 @@ export const AppRouter: React.FC = () => {
       }
 
       if (refreshToken) {
-        reAuthenticate();
-        return;
+        const isReAuthenticated = reAuthenticate();
+        if (isReAuthenticated) return;
       }
 
       const expiryTime = new Date(expirationTime);

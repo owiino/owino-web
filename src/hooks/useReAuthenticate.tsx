@@ -39,15 +39,19 @@ export const useReAuthenticate = () => {
     return tokenExpiry > now;
   };
 
-  const reAuthenticate = () => {
+  const reAuthenticate = (): boolean => {
     const validRefreshToken = isValidRefreshToken();
     const expiredAccessToken = isExpiredAccessToken();
 
-    if (!refreshToken || !validRefreshToken || !expiredAccessToken) return;
+    if (!refreshToken || !validRefreshToken || !expiredAccessToken) {
+      return false;
+    }
 
     mutate({
       refreshToken: refreshToken,
     });
+
+    return true;
   };
 
   return { reAuthenticate };
