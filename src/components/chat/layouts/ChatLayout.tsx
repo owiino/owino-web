@@ -61,6 +61,7 @@ export const ChatLayout: React.FC<ChatLayoutProps> = (props) => {
   const { isLoading } = useQuery(
     [`${chatRoomId}-messageList`],
     () => {
+      if (!showChatRecipientListValue) return "";
       return getChatMessages({
         chatRoomId: chatRoomId,
         accessToken: accessToken,
