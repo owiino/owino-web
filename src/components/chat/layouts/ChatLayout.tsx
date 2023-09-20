@@ -8,10 +8,16 @@ import { generateChatRoomId } from "../../../utils/generateChatRoomId";
 import { addToMessageList } from "../../../store/actions/chat";
 import { IChatMessage } from "../../../types/chat";
 import { TUser } from "../../../types/auth";
-import { Messages } from "../../../utils";
 import { Socket } from "socket.io-client";
 import { ChatRecipientList } from "../UI/ChatRecipientList";
 import { TAlertMessage } from "../../../types/chat";
+import { getChatMessages } from "../../../API/chat";
+import { useQuery } from "@tanstack/react-query";
+import {
+  hideCardNotification,
+  showCardNotification,
+} from "../../../store/actions/notification";
+import { updateMessageList } from "../../../store/actions/chat";
 
 interface ChatLayoutProps {
   socket: Socket;
@@ -40,6 +46,37 @@ export const ChatLayout: React.FC<ChatLayoutProps> = (props) => {
   const chatRoomId = generateChatRoomId(currentUser.userId, recipient.userId);
   const effectRan = useRef(false);
   const dispatch: any = useDispatch();
+  const accessToken: string = useSelector(
+    (state: any) => state.auth.accessToken
+  );
+
+  // TODO: consider adding the active recipient
+  // TODO: add chat message loader component
+  const { isLoading } = useQuery(
+    [`${chatRoomId}-messageList`],
+    () => {
+      return getChatMessages({
+        chatRoomId: chatRoomId,
+        accessToken: accessToken,
+      });
+    },
+    {
+      onSuccess: (data: any) => {
+        console.log("chat messages", data);
+        dispatch(updateMessageList(data.data.messages));
+      },
+      onError: (error: any) => {
+        dispatch(
+          showCardNotification({ type: "error", message: error.message })
+        );
+        setTimeout(() => {
+          dispatch(hideCardNotification());
+        }, 5000);
+      },
+    }
+  );
+
+  console.log("isLoading", isLoading);
 
   const newMessage: IChatMessage = {
     senderId: currentUser.userId,
@@ -91,9 +128,7 @@ export const ChatLayout: React.FC<ChatLayoutProps> = (props) => {
   const notificationMessage =
     "Messages here are only viewed btn and seller. Not even owino can see the messages";
 
-  const messages = new Messages(currentUser, recipient).organize(messageList);
-
-  console.log("messages", messages);
+  console.log("messageList", messageList);
 
   return (
     <Fragment>
@@ -108,9 +143,9 @@ export const ChatLayout: React.FC<ChatLayoutProps> = (props) => {
           "
         >
           <ChatHeader
-            recipientName={"Tibesigwa"}
-            recipientRole={"Buyer"}
-            recipientImageUrl={""}
+            recipientName={`${recipient.firstName} ${recipient.lastName}`}
+            recipientRole={`${recipient.role}`}
+            recipientImageUrl={`${recipient.imageUrl}`}
             onChatClose={() => {}}
           />
           <ChatNotification
@@ -119,7 +154,7 @@ export const ChatLayout: React.FC<ChatLayoutProps> = (props) => {
             }
             type={alertMessage.type ? alertMessage.type : "default"}
           />
-          <ChatMessages messages={[]} />
+          <ChatMessages messages={messageList} />
           <ChatForm onSubmit={onSubmitHandler} />
         </div>
       </div>

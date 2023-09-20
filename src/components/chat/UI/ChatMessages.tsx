@@ -14,95 +14,13 @@ interface ChatMessagesProps {
 
 export const ChatMessages: React.FC<ChatMessagesProps> = (props) => {
   const currentUser: TUser = useSelector((state: any) => state.auth.user);
-
-  console.log(props); //To be removed
-
-  const recipient: TUser = {
-    userId: 6,
-    firstName: "Muhumuza",
-    imageUrl: null,
-    lastName: "Nicholas",
-    phoneNumber: "256754108280",
-    role: "buyer",
-    createdAt: "2023-09-02T15:29:13.532Z",
-    updatedAt: "2023-09-02T15:29:13.532Z",
-  };
-
-  const messageList = [
-    {
-      messageId: 1,
-      chatRoomId: "chatroomIdOne",
-      senderId: 5,
-      recipientId: 6,
-      message: "Hello brother Nicholas",
-      isRead: false,
-      isDelivered: false,
-      createdAt: "2023-09-06T01:51:45.278Z",
-      showMessage: true,
-    },
-    {
-      messageId: 2,
-      chatRoomId: "chatroomIdOne",
-      senderId: 5,
-      recipientId: 6,
-      message: "How are you doing",
-      isRead: false,
-      isDelivered: false,
-      createdAt: "2023-09-06T01:51:55.287Z",
-      showMessage: true,
-    },
-    {
-      messageId: 3,
-      chatRoomId: "chatroomIdOne",
-      senderId: 5,
-      recipientId: 6,
-      message: "How looking for to hearing from you",
-      isRead: false,
-      isDelivered: false,
-      createdAt: "2023-09-06T01:52:35.288Z",
-      showMessage: true,
-    },
-    {
-      messageId: 4,
-      chatRoomId: "chatroomIdOne",
-      senderId: 6,
-      recipientId: 5,
-      message: "Hey Dankan long time",
-      isRead: false,
-      isDelivered: false,
-      createdAt: "2023-09-06T01:53:45.288Z",
-      showMessage: true,
-    },
-    {
-      messageId: 5,
-      chatRoomId: "chatroomIdOne",
-      senderId: 6,
-      recipientId: 5,
-      message: "am fine and you",
-      isRead: false,
-      isDelivered: false,
-      createdAt: "2023-09-06T02:01:45.288Z",
-      showMessage: true,
-    },
-    {
-      messageId: 6,
-      chatRoomId: "chatroomIdOne",
-      senderId: 5,
-      recipientId: 6,
-      message: "Am fine but very busy bro, like very busy",
-      isRead: false,
-      isDelivered: false,
-      createdAt: "2023-09-06T05:51:45.288Z",
-      showMessage: true,
-    },
-  ];
-
-  const messages = new Messages(currentUser, recipient).organize(
-    // props.messages
-    messageList
+  const recipient: TUser = useSelector(
+    (state: any) => state.chat.currentRecipient
   );
 
-  console.log("Organized messages", messages);
+  const messages = new Messages(currentUser, recipient).organize(
+    props.messages
+  );
 
   const isPrimaryButNotFirstMessage = (
     message: IOrganizedChatMessage,
