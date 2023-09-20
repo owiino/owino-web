@@ -45,6 +45,9 @@ export const chatSlice = createSlice({
     addToMessageList(state, action: PayloadAction<TMessagePayload>) {
       state.messageList = [...state.messageList, action.payload.message];
     },
+    clearMessageList(state) {
+      state.messageList = [];
+    },
     showChat(state) {
       state.showChat = true;
     },

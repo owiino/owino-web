@@ -13,6 +13,7 @@ import { Socket } from "socket.io-client";
 import { TUser } from "../../../types/auth";
 import { showChat } from "../../../store/actions/chat";
 import { hideChatRecipientList } from "../../../store/actions/chat";
+import { clearMessageList } from "../../../store/actions/chat";
 
 interface ChatRecipientListProps {
   socket: Socket;
@@ -34,6 +35,10 @@ export const ChatRecipientList: React.FC<ChatRecipientListProps> = (props) => {
 
   const showChatHandler = () => {
     dispatch(showChat());
+  };
+
+  const clearMessageListHandler = () => {
+    dispatch(clearMessageList());
   };
 
   const { isLoading, data } = useQuery(
@@ -79,6 +84,10 @@ export const ChatRecipientList: React.FC<ChatRecipientListProps> = (props) => {
     dispatch(hideChatRecipientList());
   };
 
+  const onJoinChatRoomHandler = (recipient: TUser) => {
+    joinChatRoom(recipient), clearMessageListHandler(), showChatHandler();
+  };
+
   return (
     <Fragment>
       <div
@@ -111,9 +120,7 @@ export const ChatRecipientList: React.FC<ChatRecipientListProps> = (props) => {
                         : "bg-gray-50"
                     }`}
                 key={index + 1}
-                onClick={() => {
-                  joinChatRoom(recipient), showChatHandler();
-                }}
+                onClick={() => onJoinChatRoomHandler(recipient)}
               >
                 {recipient.imageUrl && (
                   <div

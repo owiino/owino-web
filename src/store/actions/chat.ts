@@ -42,6 +42,12 @@ export const addToMessageList = (message: IChatMessage) => {
   };
 };
 
+export const clearMessageList = () => {
+  return (dispatch: any) => {
+    dispatch(chatActions.clearMessageList());
+  };
+};
+
 export const showChat = () => {
   return (dispatch: any) => {
     dispatch(chatActions.showChat());

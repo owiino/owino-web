@@ -58,7 +58,6 @@ export const ChatLayout: React.FC<ChatLayoutProps> = (props) => {
   );
 
   // TODO: consider adding the active recipient
-  // TODO: add chat message loader component
   const { isLoading } = useQuery(
     [`${chatRoomId}-messageList`],
     () => {
