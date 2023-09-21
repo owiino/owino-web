@@ -1,8 +1,9 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import { Socket } from "socket.io-client";
 import { ChatRecipientList } from "../UI/ChatRecipientList";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { ChatAggregator } from "./ChatAggregator";
+import { hideChatRecipientList } from "../../../store/actions/chat";
 
 interface ChatLayoutProps {
   socket: Socket;
@@ -15,6 +16,20 @@ export const ChatLayout: React.FC<ChatLayoutProps> = (props) => {
   const showChatRecipientListValue = useSelector(
     (state: any) => state.chat.showChatRecipientList
   );
+  const appWidth: number = useSelector(
+    (state: any) => state.shared.currentWindowWidth
+  );
+
+  const dispatch: any = useDispatch();
+
+  useEffect(() => {
+    const setChatView = () => {
+      if (appWidth < 640 && showChatValue) {
+        dispatch(hideChatRecipientList());
+      }
+    };
+    setChatView();
+  }, [dispatch, appWidth]);
 
   return (
     <Fragment>
