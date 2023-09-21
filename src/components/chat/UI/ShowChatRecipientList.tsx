@@ -15,6 +15,10 @@ export const ShowChatRecipientList: React.FC = () => {
 
   const showChatRecipientListHandler = () => {
     dispatch(showChatRecipientList());
+
+    if (window.innerWidth < 640) {
+      dispatch(hideChat());
+    }
   };
   const hideRecipientListHandler = () => {
     dispatch(hideChatRecipientList());

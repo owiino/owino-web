@@ -85,6 +85,10 @@ export const ChatRecipientList: React.FC<ChatRecipientListProps> = (props) => {
 
   const onJoinChatRoomHandler = (recipient: TUser) => {
     joinChatRoom(recipient), clearMessageListHandler(), showChatHandler();
+
+    if (window.innerWidth < 640) {
+      hideRecipientListHandler();
+    }
   };
 
   return (

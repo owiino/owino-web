@@ -1,9 +1,13 @@
 import React, { Fragment, useState } from "react";
 import { NavLink } from "react-router-dom";
 import sprite from "../../../../assets/icons/sprite.svg";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { AuthLayout } from "../../../auth/layouts/AuthLayout";
 import { NavDropDown } from "../../UI/NavDropDown";
+import {
+  hideChat,
+  showChatRecipientList,
+} from "../../../../store/actions/chat";
 
 interface OverlayProps {
   onClose: () => void;
@@ -25,6 +29,16 @@ export const LinksMobileLayout: React.FC = () => {
     (state: any) => state.auth.isLoggedIn
   );
   const user = useSelector((state: any) => state.auth.user);
+  const dispatch: any = useDispatch();
+
+  const showChatRecipientListHandler = () => {
+    dispatch(showChatRecipientList());
+    setShowLinks(false);
+
+    if (window.innerWidth < 640) {
+      dispatch(hideChat());
+    }
+  };
 
   return (
     <Fragment>
@@ -90,6 +104,7 @@ export const LinksMobileLayout: React.FC = () => {
                 to="#"
                 className="flex items-center gap-x-2 hover:bg-gray-300 px-4 py-2
                 w-full transition-all"
+                onClick={() => showChatRecipientListHandler()}
               >
                 <span className="bg-gray-100 p-1 grid place-items-center rounded-[50%]">
                   <svg className="w-5 h-5 fill-gray-600 ">

@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 import sprite from "../../../assets/icons/sprite.svg";
 import { useDispatch } from "react-redux";
-import { hideChat } from "../../../store/actions/chat";
+import { hideChat, showChatRecipientList } from "../../../store/actions/chat";
 
 interface ChatHeaderProps {
   recipientImageUrl: string;
@@ -15,6 +15,9 @@ export const ChatHeader: React.FC<ChatHeaderProps> = (props) => {
 
   const hideChatHandler = () => {
     dispatch(hideChat());
+    if (window.innerWidth < 640) {
+      dispatch(showChatRecipientList());
+    }
   };
 
   const showImage = props.recipientImageUrl !== "null" && true;
