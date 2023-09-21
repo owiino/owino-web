@@ -4,7 +4,7 @@ import logo from "../../../../assets/images/logo.png";
 export const Logo: React.FC = () => {
   return (
     <Fragment>
-      <div>
+      <div className="-mr-2 md:-mr-3 xl:-mr-2">
         <img
           src={logo}
           alt="logo"
