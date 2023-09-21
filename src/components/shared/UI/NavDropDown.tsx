@@ -65,7 +65,7 @@ export const NavDropDown: React.FC<NavDropDownProps> = (props) => {
               >
                 <span className="bg-gray-100 p-1 grid place-items-center rounded-[50%]">
                   <svg className="w-5 h-5 fill-gray-600">
-                    <use href={`${sprite}#icon-settings`}></use>
+                    <use href={`${sprite}#icon-shop`}></use>
                   </svg>
                 </span>
                 <span className="text-gray-800">My shop</span>
