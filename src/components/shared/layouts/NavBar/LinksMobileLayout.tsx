@@ -132,31 +132,35 @@ export const LinksMobileLayout: React.FC = () => {
               <NavDropDown>
                 <NavLink
                   to="#"
-                  className="flex items-center gap-x-2 hover:bg-gray-300 px-4 py-2
-                w-full transition-all"
+                  className="flex items-center justify-between hover:bg-gray-300 px-4 py-2
+                   w-full transition-all"
                 >
-                  {!user.imageUrl && (
-                    <span className="bg-gray-100 p-1 grid place-items-center rounded-[50%]">
-                      <svg className="w-5 h-5 fill-gray-600">
-                        <use href={`${sprite}#icon-person-filled`}></use>
-                      </svg>
+                  <div className="flex items-center gap-x-2">
+                    {!user.imageUrl && (
+                      <span className="bg-gray-100 p-1 grid place-items-center rounded-[50%]">
+                        <svg className="w-5 h-5 fill-gray-600">
+                          <use href={`${sprite}#icon-person-filled`}></use>
+                        </svg>
+                      </span>
+                    )}
+                    {user.imageUrl && (
+                      <div className="bg-gray-300 w-8 h-8 grid place-items-center rounded-[50%]">
+                        <img
+                          src={user.imageUrl}
+                          alt={user.firstName}
+                          className="w-full h-full rounded-[50%]"
+                        />
+                      </div>
+                    )}
+                    <span className="text-gray-800">
+                      {user.firstName} {user.lastName}
                     </span>
-                  )}
-                  {user.imageUrl && (
-                    <div className="bg-gray-300 w-8 h-8 grid place-items-center rounded-[50%]">
-                      <img
-                        src={user.imageUrl}
-                        alt={user.firstName}
-                        className="w-full h-full rounded-[50%]"
-                      />
-                    </div>
-                  )}
-                  <span className="text-gray-800">
-                    {user.firstName} {user.lastName}
-                  </span>
-                  <svg className="w-6 h-6 fill-gray-600 rotate-[90deg] self-end">
-                    <use href={`${sprite}#icon-dots-y`}></use>
-                  </svg>
+                  </div>
+                  <div className="hover:border-[1px] border-gray-600 hover:bg-gray-400 rounded">
+                    <svg className="w-6 h-6 fill-gray-600 rotate-[90deg] justify-end">
+                      <use href={`${sprite}#icon-dots-y`}></use>
+                    </svg>
+                  </div>
                 </NavLink>
               </NavDropDown>
             </li>
