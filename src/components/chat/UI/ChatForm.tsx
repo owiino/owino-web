@@ -6,14 +6,14 @@ interface ChatFormProps {
 }
 
 export const ChatForm: React.FC<ChatFormProps> = (props) => {
-  const messageRef = useRef<any>(null);
+  let messageRef = useRef<any>(null);
 
   const onSubmitMessageHandler = (event: React.FormEvent) => {
     event.preventDefault();
     const message: string = messageRef.current && messageRef.current?.value;
     if (!message) return;
     props.onSubmit(message);
-    // messageRef.current = "";
+    messageRef.current.value = messageRef.current && "";
   };
 
   return (
@@ -30,6 +30,7 @@ export const ChatForm: React.FC<ChatFormProps> = (props) => {
           placeholder="Type message here"
           className="flex-1 outline-none bg-inherit placeholder:text-gray-600
           cursor-text-blue-500"
+          id="input-field"
         />
         <button type="submit">
           <svg className="w-6 h-6 fill-gray-600 hover:fill-primary transition-all">
