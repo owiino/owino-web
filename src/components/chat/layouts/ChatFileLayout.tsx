@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import { AppImagePicker } from "../../shared/UI/AppImagePicker";
 import { AppDocumentPicker } from "../../shared/UI/AppDocumentPicker";
 import { ChatFileUpload } from "../UI/ChatFileUpload";
@@ -24,6 +24,7 @@ interface ChatFileLayoutProps {
 
 export const ChatFileLayout: React.FC<ChatFileLayoutProps> = (props) => {
   const [file, setFile] = useState<any>(null);
+  const [isUploaded, setIsUploaded] = useState<any>(false);
 
   const onSaveHandler = (file: any) => {
     setFile(() => file);
@@ -37,10 +38,17 @@ export const ChatFileLayout: React.FC<ChatFileLayoutProps> = (props) => {
     setFile(() => file);
   };
 
-  //   useEffect(() => {
-  //     if (!file) return;
-  //     props.onPick(file);
-  //   }, [file]);
+  const onUploadHandler = (value: boolean) => {
+    setIsUploaded(() => value);
+  };
+
+  useEffect(() => {
+    if (!isUploaded) return;
+    console.log("Uploaded");
+    onCloseChatFileHandler();
+  }, [isUploaded]);
+
+  // TODO: disable close icons while uploading
 
   return (
     <Fragment>
@@ -80,7 +88,13 @@ export const ChatFileLayout: React.FC<ChatFileLayoutProps> = (props) => {
             <ChatFileOverlay onClose={() => {}} />
           </div>
         )}
-        {file && <ChatFileUpload file={file} clearFile={onClearFileHandler} />}
+        {file && (
+          <ChatFileUpload
+            file={file}
+            clearFile={onClearFileHandler}
+            onUpload={onUploadHandler}
+          />
+        )}
       </div>
     </Fragment>
   );

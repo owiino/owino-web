@@ -1,4 +1,4 @@
-import React, { Fragment, useRef } from "react";
+import React, { Fragment, useRef, useState, useEffect } from "react";
 import sprite from "../../../assets/icons/sprite.svg";
 import { useMutation } from "@tanstack/react-query";
 import { useDispatch, useSelector } from "react-redux";
@@ -14,9 +14,11 @@ import { addToMessageList } from "../../../store/actions/chat";
 interface ChatFileUploadProps {
   file: any;
   clearFile: (value: any) => void;
+  onUpload: (value: boolean) => void;
 }
 
 export const ChatFileUpload: React.FC<ChatFileUploadProps> = (props) => {
+  const [isUploaded, setIsUploaded] = useState(false);
   const captionRef = useRef<any>(null);
   const file = props.file;
   const accessToken: string = useSelector(
@@ -55,6 +57,7 @@ export const ChatFileUpload: React.FC<ChatFileUploadProps> = (props) => {
     onSuccess: (data: any) => {
       console.log("data", data);
       dispatch(addToMessageList(data.data.message));
+      setIsUploaded(() => true);
     },
     onError: (error: any) => {
       dispatch(showCardNotification({ type: "error", message: error.message }));
@@ -86,6 +89,18 @@ export const ChatFileUpload: React.FC<ChatFileUploadProps> = (props) => {
   const clearFileHandler = () => {
     props.clearFile(null);
   };
+
+  const onUploadHandler = () => {
+    props.onUpload(true);
+  };
+
+  useEffect(() => {
+    if (!isUploaded) return;
+    console.log("Uploaded");
+    onUploadHandler();
+  }, [isUploaded]);
+
+  // TODO: disable close icons while uploading
 
   return (
     <Fragment>
