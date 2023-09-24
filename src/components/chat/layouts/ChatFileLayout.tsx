@@ -56,7 +56,7 @@ export const ChatFileLayout: React.FC<ChatFileLayoutProps> = (props) => {
         >
           <use href={`${sprite}#icon-cross-small`}></use>
         </svg>
-        {file && (
+        {!file && (
           <div className="w-full flex flex-col justify-center  gap-y-4 pt-6">
             {/*TODO: To be changed image icon*/}
             <AppImagePicker
@@ -80,7 +80,7 @@ export const ChatFileLayout: React.FC<ChatFileLayoutProps> = (props) => {
             <ChatFileOverlay onClose={() => {}} />
           </div>
         )}
-        {!file && <ChatFileUpload file={file} clearFile={onClearFileHandler} />}
+        {file && <ChatFileUpload file={file} clearFile={onClearFileHandler} />}
       </div>
     </Fragment>
   );

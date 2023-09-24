@@ -1,4 +1,4 @@
-import React, { Fragment, useRef, useState } from "react";
+import React, { Fragment, useRef } from "react";
 import sprite from "../../../assets/icons/sprite.svg";
 import { useMutation } from "@tanstack/react-query";
 import { useDispatch, useSelector } from "react-redux";
@@ -6,8 +6,10 @@ import {
   showCardNotification,
   hideCardNotification,
 } from "../../../store/actions/notification";
-// import { Spinner } from "../../shared/UI/Loader/Spinner";
-import { TAuthState } from "../../../types/auth";
+import { TAuthState, TUser } from "../../../types/auth";
+import { generateChatRoomId } from "../../../utils/generateChatRoomId";
+import { postChatFile } from "../../../API/chat";
+import { addToMessageList } from "../../../store/actions/chat";
 
 interface ChatFileUploadProps {
   file: any;
@@ -16,22 +18,43 @@ interface ChatFileUploadProps {
 
 export const ChatFileUpload: React.FC<ChatFileUploadProps> = (props) => {
   const captionRef = useRef<any>(null);
-
   const file = props.file;
-
-  const accessToken = useSelector((state: any) => state.auth.accessToken);
+  const accessToken: string = useSelector(
+    (state: any) => state.auth.accessToken
+  );
   const user = useSelector((state: TAuthState) => state.auth.user);
   const dispatch: any = useDispatch();
 
+  const currentUser: TUser = useSelector((state: any) => state.auth.user);
+  const recipient: TUser = useSelector(
+    (state: any) => state.chat.currentRecipient
+  );
+  const createdAt = new Date().toISOString();
+  const chatRoomId = generateChatRoomId(currentUser.userId, recipient.userId);
+
+  /***
+   * If caption has not been provided, a default value of "FILE" is attached
+   */
+  const fileCaption: string = captionRef.current?.value
+    ? captionRef.current.value
+    : "FILE";
+
+  const newMessage: any = {
+    senderId: currentUser.userId,
+    recipientId: recipient.userId,
+    chatRoomId: chatRoomId,
+    message: fileCaption,
+    isRead: false,
+    isDelivered: false,
+    createdAt: createdAt,
+    showMessage: true,
+  };
+
   const { isLoading, mutate } = useMutation({
-    mutationFn: "mutation fn here",
+    mutationFn: postChatFile,
     onSuccess: (data: any) => {
-      dispatch(
-        showCardNotification({ type: "success", message: data.message })
-      );
-      setTimeout(() => {
-        dispatch(hideCardNotification());
-      }, 5000);
+      console.log("data", data);
+      dispatch(addToMessageList(data.data.message));
     },
     onError: (error: any) => {
       dispatch(showCardNotification({ type: "error", message: error.message }));
@@ -41,18 +64,18 @@ export const ChatFileUpload: React.FC<ChatFileUploadProps> = (props) => {
     },
   });
 
-  const uploadChatFileHandler = async () => {
+  const uploadChatFileHandler = async (event: React.FormEvent) => {
+    event.preventDefault();
     const formData = new FormData();
     const imageName = `${user?.firstName}-${user?.lastName}.png`;
     formData.append("file", new Blob([file], { type: "image/*" }), imageName);
-    // TODO: append mesage object here
+    formData.append("message", JSON.stringify(newMessage));
     const userId = user?.userId;
 
     if (!userId) {
-      console.log("No userId is provided");
       return;
     }
-    mutate({ userId, formData, accessToken });
+    mutate({ formData, accessToken });
   };
 
   const imageURL = () => {
@@ -60,18 +83,12 @@ export const ChatFileUpload: React.FC<ChatFileUploadProps> = (props) => {
     return URL.createObjectURL(blob);
   };
 
-  console.log("props.file");
-  console.log(props.file);
-  // TODO: File upload handler here
-  // TODO: To implement onChatFileClose via props
-
   const clearFileHandler = () => {
     props.clearFile(null);
   };
 
   return (
     <Fragment>
-      {/* Preview file elements here */}
       <div
         className="animate-opacityZeroToFull mt-6 space-y-3 flex
            flex-col items-center justify-center h-[93%]"
@@ -80,7 +97,6 @@ export const ChatFileUpload: React.FC<ChatFileUploadProps> = (props) => {
           <span className="text-sm text-red-500 text-center w-full">
             Error message here
           </span>
-          {/* File image here */}
           <div
             className="w-full flex items-center justify-center
                bg-gray-300 py-8 rounded-md relative"
@@ -99,11 +115,10 @@ export const ChatFileUpload: React.FC<ChatFileUploadProps> = (props) => {
               <use href={`${sprite}#icon-cross-small`}></use>
             </svg>
           </div>
-          {/*  Image file here */}
           {/* None image file  here */}
         </div>
         <form
-          onSubmit={() => uploadChatFileHandler()}
+          onSubmit={(event) => uploadChatFileHandler(event)}
           className="flex items-center justify-between bg-gray-300 
            w-full p-4 py-3 rounded-full"
         >
@@ -116,7 +131,7 @@ export const ChatFileUpload: React.FC<ChatFileUploadProps> = (props) => {
              cursor-text-blue-500 w-4/5 text-gray-800"
             id="input-field"
           />
-          <button type="submit">
+          <button type="submit" disabled={isLoading}>
             <svg className="w-6 h-6 fill-gray-600 hover:fill-primary transition-all">
               <use href={`${sprite}#icon-send`}></use>
             </svg>
