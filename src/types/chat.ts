@@ -1,4 +1,18 @@
 import { TUser } from "./auth";
+
+export type TFile = {
+  url: string;
+  path: string;
+  type: string;
+};
+
+export type TChatFile = {
+  fileId: number;
+  messageId: number;
+  file: TFile;
+  createdAt: Date;
+  updatedAt: Date;
+};
 export interface IChatMessage {
   messageId?: number;
   chatRoomId: string;
@@ -11,6 +25,7 @@ export interface IChatMessage {
   createdAt: string;
   type?: string;
   showMessage: boolean;
+  ChatFile?: TChatFile;
 }
 
 export interface IOrganizedChatMessage extends IChatMessage {

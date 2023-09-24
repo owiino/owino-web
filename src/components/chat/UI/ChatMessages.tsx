@@ -7,6 +7,8 @@ import { useSelector } from "react-redux";
 import { IChatMessage, IOrganizedChatMessage } from "../../../types/chat.ts";
 import { MessageDay } from "./MessageDay.tsx";
 import { MessagePlaceholder } from "./MessagePlaceholder.tsx";
+import { MessageFilePrimary } from "./MessageFilePrimary.tsx";
+import { MessageFileSecondary } from "./MessageFileSecondary.tsx";
 
 interface ChatMessagesProps {
   messages: IChatMessage[];
@@ -30,6 +32,36 @@ export const ChatMessages: React.FC<ChatMessagesProps> = (props) => {
     return false;
   };
 
+  const isPrimaryMessageWithFile = (
+    message: IOrganizedChatMessage
+  ): boolean => {
+    if (message.isPrimaryMessage && message.ChatFile) return true;
+    return false;
+  };
+
+  const isPrimaryMessageWithOutFile = (
+    message: IOrganizedChatMessage
+  ): boolean => {
+    if (message.isPrimaryMessage && !message.ChatFile) return true;
+    return false;
+  };
+
+  const isSecondaryMessageWithFile = (
+    message: IOrganizedChatMessage
+  ): boolean => {
+    if (!message.isPrimaryMessage && message.ChatFile) return true;
+    return false;
+  };
+
+  const isSecondaryMessageWithOutFile = (
+    message: IOrganizedChatMessage
+  ): boolean => {
+    if (!message.isPrimaryMessage && !message.ChatFile) return true;
+    return false;
+  };
+
+  console.log("messages", messages);
+
   return (
     <Fragment>
       <div className="w-full flex-1">
@@ -50,9 +82,17 @@ export const ChatMessages: React.FC<ChatMessagesProps> = (props) => {
                   {message.showDay && (
                     <MessageDay createdAt={message.createdAt} />
                   )}
-                  {message.isPrimaryMessage && <MessagePrimary msg={message} />}
-                  {!message.isPrimaryMessage && (
+                  {isPrimaryMessageWithOutFile(message) && (
+                    <MessagePrimary msg={message} />
+                  )}
+                  {isSecondaryMessageWithOutFile(message) && (
                     <MessageSecondary msg={message} />
+                  )}
+                  {isPrimaryMessageWithFile(message) && (
+                    <MessageFilePrimary msg={message} />
+                  )}
+                  {isSecondaryMessageWithFile(message) && (
+                    <MessageFileSecondary msg={message} />
                   )}
                 </div>
               );
