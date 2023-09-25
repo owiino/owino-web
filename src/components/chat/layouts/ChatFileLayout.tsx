@@ -66,11 +66,10 @@ export const ChatFileLayout: React.FC<ChatFileLayoutProps> = (props) => {
         </svg>
         {!file && (
           <div className="w-full flex flex-col justify-center  gap-y-4 pt-6">
-            {/*TODO: To be changed image icon*/}
             <AppImagePicker
               onSave={onSaveHandler}
               className="flex items-center bg-primary-light p-2 gap-x-2 rounded-md"
-              icon="attach-file"
+              icon="image"
               iconWrapperClassName="bg-gray-50 p-2 rounded-[50%]"
               iconClassName="w-6 h-6 fill-primary-light"
               label="Image"
@@ -79,7 +78,7 @@ export const ChatFileLayout: React.FC<ChatFileLayoutProps> = (props) => {
             <AppDocumentPicker
               onSave={onSaveHandler}
               className="flex items-center bg-primary-light p-2 gap-x-2 rounded-md"
-              icon="attach-file"
+              icon="document"
               iconWrapperClassName="bg-gray-50 p-2 rounded-[50%]"
               iconClassName="w-6 h-6 fill-primary-light"
               label="Document"
