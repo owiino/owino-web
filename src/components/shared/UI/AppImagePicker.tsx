@@ -41,7 +41,7 @@ export const AppImagePicker: React.FC<AppImagePickerProps> = (props) => {
       return setPhoto({
         content: file.content,
         name: file.name,
-        type: "image",
+        type: "image/*",
       });
     });
   }, [filesContent]);

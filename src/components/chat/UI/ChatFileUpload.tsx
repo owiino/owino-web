@@ -35,7 +35,8 @@ export const ChatFileUpload: React.FC<ChatFileUploadProps> = (props) => {
   const dispatch: any = useDispatch();
 
   const fileType = new FileType(file.type).getType();
-  const fileBlob = new Blob([file.content], { type: fileType });
+  const fileMimeType = new FileType(file.type).getMimeType();
+  const fileBlob = new Blob([file.content], { type: fileMimeType });
   const filename = file.name;
   const isImage = fileType === "image";
 

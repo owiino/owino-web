@@ -23,6 +23,9 @@ class FileType {
     // TODO: add all known file types here
     return "unknown";
   }
+  getMimeType() {
+    return this.type;
+  }
 }
 
 export default FileType;
