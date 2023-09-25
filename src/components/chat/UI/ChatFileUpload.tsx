@@ -11,16 +11,22 @@ import { generateChatRoomId } from "../../../utils/generateChatRoomId";
 import { postChatFile } from "../../../API/chat";
 import { addToMessageList } from "../../../store/actions/chat";
 import { Spinner } from "../../shared/UI/Loader";
+import { FileType } from "../../../utils";
 
+type TFile = {
+  content: any;
+  name: string;
+  type: string;
+};
 interface ChatFileUploadProps {
-  file: any;
+  file: TFile;
   clearFile: (value: any) => void;
   onUpload: (value: boolean) => void;
 }
 
 export const ChatFileUpload: React.FC<ChatFileUploadProps> = (props) => {
   const [isUploaded, setIsUploaded] = useState(false);
-  const captionRef = useRef<any>(null);
+  const [fileCaption, setFileCaption] = useState<string>("");
   const file = props.file;
   const accessToken: string = useSelector(
     (state: any) => state.auth.accessToken
@@ -28,19 +34,17 @@ export const ChatFileUpload: React.FC<ChatFileUploadProps> = (props) => {
   const user = useSelector((state: TAuthState) => state.auth.user);
   const dispatch: any = useDispatch();
 
+  const fileType = new FileType(file.type).getType();
+  const fileBlob = new Blob([file.content], { type: fileType });
+  const filename = file.name;
+  const isImage = fileType === "image";
+
   const currentUser: TUser = useSelector((state: any) => state.auth.user);
   const recipient: TUser = useSelector(
     (state: any) => state.chat.currentRecipient
   );
   const createdAt = new Date().toISOString();
   const chatRoomId = generateChatRoomId(currentUser.userId, recipient.userId);
-
-  /***
-   * If caption has not been provided, a default value of "FILE" is attached
-   */
-  const fileCaption: string = captionRef.current?.value
-    ? captionRef.current.value
-    : "FILE";
 
   const newMessage: any = {
     senderId: currentUser.userId,
@@ -71,8 +75,9 @@ export const ChatFileUpload: React.FC<ChatFileUploadProps> = (props) => {
   const uploadChatFileHandler = async (event: React.FormEvent) => {
     event.preventDefault();
     const formData = new FormData();
-    const imageName = `${user?.firstName}-${user?.lastName}.png`;
-    formData.append("file", new Blob([file], { type: "image/*" }), imageName);
+    if (!fileCaption) setFileCaption(() => "FILE");
+
+    formData.append("file", fileBlob, filename);
     formData.append("message", JSON.stringify(newMessage));
     const userId = user?.userId;
 
@@ -80,14 +85,16 @@ export const ChatFileUpload: React.FC<ChatFileUploadProps> = (props) => {
       return;
     }
     mutate({ formData, accessToken });
+    setFileCaption("");
   };
 
   const imageURL = () => {
-    const blob = new Blob([file], { type: "image/*" });
-    return URL.createObjectURL(blob);
+    if (!isImage) return;
+    return URL.createObjectURL(fileBlob);
   };
 
   const clearFileHandler = () => {
+    if (isLoading) return; //Prevent closing preview while uploading
     props.clearFile(null);
   };
 
@@ -97,11 +104,9 @@ export const ChatFileUpload: React.FC<ChatFileUploadProps> = (props) => {
 
   useEffect(() => {
     if (!isUploaded) return;
-    console.log("Uploaded");
+    if (isLoading) return; //Prevent closing ChatFileLayout while uploading
     onUploadHandler();
   }, [isUploaded]);
-
-  // TODO: disable close icons while uploading
 
   return (
     <Fragment>
@@ -110,18 +115,22 @@ export const ChatFileUpload: React.FC<ChatFileUploadProps> = (props) => {
            flex-col items-center justify-center h-[93%]"
       >
         <div className="space-y-2 w-full flex-1">
-          <span className="text-sm text-red-500 text-center w-full">
+          {/* TODO: to dynamically add errors messages */}
+          {/* <span className="text-sm text-red-500 text-center w-full">
             Error message here
-          </span>
+          </span> */}
           <div
             className="w-full flex items-center justify-center
                bg-gray-300 py-8 rounded-md relative"
           >
-            <img
-              src={imageURL()}
-              alt="chat-image-file"
-              className="w-4/5 aspect-[4/3] rounded"
-            />
+            {isImage && (
+              <img
+                src={imageURL()}
+                alt={filename}
+                className="w-4/5 aspect-[4/3] rounded"
+              />
+            )}
+            {/* Other file types here */}
             {/* To add file size here */}
             <svg
               className="w-5 h-5 fill-gray-600 absolute top-2 left-2
@@ -140,8 +149,8 @@ export const ChatFileUpload: React.FC<ChatFileUploadProps> = (props) => {
         >
           <input
             type="text"
-            required
-            ref={captionRef}
+            value={fileCaption}
+            onChange={(event) => setFileCaption(event.target.value)}
             placeholder="Add a caption"
             className="flex-1 outline-none bg-inherit placeholder:text-gray-600
              cursor-text-blue-500 w-4/5 text-gray-800"

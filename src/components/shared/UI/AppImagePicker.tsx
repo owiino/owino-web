@@ -3,8 +3,14 @@ import { useFilePicker } from "use-file-picker";
 import sprite from "../../../assets/icons/sprite.svg";
 import { twMerge } from "tailwind-merge";
 
+type TPhoto = {
+  content: any; //content is ArrayBuffer of a photo
+  name: string;
+  type: string;
+  // error:[]
+};
 interface AppImagePickerProps {
-  onSave: (photo: string) => void;
+  onSave: (photo: TPhoto) => void;
   className?: string;
   icon?: string;
   iconClassName?: string;
@@ -14,7 +20,11 @@ interface AppImagePickerProps {
 }
 
 export const AppImagePicker: React.FC<AppImagePickerProps> = (props) => {
-  const [photo, setPhoto] = useState<any>(null);
+  const [photo, setPhoto] = useState<TPhoto>({
+    content: null,
+    name: "",
+    type: "",
+  });
 
   // TODO: consider adding error handling for better user experience
   const [openFileSelector, { filesContent }] = useFilePicker({
@@ -27,7 +37,12 @@ export const AppImagePicker: React.FC<AppImagePickerProps> = (props) => {
   });
   useEffect(() => {
     filesContent.map((file) => {
-      return setPhoto(file.content);
+      console.log("file", file);
+      return setPhoto({
+        content: file.content,
+        name: file.name,
+        type: "image",
+      });
     });
   }, [filesContent]);
 
@@ -38,10 +53,14 @@ export const AppImagePicker: React.FC<AppImagePickerProps> = (props) => {
     saveHandler();
   }, [photo]);
 
+  const isPhotoSelected = photo.content;
+
+  // console.log("errors", errors);
+
   return (
     <Fragment>
       <div>
-        {!photo && (
+        {!isPhotoSelected && (
           <div
             className={twMerge(`cursor-pointer`, props.className)}
             onClick={() => openFileSelector()}
