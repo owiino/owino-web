@@ -27,7 +27,7 @@ export const MessagePrimary = (props: any) => {
             </svg>
           )}
         </div>
-        <div className="space-y-2">
+        <div className="flex-1 mr-2 space-y-2">
           <div className="flex items-center gap-x-1">
             <span className="text-gray-700">{msg.username}</span>
             <svg className="w-3 h-3 fill-gray-500">
