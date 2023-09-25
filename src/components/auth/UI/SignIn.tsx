@@ -207,16 +207,34 @@ export const SignIn: React.FC<SignInProps> = (props) => {
             </span>
           )}
         </div>
+        {/* <div
+          className="w-full mt-6 flex items-center justify-center
+                bg-primary rounded py-2"
+        > */}
+        {/* {!isLoading && (
+            <Button className="font-bold" type="submit">
+              Log in
+            </Button>
+          )} */}
+        {/* {!isLoading && <Spinner label="Logging in" className="w-40" />} */}
+        {/* {isLoading && (
+            <Spinner label="Logging in" className="w-5 h-5 text-gray-100" />
+          )} */}
+        {/* </div> */}
         <div
           className="w-full mt-6 flex items-center justify-center
-                bg-primary rounded py-[2px]"
+          bg-primary rounded py-[2px]"
         >
           {!isLoading && (
             <Button className="font-bold" type="submit">
               Log in
             </Button>
           )}
-          {isLoading && <Spinner label="Logging in" className="w-40" />}
+          {isLoading && (
+            <div className="py-[6px] font-semibold text-gray-100">
+              <Spinner label="Logging in" className="w-5 h-5 text-gray-100" />
+            </div>
+          )}
         </div>
         <div className="w-full mt-4">
           <span>Don't have an account?</span>

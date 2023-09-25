@@ -10,7 +10,7 @@ import { TAuthState, TUser } from "../../../types/auth";
 import { generateChatRoomId } from "../../../utils/generateChatRoomId";
 import { postChatFile } from "../../../API/chat";
 import { addToMessageList } from "../../../store/actions/chat";
-import { DotsLoader } from "../../shared/UI/Loader";
+import { Spinner } from "../../shared/UI/Loader";
 
 interface ChatFileUploadProps {
   file: any;
@@ -147,16 +147,16 @@ export const ChatFileUpload: React.FC<ChatFileUploadProps> = (props) => {
              cursor-text-blue-500 w-4/5 text-gray-800"
             id="input-field"
           />
-          {isLoading && (
+          {!isLoading && (
             <button type="submit" disabled={isLoading}>
               <svg className="w-6 h-6 fill-gray-600 hover:fill-primary transition-all">
                 <use href={`${sprite}#icon-send`}></use>
               </svg>
             </button>
           )}
-          {!isLoading && (
+          {isLoading && (
             <div className="bg-gray-300">
-              <DotsLoader />
+              <Spinner className="w-5 h-5" />
             </div>
           )}
         </form>
