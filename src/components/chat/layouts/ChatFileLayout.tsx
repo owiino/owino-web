@@ -33,8 +33,6 @@ export const ChatFileLayout: React.FC<ChatFileLayoutProps> = (props) => {
     onCloseChatFileHandler();
   }, [isUploaded]);
 
-  // TODO: disable close icons while uploading
-
   return (
     <Fragment>
       <div
