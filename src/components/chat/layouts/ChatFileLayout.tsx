@@ -4,20 +4,6 @@ import { AppDocumentPicker } from "../../shared/UI/AppDocumentPicker";
 import { ChatFileUpload } from "../UI/ChatFileUpload";
 import sprite from "../../../assets/icons/sprite.svg";
 
-interface ChatFileOverlayProps {
-  onClose: () => void;
-}
-const ChatFileOverlay: React.FC<ChatFileOverlayProps> = (props) => {
-  return (
-    <Fragment>
-      <div
-        className="fixeds top-0 left-0 w-[100vw] h-[100vh]"
-        onClick={props.onClose}
-      />
-    </Fragment>
-  );
-};
-
 interface ChatFileLayoutProps {
   onCloseChatFile: (value: boolean) => void;
 }
@@ -44,7 +30,6 @@ export const ChatFileLayout: React.FC<ChatFileLayoutProps> = (props) => {
 
   useEffect(() => {
     if (!isUploaded) return;
-    console.log("Uploaded");
     onCloseChatFileHandler();
   }, [isUploaded]);
 
@@ -84,7 +69,6 @@ export const ChatFileLayout: React.FC<ChatFileLayoutProps> = (props) => {
               label="Document"
               labelClassName="text-gray-50"
             />
-            <ChatFileOverlay onClose={() => {}} />
           </div>
         )}
         {file && (
