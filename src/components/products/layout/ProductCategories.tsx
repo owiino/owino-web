@@ -8,7 +8,7 @@ export const ProductCategories: React.FC = () => {
   console.log("categories", categories);
   const productCategories = categories.categories;
 
-  const categoriesStylesDesktop = `lg:bg-gray-200 lg:flex-row lg:items-center lg:justify-start lg:p-1
+  const categoriesStylesDesktop = `lg:bg-gray-200 lg:flex-row lg:items-center lg:justify-start lg:p-0
                                    aspect-none lg:gap-x-2  lg:h-10 lg:w-full`;
   const categoriesStylesMobile = `flex flex-col items-center justify-center p-4 aspect-[4/4]`;
 
@@ -34,7 +34,7 @@ export const ProductCategories: React.FC = () => {
                       alt={"category name"}
                       className="w-12 h-auto bg-gray-500 aspect-[4/3]"
                     />
-                    <span className="text-center text-sm lg:text-base">
+                    <span className="text-center text-sm lg:text-bases">
                       {category.name}
                     </span>
                   </div>
