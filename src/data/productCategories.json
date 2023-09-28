@@ -1,0 +1,336 @@
+{
+  "categories": [
+    {
+      "name": "Electronics",
+      "subcategories": [
+        {
+          "name": "Accessories & Supplies for Electronics",
+          "subcategories": [
+            {
+              "name": "Android"
+            },
+            {
+              "name": "iOS"
+            },
+            {
+              "name": "Windows"
+            },
+            {
+              "name": "Other"
+            }
+          ]
+        },
+        {
+          "name": "Laptops & Computers",
+          "subcategories": [
+            {
+              "name": "Windows"
+            },
+            {
+              "name": "Macbook"
+            },
+            {
+              "name": "Chromebook"
+            },
+            {
+              "name": "Other"
+            }
+          ]
+        },
+        {
+          "name": "TV & DVD Equipment",
+          "subcategories": [
+            {
+              "name": "Phone Cases"
+            },
+            {
+              "name": "Headphones"
+            },
+            {
+              "name": "Chargers"
+            }
+          ]
+        },
+        {
+          "name": "Audio & Music Equipment",
+          "subcategories": [
+            {
+              "name": "Phone Cases"
+            },
+            {
+              "name": "Headphones"
+            },
+            {
+              "name": "Chargers"
+            }
+          ]
+        },
+        {
+          "name": "TV & DVD Equipment",
+          "subcategories": [
+            {
+              "name": "Phone Cases"
+            },
+            {
+              "name": "Headphones"
+            },
+            {
+              "name": "Chargers"
+            }
+          ]
+        },
+        {
+          "name": "Computer Accessories",
+          "subcategories": [
+            {
+              "name": "Phone Cases"
+            },
+            {
+              "name": "Headphones"
+            },
+            {
+              "name": "Chargers"
+            }
+          ]
+        },
+        {
+          "name": "Computer Monitors",
+          "subcategories": [
+            {
+              "name": "Phone Cases"
+            },
+            {
+              "name": "Headphones"
+            },
+            {
+              "name": "Chargers"
+            }
+          ]
+        },
+        {
+          "name": "Computer Monitors",
+          "subcategories": [
+            {
+              "name": "Phone Cases"
+            },
+            {
+              "name": "Headphones"
+            },
+            {
+              "name": "Chargers"
+            }
+          ]
+        },
+        {
+          "name": "Headphones",
+          "subcategories": [
+            {
+              "name": "Phone Cases"
+            },
+            {
+              "name": "Headphones"
+            },
+            {
+              "name": "Chargers"
+            }
+          ]
+        },
+        {
+          "name": "Networking Products",
+          "subcategories": [
+            {
+              "name": "Phone Cases"
+            },
+            {
+              "name": "Headphones"
+            },
+            {
+              "name": "Chargers"
+            }
+          ]
+        },
+        {
+          "name": "Printers and Scanners",
+          "subcategories": [
+            {
+              "name": "Phone Cases"
+            },
+            {
+              "name": "Headphones"
+            },
+            {
+              "name": "Chargers"
+            }
+          ]
+        },
+        {
+          "name": "Photo and Video Cameras",
+          "subcategories": [
+            {
+              "name": "Phone Cases"
+            },
+            {
+              "name": "Headphones"
+            },
+            {
+              "name": "Chargers"
+            }
+          ]
+        },
+        {
+          "name": "Video Games",
+          "subcategories": [
+            {
+              "name": "Phone Cases"
+            },
+            {
+              "name": "Headphones"
+            },
+            {
+              "name": "Chargers"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Vehicles",
+      "subcategories": [
+        {
+          "name": "Cars",
+          "subcategories": [
+            {
+              "name": "car manufacturer"
+            },
+            {
+              "name": "Other"
+            }
+          ]
+        },
+        {
+          "name": "Buses & Microbuses",
+          "subcategories": [
+            {
+              "name": "bus manufacturer"
+            },
+            {
+              "name": "Other"
+            }
+          ]
+        },
+        {
+          "name": "Heavy Equipment",
+          "subcategories": [
+            {
+              "name": "Heavy Equipment manufacturer"
+            },
+            {
+              "name": "Other"
+            }
+          ]
+        },
+        {
+          "name": "Motor bikes and Scooters",
+          "subcategories": [
+            {
+              "name": "Motor bike manufacturer"
+            },
+            {
+              "name": "Other"
+            }
+          ]
+        },
+        {
+          "name": "Trucks and Trailer",
+          "subcategories": [
+            {
+              "name": "Truck manufacturer"
+            },
+            {
+              "name": "Other"
+            }
+          ]
+        },
+        {
+          "name": "Vehicle parts & accessories",
+          "subcategories": [
+            {
+              "name": "Motor bike manufacturer"
+            },
+            {
+              "name": "Other"
+            }
+          ]
+        },
+        {
+          "name": "Water crafts & Boats ",
+          "subcategories": [
+            {
+              "name": "Motor bike manufacturer"
+            },
+            {
+              "name": "Other"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Fashion",
+      "subcategories": [
+        {
+          "name": "Men's"
+        },
+        {
+          "name": "Women's"
+        }
+      ]
+    },
+    {
+      "name": "Healthy & beauty",
+      "subcategories": [
+        {
+          "name": "Furniture"
+        },
+        {
+          "name": "Appliances"
+        },
+        {
+          "name": "Cookware"
+        }
+      ]
+    },
+    {
+      "name": "Sports, Arts & Outdoor",
+      "subcategories": []
+    },
+    {
+      "name": "Mobile phones & Tablets",
+      "subcategories": []
+    },
+    {
+      "name": "Property",
+      "subcategories": []
+    },
+    {
+      "name": "Food & agriculture",
+      "subcategories": []
+    },
+    {
+      "name": "Babies & Kids ",
+      "subcategories": []
+    },
+    {
+      "name": "Repair & construction",
+      "subcategories": []
+    },
+    {
+      "name": "Services",
+      "subcategories": []
+    },
+    {
+      "name": "Commercial Equipments & Tools",
+      "subcategories": []
+    }
+  ]
+}
