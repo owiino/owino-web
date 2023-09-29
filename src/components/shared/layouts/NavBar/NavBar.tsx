@@ -18,7 +18,7 @@ export const NavBar: React.FC = () => {
         <SearchProducts />
         <NavLinks />
         <Button className="bg-yellow-600 text-sm md:px-8">
-          <Link to="#">SELL</Link>
+          <Link to="/add-product">SELL</Link>
         </Button>
       </div>
     </Fragment>

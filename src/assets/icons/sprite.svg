@@ -289,6 +289,10 @@
   <path  d="M7.75 2a.75.75 0 0 1 .75.75V7h4.25a.75.75 0 0 1 0 1.5H8.5v4.25a.75.75 0 0 1-1.5 0V8.5H2.75a.75.75 0 0 1 0-1.5H7V2.75A.75.75 0 0 1 7.75 2Z"/>
 </symbol>
 
+<symbol id="icon-plus-small" viewBox="0 0 24 24">
+ <path  d="M11.75 4.5a.75.75 0 0 1 .75.75V11h5.75a.75.75 0 0 1 0 1.5H12.5v5.75a.75.75 0 0 1-1.5 0V12.5H5.25a.75.75 0 0 1 0-1.5H11V5.25a.75.75 0 0 1 .75-.75Z"/>
+</symbol>
+
 <symbol id="icon-upload" viewBox="0 0 24 24">
   <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="m17 9l-5-5m0 0L7 9m5-5v13m-6 3h12"/>
 </symbol>

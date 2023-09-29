@@ -17,6 +17,7 @@ import { UserNotifications } from "../components/user-notifications/pages/UserNo
 import { Live } from "../components/live-video/Pages/Live";
 import { Profile } from "../components/Profile/pages/Profile";
 import { MyShop } from "../components/products/Pages/MyShop";
+import { AddProduct } from "../components/products/Pages/AddProduct";
 
 export const AppRouter: React.FC = () => {
   const auth = useSelector((state: TAuthState) => state.auth);
@@ -120,6 +121,7 @@ export const AppRouter: React.FC = () => {
                   />
                   <Route path="/live" element={<Live />} />
                   <Route path="/profile" element={<Profile />} />
+                  <Route path="/add-product" element={<AddProduct />} />
                   <Route path="/my-shop" element={<MyShop />} />
                   <Route path="/settings" element={<Settings />} />
                   <Route path="/home" element={<Navigate to="/" replace />} />

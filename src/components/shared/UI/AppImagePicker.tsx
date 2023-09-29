@@ -53,37 +53,28 @@ export const AppImagePicker: React.FC<AppImagePickerProps> = (props) => {
     saveHandler();
   }, [photo]);
 
-  const isPhotoSelected = photo.content;
-
-  // console.log("errors", errors);
-
   return (
     <Fragment>
       <div>
-        {!isPhotoSelected && (
-          <div
-            className={twMerge(`cursor-pointer`, props.className)}
-            onClick={() => openFileSelector()}
+        <div
+          className={twMerge(`cursor-pointer`, props.className)}
+          onClick={() => openFileSelector()}
+        >
+          <span
+            className={twMerge(`cursor-pointer`, props.iconWrapperClassName)}
           >
-            <span
-              className={twMerge(`cursor-pointer`, props.iconWrapperClassName)}
+            <svg
+              className={twMerge(`w-6 h-6 fill-gray-600`, props.iconClassName)}
             >
-              <svg
-                className={twMerge(
-                  `w-6 h-6 fill-gray-600`,
-                  props.iconClassName
-                )}
-              >
-                <use href={`${sprite}#icon-${props.icon}`}></use>
-              </svg>
-            </span>
-            <span
-              className={twMerge(`w-6 h-6 fill-gray-600`, props.labelClassName)}
-            >
-              {props.label}
-            </span>
-          </div>
-        )}
+              <use href={`${sprite}#icon-${props.icon}`}></use>
+            </svg>
+          </span>
+          <span
+            className={twMerge(`w-6 h-6 fill-gray-600`, props.labelClassName)}
+          >
+            {props.label}
+          </span>
+        </div>
       </div>
     </Fragment>
   );
