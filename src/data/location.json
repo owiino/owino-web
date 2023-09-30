@@ -1,0 +1,149 @@
+{
+  "Central_Uganda": [
+    {
+      "District": "Kampala",
+      "Divisions": [
+        "Kampala Central",
+        "Kawempe",
+        "Makindye",
+        "Nakawa",
+        "Rubaga"
+      ]
+    },
+    {
+      "District": "Mukono",
+      "Divisions": ["Mukono Municipality", "Buikwe", "Nakifuma", "Ntenjeru"]
+    },
+    {
+      "District": "Wakiso",
+      "Divisions": [
+        "Entebbe Municipality",
+        "Kawempe Division",
+        "Kira Municipality",
+        "Makindye Division"
+      ]
+    },
+    {
+      "District": "Masaka",
+      "Divisions": ["Masaka Municipality", "Bukomansimbi", "Kalungu"]
+    },
+    {
+      "District": "Mpigi",
+      "Divisions": ["Mpigi Municipality", "Buwaya", "Kiringente"]
+    },
+    {
+      "District": "Kalungu",
+      "Divisions": ["Kalungu Town Council", "Lwankoni"]
+    },
+    {
+      "District": "Buikwe",
+      "Divisions": ["Lugazi Municipality", "Buikwe", "Mabira"]
+    },
+    {
+      "District": "Jinja",
+      "Divisions": ["Jinja Municipality", "Bugembe", "Buwenge", "Butikiro"]
+    },
+    {
+      "District": "Kayunga",
+      "Divisions": ["Kayunga Town Council", "Kangulumira"]
+    },
+    {
+      "District": "Luwero",
+      "Divisions": ["Luwero Town Council", "Butuntumula"]
+    }
+  ],
+  "Western_Uganda": [
+    {
+      "District": "Kabarole",
+      "Divisions": ["Fort Portal", "Kamwenge", "Bukuuku"]
+    },
+    {
+      "District": "Kasese",
+      "Divisions": ["Kasese Municipality", "Kilembe", "Hima"]
+    },
+    {
+      "District": "Mbarara",
+      "Divisions": ["Mbarara Municipality", "Kashari", "Nyamitanga"]
+    },
+    {
+      "District": "Hoima",
+      "Divisions": ["Hoima Municipality", "Kigorobya", "Buhaguzi"]
+    },
+    {
+      "District": "Buliisa",
+      "Divisions": ["Buliisa Town Council", "Butiaba"]
+    },
+    {
+      "District": "Kibaale",
+      "Divisions": ["Kibaale Town Council", "Kagadi", "Kyenjojo"]
+    },
+    {
+      "District": "Bushenyi",
+      "Divisions": ["Bushenyi Municipality", "Ishaka", "Buhweju"]
+    },
+    {
+      "District": "Rukungiri",
+      "Divisions": ["Rukungiri Municipality", "Kanungu", "Rubabo"]
+    },
+    {
+      "District": "Kisoro",
+      "Divisions": ["Kisoro Municipality", "Bunagana", "Kyanika"]
+    }
+  ],
+  "Eastern_Uganda": [
+    {
+      "District": "Mbale",
+      "Divisions": ["Mbale Municipality", "Manafwa", "Sironko"]
+    },
+    {
+      "District": "Tororo",
+      "Divisions": ["Tororo Municipality", "Malaba", "Kireka"]
+    },
+    {
+      "District": "Busia",
+      "Divisions": ["Busia Municipality", "Dabani", "Majanji"]
+    },
+    {
+      "District": "Soroti",
+      "Divisions": ["Soroti Municipality", "Kumi", "Bukedea"]
+    },
+    {
+      "District": "Pallisa",
+      "Divisions": ["Pallisa Municipality", "Kibale", "Agule"]
+    },
+    {
+      "District": "Kumi",
+      "Divisions": ["Kumi Municipality", "Ngora", "Bulambuli"]
+    }
+  ],
+  "Northern_Uganda": [
+    {
+      "District": "Gulu",
+      "Divisions": ["Gulu Municipality", "Aswa", "Lacor"]
+    },
+    {
+      "District": "Lira",
+      "Divisions": ["Lira Municipality", "Adyel", "Railway"]
+    },
+    {
+      "District": "Arua",
+      "Divisions": ["Arua Municipality", "Vurra", "Oli"]
+    },
+    {
+      "District": "Kitgum",
+      "Divisions": ["Kitgum Municipality", "Lamwo", "Pajimo"]
+    },
+    {
+      "District": "Kotido",
+      "Divisions": ["Kotido Municipality", "Kaabong", "Abim"]
+    },
+    {
+      "District": "Apac",
+      "Divisions": ["Apac Municipality", "Chawente", "Ibuje"]
+    },
+    {
+      "District": "Nebbi",
+      "Divisions": ["Nebbi Municipality", "Pakwach", "Panyimur"]
+    }
+  ]
+}
