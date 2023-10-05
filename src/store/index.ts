@@ -20,7 +20,7 @@ if (!process.env.NODE_ENV || process.env.NODE_ENV === "development") {
 } else {
   url = "https://owino-backend.onrender.com/api/v1";
   socketUrl = "https://owino-backend.onrender.com";
-  goUrl = "production_url_go/go/api/v1";
+  goUrl = "https://owino-backend-go.onrender.com/go/api/v1";
 }
 
 export { url, socketUrl, goUrl };
