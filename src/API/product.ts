@@ -3,17 +3,17 @@ import { goUrl } from "../store";
 
 export const validateProductImages = async ({
   formData,
-  accessToken,
-}: {
+}: // accessToken,
+{
   formData: any;
   accessToken: string;
 }) => {
   const response = await fetch(`${goUrl}/products/validate-product-images`, {
     method: "POST",
     body: formData,
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-    },
+    // headers: {
+    //   Authorization: `Bearer ${accessToken}`,
+    // },
   });
 
   if (!response.ok) {
