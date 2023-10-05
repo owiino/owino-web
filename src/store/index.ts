@@ -12,16 +12,18 @@ export const store = configureStore({
   },
 });
 
-let url: string, socketUrl: string;
+let url: string, socketUrl: string, goUrl: string;
 if (!process.env.NODE_ENV || process.env.NODE_ENV === "development") {
   url = "http://localhost:8000/api/v1";
   socketUrl = "http://localhost:8000";
+  goUrl = "http://localhost:8080/go/api/v1";
 } else {
   url = "https://owino-backend.onrender.com/api/v1";
   socketUrl = "https://owino-backend.onrender.com";
+  goUrl = "production_url_go/go/api/v1";
 }
 
-export { url, socketUrl };
+export { url, socketUrl, goUrl };
 export const authActions = authSlice.actions;
 export const notificationActions = notificationSlice.actions;
 export const chatActions = chatSlice.actions;

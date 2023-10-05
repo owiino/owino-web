@@ -1,4 +1,5 @@
-import { url } from "../store";
+// import { url, goUrl } from "../store";
+import { goUrl } from "../store";
 
 export const validateProductImages = async ({
   formData,
@@ -7,7 +8,7 @@ export const validateProductImages = async ({
   formData: any;
   accessToken: string;
 }) => {
-  const response = await fetch(`${url}/products/validate-product-images`, {
+  const response = await fetch(`${goUrl}/products/validate-product-images`, {
     method: "POST",
     body: formData,
     headers: {
