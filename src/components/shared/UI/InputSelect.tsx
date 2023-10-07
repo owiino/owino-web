@@ -41,7 +41,6 @@ export const InputSelect: React.FC<InputSelectProps> = (props) => {
   return (
     <Fragment>
       <div className="w-full flex flex-col justify-center relative">
-        <label htmlFor={props.label}></label>
         <div
           className="border-gray-600 rounded-t flex
               items-center justify-between p-2 bg-gray-300 text-sm"

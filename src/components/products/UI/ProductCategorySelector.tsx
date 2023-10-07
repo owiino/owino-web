@@ -47,7 +47,10 @@ export const ProductCategorySelector: React.FC<Props> = (props) => {
 
   return (
     <Fragment>
-      <div className="w-full">
+      <div className="w-full space-y-1 mb-1">
+        <label htmlFor="category" className="text-gray-800">
+          Category
+        </label>
         {/* select product category */}
         {showCategorySelect && (
           <InputSelect
