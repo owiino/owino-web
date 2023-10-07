@@ -78,14 +78,17 @@ export const LocationSelector: React.FC<LocationSelectorProps> = (props) => {
     });
   };
 
+  const showFocusUnderline = showLocationData || showDivision;
+
   return (
     <Fragment>
-      <div className="w-full">
-        <div className="space-y-1 text-gray-800">
+      <div className="w-full relative">
+        <div className="text-gray-800 relative">
           <label htmlFor="location">{props.label && props.label}</label>
           <div
-            className="border-[2px] border-gray-600 rounded flex
-           items-center justify-between p-2"
+            className="border-gray-600 rounded-t flex
+            items-center justify-between p-2 bg-gray-300 
+            text-sm mt-1"
             onClick={() => setShowLocationData(true)}
           >
             {selectedDivision && <span>{selectedDivision}</span>}
@@ -96,11 +99,22 @@ export const LocationSelector: React.FC<LocationSelectorProps> = (props) => {
               <use href={`${sprite}#icon-chevron-down`}></use>
             </svg>
           </div>
+          <div className="bottom-[0.5px] h-[2px] bg-gray-400 x-10" />
+          {showFocusUnderline && (
+            <div
+              className="absolute bottom-[0.5px] inset-x-0 h-[3px] bg-primary
+              animate-radiate z-40"
+            />
+          )}
         </div>
 
-        <div>
-          {showLocationData &&
-            locationData.map((location: TLocation, index: number) => {
+        {showLocationData && (
+          <div
+            className="animate-opacityZeroToFull absolute top-[70px] w-full
+              bg-gray-100 z-[60] shadow-2xl p-4 rounded-b border-[1px]
+              border-gray-300 space-y-2 max-h-60 overflow-x-hidden"
+          >
+            {locationData.map((location: TLocation, index: number) => {
               return (
                 <div key={index}>
                   <span className="font-bold">{location.region}</span>
@@ -125,11 +139,16 @@ export const LocationSelector: React.FC<LocationSelectorProps> = (props) => {
                 </div>
               );
             })}
-        </div>
+          </div>
+        )}
 
-        <ul>
-          {showDivision &&
-            selectedDivisionList.map((division: string, index: number) => {
+        {showDivision && (
+          <ul
+            className="animate-opacityZeroToFull absolute top-[70px] w-full
+          bg-gray-100 z-[60] shadow-2xl p-4 rounded-b border-[1px]
+          border-gray-300 space-y-2 max-h-60 overflow-x-hidden"
+          >
+            {selectedDivisionList.map((division: string, index: number) => {
               return (
                 <li
                   onClick={() => selectDivisionHandler(division)}
@@ -140,7 +159,8 @@ export const LocationSelector: React.FC<LocationSelectorProps> = (props) => {
                 </li>
               );
             })}
-        </ul>
+          </ul>
+        )}
       </div>
     </Fragment>
   );
