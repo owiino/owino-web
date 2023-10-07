@@ -66,7 +66,7 @@ export const InputSelect: React.FC<InputSelectProps> = (props) => {
         {showOptionList && (
           <ul
             className="animate-opacityZeroToFull absolute top-[42px] w-full
-              bg-gray-100 z-50 shadow-2xl p-2s p-4 rounded-b border-[1px]
+              bg-gray-100 z-[60] shadow-2xl p-2s p-4 rounded-b border-[1px]
               border-gray-300 space-y-2 max-h-60 overflow-x-hidden"
           >
             {optionList.map((option: any, index: number) => {

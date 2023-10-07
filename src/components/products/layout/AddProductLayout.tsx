@@ -1,10 +1,11 @@
 import React, { Fragment, useState } from "react";
-import { ProductLocationCategoryForm } from "../UI/ProductLocationCategoryForm";
+import { ProductCategorySelector } from "../UI/ProductCategorySelector";
 import { AddProductImages } from "../UI/AddProductImages";
 import { Button } from "../../shared/UI/Button";
 import { AddProductHeader } from "../UI/AddProductHeader";
 import { LocationSelector } from "../../shared/UI/LocationSelector";
 import { TSelectedLocation } from "../../../types/location";
+import { TCategory } from "../../../types/category";
 
 type TFile = {
   content: any;
@@ -15,6 +16,7 @@ type TFile = {
 export const AddProductLayout: React.FC = () => {
   const [imageFileList, setImageFileList] = useState<TFile[]>([]);
   const [location, setLocation] = useState<TSelectedLocation>();
+  const [category, setCategory] = useState<TCategory>();
 
   const saveImageListHandler = (images: TFile[]) => {
     setImageFileList(() => images);
@@ -24,10 +26,15 @@ export const AddProductLayout: React.FC = () => {
     setLocation(() => location);
   };
 
+  const selectCategoryHandler = (category: TCategory) => {
+    setCategory(() => category);
+  };
+
   console.log("imageFileList", imageFileList);
   // TODO: image list validation here (number images based on the category image limit)
 
   console.log("location", location);
+  console.log("category", category);
 
   return (
     <Fragment>
@@ -37,7 +44,7 @@ export const AddProductLayout: React.FC = () => {
           className="flex flex-col items-center justify-center 
            w-[90%] xs:w-[448px] bg-gray-50 rounded-md p-6"
         >
-          <ProductLocationCategoryForm />
+          <ProductCategorySelector onSelect={selectCategoryHandler} />
           <LocationSelector label="Location" onSelect={selectLocationHandler} />
           <AddProductImages
             onSaveImages={saveImageListHandler}
