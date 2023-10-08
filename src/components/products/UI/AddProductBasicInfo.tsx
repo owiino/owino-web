@@ -13,7 +13,11 @@ type TFile = {
   type: string;
 };
 
-export const AddProductBasicInfo: React.FC = () => {
+interface BasicInfoProps {
+  onNextClick: (clicked: boolean) => void;
+}
+
+export const AddProductBasicInfo: React.FC<BasicInfoProps> = (props) => {
   const [imageFileList, setImageFileList] = useState<TFile[]>([]);
   const [location, setLocation] = useState<TSelectedLocation>();
   const [category, setCategory] = useState<TCategory>();
@@ -36,6 +40,11 @@ export const AddProductBasicInfo: React.FC = () => {
   console.log("location", location);
   console.log("category", category);
 
+  //   On click next validate all values, save to local storage and redux store
+  const nextClickHandler = () => {
+    props.onNextClick(true);
+  };
+
   return (
     <Fragment>
       <div className="w-full grid place-items-center mt-14 space-y-8">
@@ -50,7 +59,9 @@ export const AddProductBasicInfo: React.FC = () => {
             onSaveImages={saveImageListHandler}
             minPhotoNumber={3}
           />
-          <Button className="w-full mt-4">Next</Button>
+          <Button className="w-full mt-4" onClick={() => nextClickHandler()}>
+            Next
+          </Button>
         </div>
       </div>
     </Fragment>
