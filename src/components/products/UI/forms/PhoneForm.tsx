@@ -1,6 +1,5 @@
 import React, { Fragment, useState } from "react";
 import { ProductFormBuilder } from "../ProductFormBuilder";
-// import { InputSelect } from "../../../shared/UI/InputSelect";
 import { TProductInputField } from "../../../../types/product";
 import phoneJsonData from "./phone.json";
 import { convertToNameObjectArray } from "../../../../utils";
@@ -8,7 +7,13 @@ import {
   showCardNotification,
   hideCardNotification,
 } from "../../../../store/actions/notification";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { Button } from "../../../shared/UI/Button";
+import { TAddProduct } from "../../../../types/product";
+import { useMutation } from "@tanstack/react-query";
+import { postProduct } from "../../../../API/product";
+import { Spinner } from "../../../shared/UI/Loader";
+import { updateNewProduct } from "../../../../store/actions/product";
 
 interface PhoneDataState {
   model: string;
@@ -37,8 +42,9 @@ export const PhoneForm: React.FC = () => {
     sim: "",
     os: "",
   });
-  const [error, setError] = useState<string>("");
+  const [formError, setFormError] = useState<string>("");
   const dispatch: any = useDispatch();
+  const accessToken = useSelector((state: any) => state.auth.accessToken);
 
   // TODO: Add string "other" to all json data for products
   // TODO: validate to ensure that all fields have values
@@ -161,22 +167,65 @@ export const PhoneForm: React.FC = () => {
         setTimeout(() => {
           dispatch(hideCardNotification());
         }, 5000);
-        setError(`Please select ${key}`);
+        setFormError(`Please select ${key}`);
         return false;
       }
     }
     return true;
   };
 
-  console.log("validatePhoneData");
-  console.log(validatePhoneData);
+  const productBasicInfo: TAddProduct = useSelector(
+    (state: any) => state.product.basicInfo
+  );
 
   console.log("error");
-  console.log(error);
+  console.log(formError);
+
+  const { isLoading, mutate } = useMutation({
+    mutationFn: postProduct,
+    onSuccess: (data: any) => {
+      dispatch(updateNewProduct(data.data.newProduct));
+      dispatch(
+        showCardNotification({ type: "success", message: data.message })
+      );
+      setTimeout(() => {
+        dispatch(hideCardNotification());
+      }, 5000);
+    },
+    onError: (error: any) => {
+      dispatch(showCardNotification({ type: "error", message: error.message }));
+      setTimeout(() => {
+        dispatch(hideCardNotification());
+      }, 5000);
+    },
+  });
+
+  const submitPhoneDataHandler = () => {
+    const imageList = productBasicInfo.basicInfo.imageList;
+    const formData = new FormData();
+    if (!validatePhoneData(phoneData)) return;
+
+    // Attach all other body fields here
+
+    for (let i = 0; i < imageList.length; i++) {
+      formData.append(
+        "files",
+        new Blob([imageList[i].content], {
+          type: imageList[i].type,
+        }),
+        imageList[i].name
+      );
+    }
+
+    mutate({ formData: formData, accessToken: accessToken });
+  };
 
   return (
     <Fragment>
       <ProductFormBuilder fieldList={phoneFieldList} />
+      {/* Submit btn here */}
+      <Button onClick={() => submitPhoneDataHandler()}>Submit</Button>
+      {isLoading && <Spinner />}
     </Fragment>
   );
 };

@@ -3,12 +3,14 @@ import { authSlice } from "./reducers/auth";
 import { notificationSlice } from "./reducers/notification";
 import { chatSlice } from "./reducers/chat";
 import { sharedSlice } from "./reducers/shared";
+import { productSlice } from "./reducers/product";
 export const store = configureStore({
   reducer: {
     auth: authSlice.reducer,
     notification: notificationSlice.reducer,
     chat: chatSlice.reducer,
     shared: sharedSlice.reducer,
+    product: productSlice.reducer,
   },
 });
 
@@ -28,3 +30,4 @@ export const authActions = authSlice.actions;
 export const notificationActions = notificationSlice.actions;
 export const chatActions = chatSlice.actions;
 export const sharedActions = sharedSlice.actions;
+export const productActions = productSlice.actions;

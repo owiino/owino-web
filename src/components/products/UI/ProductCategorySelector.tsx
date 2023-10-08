@@ -25,6 +25,17 @@ export const ProductCategorySelector: React.FC<Props> = (props) => {
   const [showCategorySelect, setShowCategorySelect] = useState<boolean>(true);
   const [selectedLabel, setSelectedLabel] = useState<string>("");
 
+  const selectedCategoryString = (subcategoryName: string): string => {
+    for (const category of productCategories) {
+      for (const subcategory of category.subcategories) {
+        if (subcategory.name === subcategoryName) {
+          return `${category.name}, ${subcategory.name}`;
+        }
+      }
+    }
+    return "";
+  };
+
   const onCategorySelectHandler = (category: TCategory) => {
     setCategory(() => category);
     setShowCategorySelect(() => false);
@@ -36,8 +47,11 @@ export const ProductCategorySelector: React.FC<Props> = (props) => {
     setShowCategorySelect(() => true);
     setSelectedLabel(() => subCategory.name);
     setCategory(() => initialCategory);
+
+    const categoryString = selectedCategoryString(subCategory.name);
+    console.log("categoryString", categoryString);
     // parse data to parent component
-    props.onSelect(subCategory);
+    props.onSelect(categoryString);
   };
 
   const optionListHandler = () => {

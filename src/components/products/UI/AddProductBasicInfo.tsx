@@ -5,7 +5,12 @@ import { Button } from "../../shared/UI/Button";
 import { AddProductHeader } from "../UI/AddProductHeader";
 import { LocationSelector } from "../../shared/UI/LocationSelector";
 import { TSelectedLocation } from "../../../types/location";
-import { TCategory } from "../../../types/category";
+import { useDispatch } from "react-redux";
+import { updateProductBasicInfo } from "../../../store/actions/product";
+// import {
+//   showCardNotification,
+//   hideCardNotification,
+// } from "../../../store/actions/notification";
 
 type TFile = {
   content: any;
@@ -19,8 +24,15 @@ interface BasicInfoProps {
 
 export const AddProductBasicInfo: React.FC<BasicInfoProps> = (props) => {
   const [imageFileList, setImageFileList] = useState<TFile[]>([]);
-  const [location, setLocation] = useState<TSelectedLocation>();
-  const [category, setCategory] = useState<TCategory>();
+  const [location, setLocation] = useState<TSelectedLocation>({
+    region: "",
+    district: "",
+    division: "",
+  });
+  // selected category is converted into a string
+  // containing names for category and subcategory
+  const [category, setCategory] = useState<string>("");
+  const dispatch: any = useDispatch();
 
   const saveImageListHandler = (images: TFile[]) => {
     setImageFileList(() => images);
@@ -30,7 +42,7 @@ export const AddProductBasicInfo: React.FC<BasicInfoProps> = (props) => {
     setLocation(() => location);
   };
 
-  const selectCategoryHandler = (category: TCategory) => {
+  const selectCategoryHandler = (category: string) => {
     setCategory(() => category);
   };
 
@@ -40,8 +52,15 @@ export const AddProductBasicInfo: React.FC<BasicInfoProps> = (props) => {
   console.log("location", location);
   console.log("category", category);
 
-  //   On click next validate all values, save to local storage and redux store
   const nextClickHandler = () => {
+    // TODO:validate location and category here
+
+    const basicInfo = {
+      location: location,
+      category: category,
+      imageList: imageFileList,
+    };
+    dispatch(updateProductBasicInfo({ basicInfo: basicInfo }));
     props.onNextClick(true);
   };
 
