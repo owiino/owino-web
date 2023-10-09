@@ -3,6 +3,8 @@ import { InputSelect } from "../../shared/UI/InputSelect";
 import { TProductInputField } from "../../../types/product";
 import { InputField } from "../../shared/UI/InputField";
 import { InputTextArea } from "../../shared/UI/InputTextArea";
+import { AddProductDelivery } from "./forms/AddProductDelivery";
+import { TSelectedLocation } from "../../../types/location";
 import { useSelector } from "react-redux";
 import { TUser } from "../../../types/auth";
 interface Contact {
@@ -10,10 +12,22 @@ interface Contact {
   name: string;
 }
 
+interface Delivery {
+  location: TSelectedLocation;
+  name: string;
+  deliveryDuration: {
+    from: number;
+    to: number;
+  };
+  chargesDelivery: boolean;
+  deliveryCharge: number;
+}
+
 interface FormBuilderProps {
   fieldList: TProductInputField[];
   descriptionChangeHandler: (value: string) => void;
   contactChangeHandler: (value: Contact) => void;
+  onSaveDelivery: (delivery: Delivery) => void;
 }
 
 export const ProductFormBuilder: React.FC<FormBuilderProps> = (props) => {
@@ -164,6 +178,9 @@ export const ProductFormBuilder: React.FC<FormBuilderProps> = (props) => {
           </div>
         </div>
         {/* Delivery form here */}
+        <div className="bg-gray-50 rounded-md p-4">
+          <AddProductDelivery onSave={props.onSaveDelivery} />
+        </div>
         {/* Quick sales form here */}
       </div>
     </Fragment>

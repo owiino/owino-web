@@ -14,6 +14,7 @@ import { useMutation } from "@tanstack/react-query";
 import { postProduct } from "../../../../API/product";
 import { Spinner } from "../../../shared/UI/Loader";
 import { updateNewProduct } from "../../../../store/actions/product";
+import { TSelectedLocation } from "../../../../types/location";
 
 interface PhoneDataState {
   model: string;
@@ -31,6 +32,17 @@ interface PhoneDataState {
 interface Contact {
   phoneNumber: string;
   name: string;
+}
+
+interface Delivery {
+  location: TSelectedLocation;
+  name: string;
+  deliveryDuration: {
+    from: number;
+    to: number;
+  };
+  chargesDelivery: boolean;
+  deliveryCharge: number;
 }
 
 export const PhoneForm: React.FC = () => {
@@ -53,6 +65,7 @@ export const PhoneForm: React.FC = () => {
     name: "",
   });
   const [description, setDescription] = useState<string>("");
+  const [delivery, setDelivery] = useState<Delivery | null>(null);
   const dispatch: any = useDispatch();
   const accessToken = useSelector((state: any) => state.auth.accessToken);
   const productBasicInfo: TProductBasicInfo = useSelector(
@@ -69,6 +82,10 @@ export const PhoneForm: React.FC = () => {
   const descriptionChangeHandler = (description: string) => {
     setDescription(() => description);
   };
+  const onSaveDeliveryHandler = (delivery: Delivery) => {
+    setDelivery(() => delivery);
+  };
+
   interface SelectedValue {
     name: string;
   }
@@ -238,6 +255,8 @@ export const PhoneForm: React.FC = () => {
     localStorage.removeItem("productBasicInfo");
   };
 
+  console.log("delivery", delivery);
+
   return (
     <Fragment>
       <div className="w-[90%] xs:w-[448px] sm:w-[500px] md:w-[640px] space-y-4">
@@ -245,6 +264,7 @@ export const PhoneForm: React.FC = () => {
           fieldList={phoneFieldList}
           descriptionChangeHandler={descriptionChangeHandler}
           contactChangeHandler={contactChangeHandler}
+          onSaveDelivery={onSaveDeliveryHandler}
         />
         <div className="w-full bg-green-500s grid place-items-center">
           {!isLoading && (
