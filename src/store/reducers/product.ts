@@ -54,7 +54,8 @@ export const productSlice = createSlice({
       state.newProduct = action.payload.newProduct;
     },
     clear(state) {
-      state = initialState;
+      state.basicInfo = initialState.basicInfo;
+      state.newProduct = initialState.newProduct;
     },
   },
 });
