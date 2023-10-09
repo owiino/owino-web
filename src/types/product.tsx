@@ -13,12 +13,14 @@ type TFile = {
   type: string;
 };
 
+export type TProductBasicInfo = {
+  location: TSelectedLocation;
+  category: string;
+  imageList: TFile[];
+};
+
 export type TAddProduct = {
-  basicInfo: {
-    location: TSelectedLocation;
-    category: string;
-    imageList: TFile[];
-  };
+  basicInfo: TProductBasicInfo;
 };
 
 export type TNewProduct = {

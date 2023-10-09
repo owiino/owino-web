@@ -9,7 +9,7 @@ import {
 } from "../../../../store/actions/notification";
 import { useDispatch, useSelector } from "react-redux";
 import { Button } from "../../../shared/UI/Button";
-import { TAddProduct } from "../../../../types/product";
+import { TProductBasicInfo } from "../../../../types/product";
 import { useMutation } from "@tanstack/react-query";
 import { postProduct } from "../../../../API/product";
 import { Spinner } from "../../../shared/UI/Loader";
@@ -28,6 +28,11 @@ interface PhoneDataState {
   os: string;
 }
 
+interface Contact {
+  phoneNumber: string;
+  name: string;
+}
+
 export const PhoneForm: React.FC = () => {
   const phoneDataJSON = phoneJsonData;
   const [phoneData, setPhoneData] = useState<PhoneDataState>({
@@ -43,13 +48,27 @@ export const PhoneForm: React.FC = () => {
     os: "",
   });
   const [formError, setFormError] = useState<string>("");
+  const [contact, setContact] = useState<Contact>({
+    phoneNumber: "",
+    name: "",
+  });
+  const [description, setDescription] = useState<string>("");
   const dispatch: any = useDispatch();
   const accessToken = useSelector((state: any) => state.auth.accessToken);
+  const productBasicInfo: TProductBasicInfo = useSelector(
+    (state: any) => state.product.basicInfo
+  );
 
   // TODO: Add string "other" to all json data for products
   // TODO: validate to ensure that all fields have values
-  // TODO: create functions 1-save to local storage 2-save to redux store
 
+  const contactChangeHandler = (contact: Contact) => {
+    setContact(() => contact);
+  };
+
+  const descriptionChangeHandler = (description: string) => {
+    setDescription(() => description);
+  };
   interface SelectedValue {
     name: string;
   }
@@ -152,9 +171,6 @@ export const PhoneForm: React.FC = () => {
     },
   ];
 
-  console.log("phoneData.model");
-  console.log(phoneData.model);
-
   const validatePhoneData = (phoneData: PhoneDataState): boolean => {
     for (const key in phoneData) {
       if (phoneData[key as keyof PhoneDataState] === "") {
@@ -173,10 +189,6 @@ export const PhoneForm: React.FC = () => {
     }
     return true;
   };
-
-  const productBasicInfo: TAddProduct = useSelector(
-    (state: any) => state.product.basicInfo
-  );
 
   console.log("error");
   console.log(formError);
@@ -201,11 +213,16 @@ export const PhoneForm: React.FC = () => {
   });
 
   const submitPhoneDataHandler = () => {
-    const imageList = productBasicInfo.basicInfo.imageList;
+    const imageList = productBasicInfo.imageList;
     const formData = new FormData();
     if (!validatePhoneData(phoneData)) return;
 
-    // Attach all other body fields here
+    formData.append("productCategory", productBasicInfo.category);
+    formData.append("location", JSON.stringify(productBasicInfo.location));
+    formData.append("description", description);
+    formData.append("contact", JSON.stringify(contact));
+    // append delivery
+    // append Quick sales
 
     for (let i = 0; i < imageList.length; i++) {
       formData.append(
@@ -218,14 +235,33 @@ export const PhoneForm: React.FC = () => {
     }
 
     mutate({ formData: formData, accessToken: accessToken });
+    localStorage.removeItem("productBasicInfo");
   };
 
   return (
     <Fragment>
-      <ProductFormBuilder fieldList={phoneFieldList} />
-      {/* Submit btn here */}
-      <Button onClick={() => submitPhoneDataHandler()}>Submit</Button>
-      {isLoading && <Spinner />}
+      <div className="w-[90%] xs:w-[448px] sm:w-[500px] md:w-[640px] space-y-4">
+        <ProductFormBuilder
+          fieldList={phoneFieldList}
+          descriptionChangeHandler={descriptionChangeHandler}
+          contactChangeHandler={contactChangeHandler}
+        />
+        <div className="w-full bg-green-500s grid place-items-center">
+          {!isLoading && (
+            <Button onClick={() => submitPhoneDataHandler()} className="w-56">
+              Post
+            </Button>
+          )}
+          {isLoading && (
+            <div
+              className="py-[6px] font-semibold text-gray-100 bg-primary
+               w-56 grid place-items-center rounded"
+            >
+              <Spinner label="Posting" className="w-5 h-5 text-gray-100" />
+            </div>
+          )}
+        </div>
+      </div>
     </Fragment>
   );
 };

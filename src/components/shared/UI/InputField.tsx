@@ -51,7 +51,7 @@ export const InputField: React.FC<InputFieldProps> = (props) => {
 
   return (
     <Fragment>
-      <div className="flex flex-col justify-center relative space-y-[4px]">
+      <div className="w-full flex flex-col justify-center relative gap-y-1">
         <label
           htmlFor={props.label}
           className={`${
