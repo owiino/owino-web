@@ -1,20 +1,24 @@
 import React, { Fragment, useState, useEffect } from "react";
 import { uppercaseFirstLetter } from "../../../utils";
 import { useInputValidation } from "../../../hooks/useInputValidation";
+import { twMerge } from "tailwind-merge";
 
 interface InputFieldProps {
   label: string;
   type: "text" | "password" | "email";
+  value?: string;
   required: boolean;
   placeholder: string;
   errorMessage: string;
-  isValidInputHandler: (value: boolean) => void;
+  isValidInputHandler?: (value: boolean) => void;
   inputValueHandler: (value: string) => void;
   /**
    * validateInputValue function that takes string argument performs
    * regex operations on it and return boolean
    */
   validateInputValue: (value: string) => boolean;
+  className?: string;
+  disabled?: boolean;
 }
 
 export const InputField: React.FC<InputFieldProps> = (props) => {
@@ -40,7 +44,7 @@ export const InputField: React.FC<InputFieldProps> = (props) => {
   useEffect(() => {
     const valueHandler = () => {
       props.inputValueHandler(inputValue);
-      props.isValidInputHandler(inputIsValid);
+      props.isValidInputHandler && props.isValidInputHandler(inputIsValid);
     };
     valueHandler();
   }, [inputValue]);
@@ -58,11 +62,16 @@ export const InputField: React.FC<InputFieldProps> = (props) => {
         </label>
         <div className="relative w-full">
           <input
-            className={`outline-none p-[10px] rounded w-full bg-gray-300 text-sm 
-          ${isActiveField(props.label) && "animate-border"}`}
+            className={twMerge(
+              `outline-none p-[10px] rounded w-full bg-gray-300 text-sm 
+            ${isActiveField(props.label) && "animate-border"}`,
+              props.className
+            )}
             type={props.type}
+            value={props.value}
             required={props.required}
             placeholder={props.placeholder}
+            disabled={props.disabled}
             onChange={inputValueChangeHandler}
             onBlur={() => {
               inputBlurHandler(), onBlurHandler();
