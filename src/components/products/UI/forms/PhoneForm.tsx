@@ -238,6 +238,7 @@ export const PhoneForm: React.FC = () => {
     formData.append("location", JSON.stringify(productBasicInfo.location));
     formData.append("description", description);
     formData.append("contact", JSON.stringify(contact));
+    formData.append("delivery", JSON.stringify(delivery));
     // append delivery
     // append Quick sales
 
