@@ -233,6 +233,8 @@ export const PhoneForm: React.FC = () => {
     const formData = new FormData();
     if (!validatePhoneData(phoneData)) return;
 
+    // TODO: to validate location, category and description
+
     formData.append("productCategory", productBasicInfo.category);
     formData.append("ProductDetailedInfo", JSON.stringify(phoneData));
     formData.append("location", JSON.stringify(productBasicInfo.location));
