@@ -156,7 +156,7 @@ export const AddProductDelivery: React.FC<AddProductDeliveryProps> = (
       <div className="space-y-2">
         <label htmlFor="productDelivery" className="flex items-center gap-x-2">
           <svg className="w-7 h-7 fill-gray-dark-1">
-            <use href={`${sprite}#icon-person-filled`}></use>
+            <use href={`${sprite}#icon-vehicle`}></use>
           </svg>
           <span>Delivery</span>
         </label>
@@ -168,7 +168,7 @@ export const AddProductDelivery: React.FC<AddProductDeliveryProps> = (
           <form className="p-8 mt-4 space-y-4">
             <div className="flex items-center gap-x-2">
               <svg className="w-7 h-7 fill-gray-dark-1">
-                <use href={`${sprite}#icon-person-filled`}></use>
+                <use href={`${sprite}#icon-vehicle`}></use>
               </svg>
               <span>Add delivery option</span>
             </div>
