@@ -15,6 +15,7 @@ import { postProduct } from "../../../../API/product";
 import { Spinner } from "../../../shared/UI/Loader";
 import { updateNewProduct } from "../../../../store/actions/product";
 import { TSelectedLocation } from "../../../../types/location";
+import { TUser } from "../../../../types/auth";
 
 interface PhoneDataState {
   model: string;
@@ -58,9 +59,10 @@ export const PhoneForm: React.FC = () => {
     os: "",
   });
   const [formError, setFormError] = useState<string>("");
+  const user: TUser = useSelector((state: any) => state.auth.user);
   const [contact, setContact] = useState<Contact>({
-    phoneNumber: "",
-    name: "",
+    phoneNumber: user.phoneNumber,
+    name: `${user.firstName} ${user.lastName}`,
   });
   const [description, setDescription] = useState<string>("");
   const [delivery, setDelivery] = useState<Delivery | null>(null);
