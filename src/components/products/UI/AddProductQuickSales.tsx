@@ -25,7 +25,7 @@ export const AddProductQuickSales: React.FC<QuickSalesProps> = (props) => {
       <div className="space-y-2">
         <div>
           <label className="text-gray-700 text-lg font-semibold">
-            Quick Sales
+            🚀 Quick Sales
           </label>
         </div>
         <div className="flex items-center gap-x-3">
