@@ -24,7 +24,7 @@ interface Delivery {
 
 interface FormBuilderProps {
   fieldList: TProductInputField[];
-  descriptionChangeHandler: (value: string) => void;
+  descriptionChangeHandler: (description: string) => void;
   contactChangeHandler: (value: Contact) => void;
   onSaveDelivery: (delivery: Delivery) => void;
   onCheckQuickSales: (checkedQuickSales: boolean) => void;
@@ -52,9 +52,9 @@ export const ProductFormBuilder: React.FC<FormBuilderProps> = (props) => {
     if (value) setIsValidPhoneNumber(() => true);
   };
 
-  const descriptionValueChangeHandler = (value: string) => {
+  const descriptionValueChangeHandler = (description: string) => {
     if (!isValidDescription) return;
-    if (value) props.descriptionChangeHandler(value);
+    if (description) props.descriptionChangeHandler(description);
   };
 
   const isValidDescriptionNumberHandler = (value: boolean) => {
