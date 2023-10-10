@@ -239,9 +239,10 @@ export const PhoneForm: React.FC = () => {
     if (!validatePhoneData(phoneData)) return;
 
     // TODO: to validate location, category and description
+    // TODO: to correctly update validate images in the AddProductImage component
 
-    formData.append("userId", JSON.stringify(userId));
-    formData.append("ProductName", phoneData.model);
+    formData.append("sellerId", JSON.stringify(userId));
+    formData.append("productName", phoneData.model);
     formData.append("productCategory", productBasicInfo.category);
     formData.append("ProductDetailedInfo", JSON.stringify(phoneData));
     formData.append("location", JSON.stringify(productBasicInfo.location));
@@ -263,8 +264,6 @@ export const PhoneForm: React.FC = () => {
     mutate({ formData: formData, accessToken: accessToken });
     localStorage.removeItem("productBasicInfo");
   };
-
-  console.log("delivery", delivery);
 
   return (
     <Fragment>
