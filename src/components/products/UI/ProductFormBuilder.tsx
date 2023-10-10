@@ -27,6 +27,7 @@ interface FormBuilderProps {
   descriptionChangeHandler: (value: string) => void;
   contactChangeHandler: (value: Contact) => void;
   onSaveDelivery: (delivery: Delivery) => void;
+  onCheckQuickSales: (checkedQuickSales: boolean) => void;
 }
 
 export const ProductFormBuilder: React.FC<FormBuilderProps> = (props) => {
@@ -78,8 +79,6 @@ export const ProductFormBuilder: React.FC<FormBuilderProps> = (props) => {
     };
     contactValueHandler();
   }, []);
-
-  // delivery handler here
 
   return (
     <Fragment>
@@ -176,13 +175,11 @@ export const ProductFormBuilder: React.FC<FormBuilderProps> = (props) => {
             />
           </div>
         </div>
-        {/* Delivery form here */}
         <div className="bg-gray-50 rounded-md p-4">
           <AddProductDelivery onSave={props.onSaveDelivery} />
         </div>
-        {/* Quick sales form here */}
         <div className="bg-gray-50 rounded-md p-4">
-          <AddProductQuickSales onCheckQuickSales={() => {}} />
+          <AddProductQuickSales onCheckQuickSales={props.onCheckQuickSales} />
         </div>
       </div>
     </Fragment>

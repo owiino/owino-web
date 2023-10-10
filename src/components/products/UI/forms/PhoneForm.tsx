@@ -64,14 +64,12 @@ export const PhoneForm: React.FC = () => {
   });
   const [description, setDescription] = useState<string>("");
   const [delivery, setDelivery] = useState<Delivery | null>(null);
+  const [quickSales, setQuickSales] = useState<boolean | null>(null);
   const dispatch: any = useDispatch();
   const accessToken = useSelector((state: any) => state.auth.accessToken);
   const productBasicInfo: TProductBasicInfo = useSelector(
     (state: any) => state.product.basicInfo
   );
-
-  // TODO: Add string "other" to all json data for products
-  // TODO: validate to ensure that all fields have values
 
   const contactChangeHandler = (contact: Contact) => {
     setContact(() => contact);
@@ -82,6 +80,9 @@ export const PhoneForm: React.FC = () => {
   };
   const onSaveDeliveryHandler = (delivery: Delivery) => {
     setDelivery(() => delivery);
+  };
+  const onCheckQuickSalesHandler = (checkedQuickSales: boolean) => {
+    setQuickSales(() => checkedQuickSales);
   };
 
   interface SelectedValue {
@@ -233,12 +234,12 @@ export const PhoneForm: React.FC = () => {
     if (!validatePhoneData(phoneData)) return;
 
     formData.append("productCategory", productBasicInfo.category);
+    formData.append("ProductDetailedInfo", JSON.stringify(phoneData));
     formData.append("location", JSON.stringify(productBasicInfo.location));
     formData.append("description", description);
     formData.append("contact", JSON.stringify(contact));
     formData.append("delivery", JSON.stringify(delivery));
-    // append delivery
-    // append Quick sales
+    formData.append("quickSales", JSON.stringify(quickSales));
 
     for (let i = 0; i < imageList.length; i++) {
       formData.append(
@@ -264,6 +265,7 @@ export const PhoneForm: React.FC = () => {
           descriptionChangeHandler={descriptionChangeHandler}
           contactChangeHandler={contactChangeHandler}
           onSaveDelivery={onSaveDeliveryHandler}
+          onCheckQuickSales={onCheckQuickSalesHandler}
         />
         <div className="w-full bg-green-500s grid place-items-center">
           {!isLoading && (
