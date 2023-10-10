@@ -37,10 +37,8 @@ interface Contact {
 interface Delivery {
   location: TSelectedLocation;
   name: string;
-  deliveryDuration: {
-    from: number;
-    to: number;
-  };
+  deliveryDurationFrom: number;
+  deliveryDurationTo: number;
   chargesDelivery: boolean;
   deliveryCharge: number;
 }

@@ -1,13 +1,17 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useState } from "react";
 import sprite from "../../../../assets/icons/sprite.svg";
 import { Modal } from "../../../shared/UI/Modal";
 import { InputSelect } from "../../../shared/UI/InputSelect";
 import { TProductBasicInfo } from "../../../../types/product";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { InputField } from "../../../shared/UI/InputField";
 import { Button } from "../../../shared/UI/Button";
 import { TSelectedLocation } from "../../../../types/location";
 import { LocationSelector } from "../../../shared/UI/LocationSelector";
+import {
+  showCardNotification,
+  hideCardNotification,
+} from "../../../../store/actions/notification";
 
 const OpenModalElement: React.FC = () => {
   return (
@@ -28,10 +32,8 @@ const OpenModalElement: React.FC = () => {
 interface Delivery {
   location: TSelectedLocation;
   name: string;
-  deliveryDuration: {
-    from: number;
-    to: number;
-  };
+  deliveryDurationFrom: number;
+  deliveryDurationTo: number;
   chargesDelivery: boolean;
   deliveryCharge: number;
 }
@@ -39,17 +41,6 @@ interface Delivery {
 interface AddProductDeliveryProps {
   onSave: (delivery: Delivery) => void;
 }
-
-const deliveryInitialValue: Delivery = {
-  location: { region: "", district: "", division: "" },
-  name: "",
-  deliveryDuration: {
-    from: 0,
-    to: 0,
-  },
-  chargesDelivery: false,
-  deliveryCharge: 0,
-};
 
 export const AddProductDelivery: React.FC<AddProductDeliveryProps> = (
   props
@@ -60,15 +51,21 @@ export const AddProductDelivery: React.FC<AddProductDeliveryProps> = (
 
   const productName = productBasicInfo.category.split(",")[1]?.trim();
 
-  const [delivery, setDelivery] = useState<Delivery>(deliveryInitialValue);
-
+  const [location, setLocation] = useState<TSelectedLocation>({
+    region: "",
+    district: "",
+    division: "",
+  });
+  const [deliverName, setDeliveryName] = useState<string>("");
   const [durationFrom, setDurationFrom] = useState<number>(0);
   const [durationTo, setDurationTo] = useState<number>(0);
   const [chargesDelivery, setChargesDelivery] = useState<boolean>(false);
   const [deliveryCharge, SetDeliveryCharge] = useState<number>(0);
 
+  const dispatch: any = useDispatch();
+
   const deliveryNameValueChangeHandler = (name: string) => {
-    setDelivery({ ...delivery, name: name });
+    setDeliveryName(() => name);
   };
   const validateDeliveryName = (deliveryName: string) =>
     deliveryName.trim() !== "";
@@ -93,7 +90,7 @@ export const AddProductDelivery: React.FC<AddProductDeliveryProps> = (
   };
 
   const selectLocationHandler = (location: TSelectedLocation) => {
-    setDelivery({ ...delivery, location: location });
+    setLocation(() => location);
   };
 
   const onSelectChargeDeliveryHandler = (chargesDelivery: {
@@ -126,29 +123,33 @@ export const AddProductDelivery: React.FC<AddProductDeliveryProps> = (
   ];
 
   const onSaveHandler = () => {
-    // TODO: validate delivery options here
-    // TODO: fix save delivery properties to the parent
-    setDelivery({ ...delivery, name: productName });
-    setDelivery({
-      ...delivery,
-      deliveryDuration: { from: durationFrom, to: durationTo },
-    });
-    setDelivery({ ...delivery, deliveryCharge: deliveryCharge });
-    setDelivery({ ...delivery, chargesDelivery: chargesDelivery });
+    const isValidLocation =
+      location.region && location.district && location.division;
+
+    if (!isValidLocation || !deliverName || !durationFrom || !durationTo) {
+      dispatch(
+        showCardNotification({
+          type: "error",
+          message: "please check form for errors",
+        })
+      );
+      setTimeout(() => {
+        dispatch(hideCardNotification());
+      }, 5000);
+
+      return;
+    }
+
+    const delivery: Delivery = {
+      name: deliverName,
+      location: location,
+      deliveryDurationFrom: durationFrom,
+      deliveryDurationTo: durationTo,
+      chargesDelivery: chargesDelivery,
+      deliveryCharge: deliveryCharge,
+    };
     props.onSave(delivery);
   };
-
-  useEffect(() => {
-    // setDelivery({ ...delivery, name: productName });
-    // setDelivery({
-    //   ...delivery,
-    //   deliveryDuration: { from: durationFrom, to: durationTo },
-    // });
-    // setDelivery({ ...delivery, chargesDelivery: chargesDelivery });
-    // setDelivery({ ...delivery, deliveryCharge: deliveryCharge });
-
-    console.log("Delivery use effect");
-  }, [productName, durationFrom, durationTo, setDurationFrom, setDurationTo]);
 
   return (
     <Fragment>
