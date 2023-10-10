@@ -269,16 +269,27 @@ export const PhoneForm: React.FC = () => {
           onSaveDelivery={onSaveDeliveryHandler}
           onCheckQuickSales={onCheckQuickSalesHandler}
         />
-        <div className="w-full bg-green-500s grid place-items-center">
+        <div
+          className="w-full bg-gray-50 rounded-md grid place-items-center
+              p-4 gap-3"
+        >
+          <div>
+            <p className="text-gray-700">
+              By clicking post, you agree to our terms of service
+            </p>
+          </div>
           {!isLoading && (
-            <Button onClick={() => submitPhoneDataHandler()} className="w-56">
+            <Button
+              onClick={() => submitPhoneDataHandler()}
+              className="w-56s w-full"
+            >
               Post
             </Button>
           )}
           {isLoading && (
             <div
               className="py-[6px] font-semibold text-gray-100 bg-primary
-               w-56 grid place-items-center rounded"
+               w-56s w-full grid place-items-center rounded"
             >
               <Spinner label="Posting" className="w-5 h-5 text-gray-100" />
             </div>

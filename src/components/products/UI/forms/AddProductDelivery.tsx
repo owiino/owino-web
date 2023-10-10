@@ -158,7 +158,7 @@ export const AddProductDelivery: React.FC<AddProductDeliveryProps> = (
           <svg className="w-7 h-7 fill-gray-dark-1">
             <use href={`${sprite}#icon-vehicle`}></use>
           </svg>
-          <span>Delivery</span>
+          <span className="text-gray-700 text-lg font-semibold">Delivery</span>
         </label>
         <Modal
           openModalElement={<OpenModalElement />}
