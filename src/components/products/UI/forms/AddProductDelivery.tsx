@@ -127,7 +127,7 @@ export const AddProductDelivery: React.FC<AddProductDeliveryProps> = (
     const isValidLocation =
       location.region && location.district && location.division;
 
-    if (!isValidLocation || !deliverName || !durationFrom || !durationTo) {
+    if (!isValidLocation || !durationFrom || !durationTo) {
       dispatch(
         showCardNotification({
           type: "error",
