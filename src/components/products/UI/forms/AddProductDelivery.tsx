@@ -122,7 +122,8 @@ export const AddProductDelivery: React.FC<AddProductDeliveryProps> = (
     },
   ];
 
-  const onSaveHandler = () => {
+  const onSaveHandler = (event: React.FormEvent) => {
+    event.preventDefault();
     const isValidLocation =
       location.region && location.district && location.division;
 
@@ -165,7 +166,10 @@ export const AddProductDelivery: React.FC<AddProductDeliveryProps> = (
           onModalClose={() => {}}
           className="w-[90%] xs:w-96 h-auto sm:max-h-[80vh] overflow-x-hidden mt-8"
         >
-          <form className="p-8 mt-4 space-y-4">
+          <form
+            className="p-8 mt-4 space-y-4"
+            onSubmit={(event) => onSaveHandler(event)}
+          >
             <div className="flex items-center gap-x-2">
               <svg className="w-7 h-7 fill-gray-dark-1">
                 <use href={`${sprite}#icon-vehicle`}></use>
@@ -233,7 +237,7 @@ export const AddProductDelivery: React.FC<AddProductDeliveryProps> = (
                 className="w-full"
               />
             )}
-            <Button onClick={() => onSaveHandler()} className="w-full">
+            <Button className="w-full" type="submit">
               Save
             </Button>
           </form>
