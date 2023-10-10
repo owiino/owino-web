@@ -7,6 +7,7 @@ import { AddProductDelivery } from "./forms/AddProductDelivery";
 import { TSelectedLocation } from "../../../types/location";
 import { useSelector } from "react-redux";
 import { TUser } from "../../../types/auth";
+import { AddProductQuickSales } from "./AddProductQuickSales";
 interface Contact {
   phoneNumber: string;
   name: string;
@@ -180,6 +181,9 @@ export const ProductFormBuilder: React.FC<FormBuilderProps> = (props) => {
           <AddProductDelivery onSave={props.onSaveDelivery} />
         </div>
         {/* Quick sales form here */}
+        <div className="bg-gray-50 rounded-md p-4">
+          <AddProductQuickSales onCheckQuickSales={() => {}} />
+        </div>
       </div>
     </Fragment>
   );
