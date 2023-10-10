@@ -69,7 +69,7 @@ export const PhoneForm: React.FC = () => {
   const accessToken: string = useSelector(
     (state: any) => state.auth.accessToken
   );
-  const userId: string = useSelector((state: any) => state.auth.user.userId);
+  const userId: number = useSelector((state: any) => state.auth.user.userId);
   const productBasicInfo: TProductBasicInfo = useSelector(
     (state: any) => state.product.basicInfo
   );
@@ -238,7 +238,8 @@ export const PhoneForm: React.FC = () => {
 
     // TODO: to validate location, category and description
 
-    formData.append("userId", userId);
+    formData.append("userId", JSON.stringify(userId));
+    formData.append("ProductName", phoneData.model);
     formData.append("productCategory", productBasicInfo.category);
     formData.append("ProductDetailedInfo", JSON.stringify(phoneData));
     formData.append("location", JSON.stringify(productBasicInfo.location));
