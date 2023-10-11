@@ -15,6 +15,26 @@ export const updateNewProduct = (newProduct: TNewProduct) => {
   };
 };
 
+type TFile = {
+  content: any;
+  name: string;
+  type: string;
+};
+
+export const updateNewProductImageList = (newProductImageList: TFile[]) => {
+  localStorage.setItem(
+    "newProductImageList",
+    JSON.stringify(newProductImageList)
+  );
+  return async (dispatch: any) => {
+    await dispatch(
+      productActions.updateNewProductImageList({
+        newProductImageList: newProductImageList,
+      })
+    );
+  };
+};
+
 export const ClearProduct = () => {
   localStorage.clear();
   return async (dispatch: any) => {

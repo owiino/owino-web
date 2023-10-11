@@ -18,6 +18,7 @@ type TNewProduct = {
 };
 
 type TAddProduct = {
+  newProductImageList: TFile[];
   basicInfo: {
     location: TSelectedLocation;
     category: string;
@@ -26,7 +27,12 @@ type TAddProduct = {
   newProduct: TNewProduct;
 };
 
+type TNewProductImageListPayload = {
+  newProductImageList: TFile[];
+};
+
 const initialState: TAddProduct = {
+  newProductImageList: [],
   basicInfo: {
     location: { region: "", district: "", division: "" },
     category: "",
@@ -53,9 +59,17 @@ export const productSlice = createSlice({
     updateNewProduct(state, action: PayloadAction<any>) {
       state.newProduct = action.payload.newProduct;
     },
+    updateNewProductImageList(
+      state,
+      action: PayloadAction<TNewProductImageListPayload>
+    ) {
+      console.log("update product image list");
+      state.newProductImageList = action.payload.newProductImageList;
+    },
     clear(state) {
       state.basicInfo = initialState.basicInfo;
       state.newProduct = initialState.newProduct;
+      state.newProductImageList = initialState.newProductImageList;
     },
   },
 });

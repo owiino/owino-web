@@ -5,25 +5,18 @@ import { Button } from "../../shared/UI/Button";
 import { AddProductHeader } from "../UI/AddProductHeader";
 import { LocationSelector } from "../../shared/UI/LocationSelector";
 import { TSelectedLocation } from "../../../types/location";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { updateProductBasicInfo } from "../../../store/actions/product";
 // import {
 //   showCardNotification,
 //   hideCardNotification,
 // } from "../../../store/actions/notification";
 
-type TFile = {
-  content: any;
-  name: string;
-  type: string;
-};
-
 interface BasicInfoProps {
   onNextClick: (clicked: boolean) => void;
 }
 
 export const AddProductBasicInfo: React.FC<BasicInfoProps> = (props) => {
-  const [imageFileList, setImageFileList] = useState<TFile[]>([]);
   const [location, setLocation] = useState<TSelectedLocation>({
     region: "",
     district: "",
@@ -34,9 +27,9 @@ export const AddProductBasicInfo: React.FC<BasicInfoProps> = (props) => {
   const [category, setCategory] = useState<string>("");
   const dispatch: any = useDispatch();
 
-  const saveImageListHandler = (images: TFile[]) => {
-    setImageFileList(() => images);
-  };
+  const imageFileList = useSelector(
+    (state: any) => state.product.newProductImageList
+  );
 
   const selectLocationHandler = (location: TSelectedLocation) => {
     setLocation(() => location);
@@ -74,10 +67,7 @@ export const AddProductBasicInfo: React.FC<BasicInfoProps> = (props) => {
         >
           <ProductCategorySelector onSelect={selectCategoryHandler} />
           <LocationSelector label="Location" onSelect={selectLocationHandler} />
-          <AddProductImages
-            onSaveImages={saveImageListHandler}
-            minPhotoNumber={3}
-          />
+          <AddProductImages minPhotoNumber={3} />
           <Button className="w-full mt-4" onClick={() => nextClickHandler()}>
             Next
           </Button>

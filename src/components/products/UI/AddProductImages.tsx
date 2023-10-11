@@ -10,6 +10,7 @@ import { AppImagePicker } from "../../shared/UI/AppImagePicker";
 import { Spinner } from "../../shared/UI/Loader";
 import { FileType } from "../../../utils";
 // import sprite from "../../../assets/icons/sprite.svg";
+import { updateNewProductImageList } from "../../../store/actions/product";
 
 type TFile = {
   content: any;
@@ -18,7 +19,6 @@ type TFile = {
 };
 
 interface AddProductImagesProps {
-  onSaveImages: (images: any[]) => void;
   minPhotoNumber: number;
 }
 
@@ -37,12 +37,12 @@ export const AddProductImages: React.FC<AddProductImagesProps> = (props) => {
     mutationFn: validateProductImages,
     onSuccess: (_: any) => {
       setImageFileList((imageFiles) => [...imageFiles, imageFile]);
+      dispatch(updateNewProductImageList([...imageFileList, imageFile]));
       setImageFile({
         content: null,
         name: "",
         type: "",
       });
-      // TODO: to save images to local storage
     },
     onError: (error: any) => {
       dispatch(showCardNotification({ type: "error", message: error.message }));
@@ -98,7 +98,6 @@ export const AddProductImages: React.FC<AddProductImagesProps> = (props) => {
     if (!imageFile.content) return;
     const uploadHandler = () => {
       uploadProductImagesHandler();
-      props.onSaveImages(imageFileList);
     };
     uploadHandler();
   }, [imageFile]);
