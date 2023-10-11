@@ -32,3 +32,13 @@ export type TNewProduct = {
   createdAt: string;
   updatedAt: string;
 };
+
+export type TGetProduct = {
+  productId: number;
+  sellerId: number;
+  productName: string;
+  // productPrice: number;
+  productImages: any[];
+  createdAt: string;
+  updatedAt: string;
+};

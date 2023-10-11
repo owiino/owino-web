@@ -44,3 +44,17 @@ export const postProduct = async ({
   }
   return await response.json();
 };
+
+export const getAllProducts = async () => {
+  const response = await fetch(`${url}/products/get-all-products`, {
+    method: "GET",
+    headers: {
+      "Content-type": "application/json",
+    },
+  });
+  if (!response.ok) {
+    const error = await response.json();
+    throw new Error(error.message);
+  }
+  return await response.json();
+};

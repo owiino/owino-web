@@ -1,15 +1,19 @@
 import React, { Fragment, useState } from "react";
 import { addCommasToNumber } from "../../../utils/addComasToNumber";
 import sprite from "../../../assets/icons/sprite.svg";
-import phone from "../../../assets/images/phone.png";
+// import phone from "../../../assets/images/phone.png";
+import { TGetProduct } from "../../../types/product";
 
 interface ProductProps {
   saved: boolean;
+  productData: TGetProduct;
   onSave: (isSaved: boolean) => void;
 }
 
 export const Product: React.FC<ProductProps> = (props) => {
   const [productSaved, setProductSaved] = useState(props.saved);
+  const productData = props.productData;
+  const productImageUrl: string = productData.productImages[0].imageUrl;
 
   const onSaveHandler = () => {
     props.onSave(productSaved);
@@ -28,7 +32,8 @@ export const Product: React.FC<ProductProps> = (props) => {
            rounded-trs"
         >
           <img
-            src={phone}
+            // src={phone}
+            src={productImageUrl}
             alt="product image"
             className="w-full  rounded-t aspect-[4/3]"
           />
@@ -37,7 +42,8 @@ export const Product: React.FC<ProductProps> = (props) => {
           className="flex flex-col items-start justify-center relative
            w-full pt-4 p-2 text-sm"
         >
-          <span>Sumsung S4 plus teal</span>
+          {/* <span>Sumsung S4 plus teal</span> */}
+          <span>{productData.productName}</span>
           <span className="text-primary-dark">
             UGX {addCommasToNumber(520000)}
           </span>
