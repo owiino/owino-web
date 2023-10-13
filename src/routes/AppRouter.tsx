@@ -18,6 +18,7 @@ import { Live } from "../components/live-video/Pages/Live";
 import { Profile } from "../components/Profile/pages/Profile";
 import { MyShop } from "../components/products/Pages/MyShop";
 import { AddProduct } from "../components/products/Pages/AddProduct";
+import { ProductPage } from "../components/products/Pages/ProductPage";
 
 export const AppRouter: React.FC = () => {
   const auth = useSelector((state: TAuthState) => state.auth);
@@ -123,6 +124,10 @@ export const AppRouter: React.FC = () => {
                   <Route path="/profile" element={<Profile />} />
                   <Route path="/add-product" element={<AddProduct />} />
                   <Route path="/my-shop" element={<MyShop />} />
+                  <Route
+                    path="/ad/:productName/:sellerId"
+                    element={<ProductPage />}
+                  />
                   <Route path="/settings" element={<Settings />} />
                   <Route path="/home" element={<Navigate to="/" replace />} />
                   <Route path="*" element={<Navigate to="/" replace />} />

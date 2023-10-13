@@ -1,5 +1,5 @@
 import { productActions } from "../index";
-import { TAddProduct, TNewProduct } from "../../types/product";
+import { TAddProduct, TNewProduct, TGetProduct } from "../../types/product";
 
 export const updateProductBasicInfo = (productBasicInfo: TAddProduct) => {
   localStorage.setItem("productBasicInfo", JSON.stringify(productBasicInfo));
@@ -30,6 +30,17 @@ export const updateNewProductImageList = (newProductImageList: TFile[]) => {
     await dispatch(
       productActions.updateNewProductImageList({
         newProductImageList: newProductImageList,
+      })
+    );
+  };
+};
+
+export const updateCurrentProductOnPage = (product: TGetProduct) => {
+  localStorage.setItem("currentProductOnPage", JSON.stringify(product));
+  return async (dispatch: any) => {
+    await dispatch(
+      productActions.updateCurrentProductOnPage({
+        currentProductOnPage: product,
       })
     );
   };

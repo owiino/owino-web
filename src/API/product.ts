@@ -58,3 +58,17 @@ export const getAllProducts = async () => {
   }
   return await response.json();
 };
+
+export const getProduct = async (productId: number) => {
+  const response = await fetch(`${url}/products/get-product/${productId}`, {
+    method: "GET",
+    headers: {
+      "Content-type": "application/json",
+    },
+  });
+  if (!response.ok) {
+    const error = await response.json();
+    throw new Error(error.message);
+  }
+  return await response.json();
+};

@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { TSelectedLocation } from "../../types/location";
+import { TGetProduct } from "../../types/product";
 
 type TFile = {
   content: any;
@@ -25,6 +26,7 @@ type TAddProduct = {
     imageList: TFile[];
   };
   newProduct: TNewProduct;
+  currentProductOnPage: TGetProduct;
 };
 
 type TNewProductImageListPayload = {
@@ -47,6 +49,15 @@ const initialState: TAddProduct = {
     createdAt: "",
     updatedAt: "",
   },
+  currentProductOnPage: {
+    productId: 0,
+    sellerId: 0,
+    productName: "",
+    // productPrice: number;
+    productImages: [],
+    createdAt: "",
+    updatedAt: "string",
+  },
 };
 
 export const productSlice = createSlice({
@@ -63,8 +74,11 @@ export const productSlice = createSlice({
       state,
       action: PayloadAction<TNewProductImageListPayload>
     ) {
-      console.log("update product image list");
       state.newProductImageList = action.payload.newProductImageList;
+    },
+
+    updateCurrentProductOnPage(state, action: PayloadAction<any>) {
+      state.currentProductOnPage = action.payload.currentProductOnPage;
     },
     clear(state) {
       state.basicInfo = initialState.basicInfo;

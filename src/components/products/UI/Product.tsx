@@ -3,6 +3,11 @@ import { addCommasToNumber } from "../../../utils/addComasToNumber";
 import sprite from "../../../assets/icons/sprite.svg";
 // import phone from "../../../assets/images/phone.png";
 import { TGetProduct } from "../../../types/product";
+import { Link, useNavigate } from "react-router-dom";
+import { fillStringWithHyphen } from "../../../utils";
+import { Dispatch } from "react";
+import { useDispatch } from "react-redux";
+import { updateCurrentProductOnPage } from "../../../store/actions/product";
 
 interface ProductProps {
   saved: boolean;
@@ -15,8 +20,20 @@ export const Product: React.FC<ProductProps> = (props) => {
   const productData = props.productData;
   const productImageUrl: string = productData.productImages[0].imageUrl;
 
+  const dispatch: any = useDispatch();
+
+  const navigate = useNavigate();
+
   const onSaveHandler = () => {
     props.onSave(productSaved);
+  };
+
+  const urlProductName = fillStringWithHyphen(productData.productName);
+  const urlSellerId = productData.sellerId.toString();
+
+  const updateProductOnCurrentPage = () => {
+    dispatch(updateCurrentProductOnPage(productData));
+    navigate(`/ad/${urlProductName}/${urlSellerId}`);
   };
 
   //   TODO: product saving api here
@@ -27,9 +44,10 @@ export const Product: React.FC<ProductProps> = (props) => {
         className="flex flex-col items-center justify-center
          shadow-md rounded mt-4"
       >
+        {/* <Link to={`/ad/${urlProductName}/${urlSellerId}`}> */}
         <div
-          className="h-auto w-full bg-gray-400 rounded-t
-           rounded-trs"
+          className="h-auto w-full bg-gray-400 rounded-t"
+          onClick={() => updateProductOnCurrentPage()}
         >
           <img
             // src={phone}
@@ -75,6 +93,7 @@ export const Product: React.FC<ProductProps> = (props) => {
             )}
           </span>
         </div>
+        {/* </Link> */}
       </div>
     </Fragment>
   );
