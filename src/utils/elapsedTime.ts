@@ -48,37 +48,37 @@ const elapsedTime = (dateStr: string) => {
   const millSecDiff = currentDateMillSec - candidateDateMillSec;
 
   if (millSecDiff < ONE_MIN_MILL_SEC) {
-    if (seconds(millSecDiff) === 1) return "second";
+    if (seconds(millSecDiff) === 1) return "1 second";
     return `${seconds(millSecDiff)} seconds`;
   }
 
   if (millSecDiff < ONE_HOUR_MILL_SEC) {
-    if (minutes(millSecDiff) === 1) return "minute";
+    if (minutes(millSecDiff) === 1) return "1 minute";
     return `${minutes(millSecDiff)} minutes`;
   }
 
   if (millSecDiff < ONE_DAY_MILL_SEC) {
-    if (hours(millSecDiff) === 1) return "hour";
+    if (hours(millSecDiff) === 1) return "1 hour";
     return `${hours(millSecDiff)} hours`;
   }
 
   if (millSecDiff < ONE_WEEK_MILL_SEC) {
-    if (days(millSecDiff) === 1) return "day";
+    if (days(millSecDiff) === 1) return "1 day";
     return `${days(millSecDiff)} days`;
   }
 
   if (millSecDiff < ONE_MONTH_MILL_SEC) {
-    if (weeks(millSecDiff) === 1) return "week";
+    if (weeks(millSecDiff) === 1) return "1 week";
     return `${weeks(millSecDiff)} weeks`;
   }
 
   if (millSecDiff < ONE_YEAR_MILL_SEC) {
-    if (months(millSecDiff) === 1) return "month";
+    if (months(millSecDiff) === 1) return "1 month";
     return `${months(millSecDiff)} months`;
   }
 
   if (millSecDiff >= ONE_YEAR_MILL_SEC) {
-    if (years(millSecDiff) === 1) return "year";
+    if (years(millSecDiff) === 1) return "1 year";
     return `${years(millSecDiff)} years`;
   }
 };

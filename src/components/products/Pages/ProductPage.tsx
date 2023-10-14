@@ -12,7 +12,7 @@ export const ProductPage: React.FC = () => {
           className="w-full min-h-[90vh] my-16 grid place-items-center
            px-4 xs:px-16"
         >
-          <div className="lg:grid grid-cols-2">
+          <div className="lg:grid grid-cols-2 gap-4">
             <div>
               <ProductDetails />
             </div>
