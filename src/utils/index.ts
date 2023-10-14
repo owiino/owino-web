@@ -6,3 +6,4 @@ export { default as Messages } from "./organizeMessages";
 export { default as FileType } from "./fileType";
 export { default as convertToNameObjectArray } from "./convertToNameObjectArray";
 export { default as fillStringWithHyphen } from "./fillStringWithHyphen";
+export { default as elapsedTime } from "./elapsedTime";
