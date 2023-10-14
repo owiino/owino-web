@@ -46,7 +46,10 @@ export const SellerProfile: React.FC = () => {
 
   return (
     <Fragment>
-      <div className="bg-gray-50 p-4 space-y-4 text-gray-800">
+      <div
+        className="bg-gray-50 p-4 space-y-4 text-gray-800
+            w-full"
+      >
         {isLoading && (
           <div>
             <Spinner />
@@ -55,7 +58,7 @@ export const SellerProfile: React.FC = () => {
         <div className="flex items-start gap-x-4">
           <div
             className="bg-gray-300 flex items-center justify-center 
-                w-12 h-12 rounded-[50%] relative"
+            w-12 min-w-[48px] h-12 min-h-[48px] rounded-[50%] relative"
           >
             {showImage && (
               <img
@@ -76,18 +79,18 @@ export const SellerProfile: React.FC = () => {
               <use href={`${sprite}#icon-dot`}></use>
             </svg>
           </div>
-          <div className="purple">
+          <div className="space-y-1">
             <span className="font-bold">{sellerName}</span>
-            <div className="space-x-2">
+            <div className="flex sm:flex-cols items-start gap-2">
               <span
                 className="bg-gray-300 text-gray-800 text-[12px] rounded
-                 px-2 py-[2px]"
+                 p-2 leading-3"
               >
                 Last seen {elapsedTime(lastSeenAt)}
               </span>
               <span
                 className="bg-gray-300 text-gray-800 text-[12px] rounded
-                 px-2 py-[2px]"
+                 p-2 leading-3"
               >
                 Joined {elapsedTime(createdAt)} ago
               </span>
