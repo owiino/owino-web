@@ -14,6 +14,7 @@ import { TUser } from "../../../types/auth";
 import { showChat } from "../../../store/actions/chat";
 import { hideChatRecipientList } from "../../../store/actions/chat";
 import { clearMessageList } from "../../../store/actions/chat";
+import { MessageBadge } from "./MessageBadge";
 
 interface ChatRecipientListProps {
   socket: Socket;
@@ -29,6 +30,8 @@ export const ChatRecipientList: React.FC<ChatRecipientListProps> = (props) => {
   const accessToken: string = useSelector(
     (state: any) => state.auth.accessToken
   );
+  const sellerRecipient: TUser = useSelector((state: any) => state.user.seller);
+
   const dispatch: any = useDispatch();
   const [recipientList, setRecipientList] = useState<TUser[]>([]);
   const [activeRecipient, setActiveRecipient] = useState<TUser>(recipient);
@@ -91,6 +94,15 @@ export const ChatRecipientList: React.FC<ChatRecipientListProps> = (props) => {
     }
   };
 
+  // Remove sellerRecipient if exits in the fetched recipients
+  const filteredRecipients: TUser[] = recipientList.filter((recipient) => {
+    return recipient.userId !== sellerRecipient.userId;
+  });
+  //  Add seller at start of recipients array
+  filteredRecipients.unshift(sellerRecipient);
+
+  const sellerRecipientStyles = `border-[1px] border-primary`;
+
   return (
     <Fragment>
       <div
@@ -113,7 +125,7 @@ export const ChatRecipientList: React.FC<ChatRecipientListProps> = (props) => {
           <SearchMessages />
         </div> */}
         <div>
-          {recipientList.map((recipient: TUser, index: number) => {
+          {filteredRecipients.map((recipient: TUser, index: number) => {
             return (
               <div
                 className={`relative p-4 flex items-center justify-start border-b-[1px]
@@ -121,7 +133,10 @@ export const ChatRecipientList: React.FC<ChatRecipientListProps> = (props) => {
                       recipient.userId == activeRecipient?.userId
                         ? "bg-gray-200"
                         : "bg-gray-50"
-                    }`}
+                    } ${
+                  recipient.userId === sellerRecipient.userId &&
+                  sellerRecipientStyles
+                }`}
                 key={index + 1}
                 onClick={() => onJoinChatRoomHandler(recipient)}
               >
@@ -158,6 +173,11 @@ export const ChatRecipientList: React.FC<ChatRecipientListProps> = (props) => {
                   {/* {"recipient.chatMessageDate"} */}
                   {/* {"Last date"} */}
                 </span>
+                {recipient.userId === sellerRecipient.userId && (
+                  <div className="absolute bottom-0 right-0">
+                    <MessageBadge />
+                  </div>
+                )}
               </div>
             );
           })}

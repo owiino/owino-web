@@ -1,6 +1,5 @@
 import React, { Fragment, useState } from "react";
 import sprite from "../../../assets/icons/sprite.svg";
-import { IconButton } from "../../shared/UI/IconButton";
 import { TGetProduct } from "../../../types/product";
 import { useDispatch, useSelector } from "react-redux";
 import { useQuery } from "@tanstack/react-query";
@@ -11,6 +10,8 @@ import {
 import { getUser } from "../../../API/user";
 import { Spinner } from "../../shared/UI/Loader";
 import { elapsedTime } from "../../../utils";
+import { updateSeller } from "../../../store/actions/user";
+import { StartChat } from "../../chat/UI/StartChat";
 
 export const SellerProfile: React.FC = () => {
   const [sellerProfileData, setSellerProfileData] = useState<any>(null);
@@ -27,6 +28,7 @@ export const SellerProfile: React.FC = () => {
     {
       onSuccess: (data: any) => {
         setSellerProfileData(() => data.data.user);
+        dispatch(updateSeller(data.data.user));
       },
       onError: (error: any) => {
         dispatch(
@@ -97,12 +99,7 @@ export const SellerProfile: React.FC = () => {
             </div>
           </div>
         </div>
-        <IconButton
-          type="button"
-          icon="chat-filled"
-          label="Start chat"
-          iconClass="fill-gray-100 w-6 h-6"
-        />
+        <StartChat />
       </div>
     </Fragment>
   );
