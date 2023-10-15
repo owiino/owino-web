@@ -99,7 +99,7 @@ export const ChatRecipientList: React.FC<ChatRecipientListProps> = (props) => {
     return recipient.userId !== sellerRecipient.userId;
   });
   //  Add seller at start of recipients array
-  filteredRecipients.unshift(sellerRecipient);
+  sellerRecipient.userId && filteredRecipients.unshift(sellerRecipient);
 
   const sellerRecipientStyles = `border-[1px] border-primary`;
 
