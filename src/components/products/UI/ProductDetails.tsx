@@ -10,8 +10,8 @@ import {
 import { getProduct } from "../../../API/product";
 import { elapsedTime } from "../../../utils";
 import { Spinner } from "../../shared/UI/Loader";
-import { Button } from "../../shared/UI/Button";
 import { ProductDetailedView } from "./ProductDetailedView";
+import { StartChat } from "../../chat/UI/StartChat";
 
 export const ProductDetails: React.FC = () => {
   const [productDetails, setProductDetails] = useState<any>(null);
@@ -214,8 +214,10 @@ export const ProductDetails: React.FC = () => {
           />
         </div>
         <div className="border-t-[1px] border-gray-opacity p-4 space-y-3">
-          <p className="text-sm text-gray-700">{productDetails?.description}</p>
-          <Button>start chat</Button>
+          <p className="text-base text-gray-800">
+            {productDetails?.description}
+          </p>
+          <StartChat className="w-48" />
         </div>
       </div>
     </Fragment>

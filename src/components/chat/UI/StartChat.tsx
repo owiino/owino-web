@@ -2,11 +2,15 @@ import React, { Fragment } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updateCurrentRecipient } from "../../../store/actions/chat";
 import { showChatRecipientList, hideChat } from "../../../store/actions/chat";
-
+import { twMerge } from "tailwind-merge";
 import { IconButton } from "../../shared/UI/IconButton";
 import { TUser } from "../../../types/auth";
 
-export const StartChat: React.FC = () => {
+interface StartChatProps {
+  className?: string;
+}
+
+export const StartChat: React.FC<StartChatProps> = (props) => {
   const recipient: TUser = useSelector((state: any) => state.user.seller);
 
   const dispatch: any = useDispatch();
@@ -26,14 +30,16 @@ export const StartChat: React.FC = () => {
 
   return (
     <Fragment>
-      <IconButton
-        type="button"
-        icon="chat-filled"
-        label="Start chat"
-        iconClass="fill-gray-100 w-6 h-6"
-        className="w-full"
-        onClick={() => updateCurrentRecipientHandler()}
-      />
+      <div className={twMerge(`w-full`, props.className)}>
+        <IconButton
+          type="button"
+          icon="chat-filled"
+          label="Start chat"
+          iconClass="fill-gray-100 w-6 h-6"
+          className="w-full"
+          onClick={() => updateCurrentRecipientHandler()}
+        />
+      </div>
     </Fragment>
   );
 };
