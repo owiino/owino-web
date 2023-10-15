@@ -3,9 +3,8 @@ import { addCommasToNumber } from "../../../utils/addComasToNumber";
 import sprite from "../../../assets/icons/sprite.svg";
 // import phone from "../../../assets/images/phone.png";
 import { TGetProduct } from "../../../types/product";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { fillStringWithHyphen } from "../../../utils";
-import { Dispatch } from "react";
 import { useDispatch } from "react-redux";
 import { updateCurrentProductOnPage } from "../../../store/actions/product";
 
