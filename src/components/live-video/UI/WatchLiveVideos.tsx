@@ -1,9 +1,12 @@
 import React, { Fragment } from "react";
+import { HSLVideoPlayer } from "./HSLVideoPlayer";
 
 export const WatchLiveVideos: React.FC = () => {
   return (
     <Fragment>
-      <div>WatchLiveVideos</div>
+      <div>
+        <HSLVideoPlayer />
+      </div>
     </Fragment>
   );
 };
