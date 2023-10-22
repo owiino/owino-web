@@ -1,15 +1,30 @@
 import React, { Fragment, useEffect } from "react";
-import Flv from "flv.js";
+import { io, Socket } from "socket.io-client";
 
+import { goSocketUrl } from "../../../store";
+
+// TODO: rename the component to VideoRecorder
 export const FLVideoPlayer: React.FC = () => {
+  const socket: Socket = io(goSocketUrl);
+
+  socket.on("connect", () => {
+    console.log("connected");
+  });
+
   useEffect(() => {
+    // dispatch action to authorize media access(video and audio)
+    // dispatch another action to start sending video streams to the server
+    // dispatch action to stop sending video streams to the server a
     navigator.mediaDevices
-      .getUserMedia({ video: true })
+      .getUserMedia({ video: true, audio: true })
       .then(function (stream) {
         const videoElement = document.getElementById(
           "video-element"
         ) as HTMLVideoElement;
         videoElement.srcObject = stream;
+
+        socket.emit("live", stream);
+        // socket.sendBuffer();
 
         // Wait for the loadedmetadata event before calling play()
         videoElement.addEventListener("loadedmetadata", function () {
@@ -22,25 +37,19 @@ export const FLVideoPlayer: React.FC = () => {
         console.log("Error accessing camera: ", error.message);
         // Handle errors
       });
+  }, [socket]);
 
-    const videoElement = document.getElementById(
-      "video-element"
-    ) as HTMLVideoElement;
-
-    const BACKEND_STREAMING_URL = "rtmp://localhost:1935";
-    // Create an FLV player
-    const flvPlayer = Flv.createPlayer({
-      type: "flv",
-      isLive: true,
-      url: BACKEND_STREAMING_URL,
-    });
-
-    // Attach the FLV player to the video element
-    flvPlayer.attachMediaElement(videoElement);
-
-    // Load the video stream (play will be handled after 'loadedmetadata')
-    flvPlayer.load();
-  }, []);
+  const sendMessage = () => {
+    console.log("clicked send message");
+    socket.emit(
+      "chat",
+      "An excited hello of connection of socket for 1 week",
+      (response: any) => {
+        console.log(response.status); // ok
+      }
+    );
+    console.log("Believe it has sent");
+  };
 
   return (
     <Fragment>
@@ -51,6 +60,7 @@ export const FLVideoPlayer: React.FC = () => {
             id="video-element"
             className="w-72 h-72 border-2 border-gray-500"
           ></video>
+          <button onClick={() => sendMessage()}>Send message</button>
         </div>
       </div>
     </Fragment>
