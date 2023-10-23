@@ -24,7 +24,7 @@ export const ChatForm: React.FC<ChatFormProps> = (props) => {
 
   return (
     <Fragment>
-      <div className="relative">
+      <div className="relative w-full">
         <div className="relative bg-green-500s p-1 pt-3">
           <div className="flex items-center gap-x-2 absolute -top-3">
             <svg
@@ -55,7 +55,7 @@ export const ChatForm: React.FC<ChatFormProps> = (props) => {
             ref={messageRef}
             placeholder="Type message here"
             className="flex-1 outline-none bg-inherit placeholder:text-gray-600
-          cursor-text-blue-500"
+            cursor-text-blue-500 min-w-[180px]"
             id="input-field"
           />
           <button type="submit">
