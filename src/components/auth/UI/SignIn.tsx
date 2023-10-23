@@ -102,16 +102,25 @@ export const SignIn: React.FC<SignInProps> = (props) => {
           errorMessage="Please provide valid phone number"
           className="w-full"
         />
-        <InputFieldPassword
-          label="Password"
-          required={true}
-          placeholder="Enter your password"
-          validateInputValue={validatePassword}
-          inputValueHandler={passwordValueChangeHandler}
-          isValidInputHandler={isValidPasswordHandler}
-          errorMessage="Please provide valid password"
-          className="w-full"
-        />
+        <div className="relative mt-3">
+          <InputFieldPassword
+            label="Password"
+            required={true}
+            placeholder="Enter your password"
+            validateInputValue={validatePassword}
+            inputValueHandler={passwordValueChangeHandler}
+            isValidInputHandler={isValidPasswordHandler}
+            errorMessage="Please provide valid password"
+            className="w-full"
+          />
+          <span
+            onClick={() => updateAuthLabel("forgotPassword")}
+            className="cursor-pointer focus:underline hover:underline
+                  text-primary ml-2 absolute right-0 top-0"
+          >
+            Forgot password
+          </span>
+        </div>
         <div
           className="w-full mt-6 flex items-center justify-center
           bg-primary rounded py-[2px]"

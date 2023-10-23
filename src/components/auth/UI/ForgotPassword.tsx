@@ -8,33 +8,25 @@ import {
 } from "../../../store/actions/notification";
 import { Spinner } from "../../shared/UI/Loader/Spinner";
 import { Button } from "../../shared/UI/Button";
-import { useInputValidation } from "../../../hooks/useInputValidation";
-
-const validatePhoneNumber = (phoneNumber: string) =>
-  phoneNumber.trim().startsWith("2567") && phoneNumber.trim().length === 12;
+import { InputField } from "../../shared/UI/InputField";
 
 interface ForgotPasswordProps {
   onUpdateLabel: (label: string) => void;
 }
 
 export const ForgotPassword: React.FC<ForgotPasswordProps> = (props) => {
-  const {
-    value: phoneNumberValue,
-    hasError: phoneNumberHasError,
-    inputBlurHandler: phoneNumberInputBlurHandler,
-    valueChangeHandler: phoneNumberValueChangeHandler,
-
-    isValid: phoneNumberIsValid,
-  } = useInputValidation(validatePhoneNumber);
   const [tokenRequestSuccessful, setTokenRequestSuccessful] = useState(false);
-  const [isFocused, setIsFocused] = useState<boolean>(false);
-  const [activeInputField, setActiveInputField] = useState<string>("");
 
-  const onFocusHandler = () => setIsFocused(true);
-  const onBlurHandler = () => setIsFocused(false);
-  const isActiveField = (activeField: string) => {
-    return isFocused && activeInputField === activeField;
+  const [phoneNumberValue, setPhoneNumberValue] = useState<string>("");
+  const [isValidPhoneNumber, setIsValidPhoneNumber] = useState<boolean>(false);
+  const phoneValueChangeHandler = (value: string) => {
+    setPhoneNumberValue(() => value);
   };
+  const isValidPhoneNumberHandler = (value: boolean) => {
+    if (value) setIsValidPhoneNumber(() => true);
+  };
+  const validatePhoneNumber = (phoneNumber: string) =>
+    phoneNumber.trim().startsWith("2567") && phoneNumber.trim().length === 12;
 
   const dispatch: any = useDispatch();
 
@@ -65,7 +57,7 @@ export const ForgotPassword: React.FC<ForgotPasswordProps> = (props) => {
   const forgotPasswordHandler = (event: React.FormEvent) => {
     event.preventDefault();
 
-    const formIsValid = phoneNumberIsValid;
+    const formIsValid = isValidPhoneNumber;
     if (!formIsValid) {
       showCardNotification({
         type: "error",
@@ -98,52 +90,31 @@ export const ForgotPassword: React.FC<ForgotPasswordProps> = (props) => {
           </h1>
           <p>Lets reset password for your account</p>
         </div>
-        <div className="flex flex-col justify-center relative space-y-[4px] mb-4">
-          <label
-            htmlFor="phoneNumber"
-            className={`${
-              isActiveField("phoneNumber") ? "text-primary" : "text-gray-800"
-            }`}
-          >
-            Enter your phone number and we'll send you a reset token
-          </label>
-          <div className="relative w-full">
-            <input
-              className={`outline-none p-[10px] rounded w-full bg-gray-300 text-sm 
-              ${isActiveField("phoneNumber") && "animate-border"}`}
-              type="text"
-              value={phoneNumberValue}
-              onChange={phoneNumberValueChangeHandler}
-              onBlur={() => {
-                phoneNumberInputBlurHandler(), onBlurHandler();
-              }}
-              onFocus={() => {
-                onFocusHandler(), setActiveInputField(() => "phoneNumber");
-              }}
-              placeholder="Enter your phone number"
-              required
-            />
-            <div className="absolute bottom-[0.5px] inset-x-0 h-[2px] bg-gray-400 x-10" />
-            {isActiveField("phoneNumber") && (
-              <div
-                className="absolute bottom-[0.5px] inset-x-0 h-[3px] bg-primary
-                   animate-radiate z-40"
-              />
-            )}
-          </div>
-          {phoneNumberHasError && (
-            <span className="text-red-500 w-full text-start">
-              Please provide a valid phone number
-            </span>
-          )}
-        </div>
-        <div className="w-full mt-6 flex items-center justify-start rounded py-[2px]">
+        <InputField
+          label=" Enter your phone number and we'll send you a reset token"
+          type="text"
+          required={true}
+          placeholder="Password"
+          validateInputValue={validatePhoneNumber}
+          inputValueHandler={phoneValueChangeHandler}
+          isValidInputHandler={isValidPhoneNumberHandler}
+          errorMessage="Please provide valid phone number"
+          className="w-full"
+        />
+        <div
+          className="w-full mt-6 flex items-center justify-center
+          bg-primary rounded py-[2px]"
+        >
           {!isLoading && (
             <Button className="font-bold" type="submit">
-              Reset Password
+              Submit
             </Button>
           )}
-          {isLoading && <Spinner label="Logging in" className="w-40" />}
+          {isLoading && (
+            <div className="py-[6px] font-semibold text-gray-100">
+              <Spinner label="Submitting" className="w-5 h-5 text-gray-100" />
+            </div>
+          )}
         </div>
       </form>
     </Fragment>
