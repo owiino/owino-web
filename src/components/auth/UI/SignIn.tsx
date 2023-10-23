@@ -10,46 +10,35 @@ import {
 import { Spinner } from "../../shared/UI/Loader/Spinner";
 import { Button } from "../../shared/UI/Button";
 import { TAuth } from "../../../types/auth";
-import sprite from "../../../assets/icons/sprite.svg";
-import { useInputValidation } from "../../../hooks/useInputValidation";
-
-const validatePhoneNumber = (phoneNumber: string) =>
-  phoneNumber.trim().startsWith("2567") && phoneNumber.trim().length === 12;
-const validatePassword = (password: string) =>
-  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/.test(password);
+import { InputField } from "../../shared/UI/InputField";
+import { InputFieldPassword } from "../../shared/UI/InputFieldPassword";
 
 interface SignInProps {
   onUpdateLabel: (label: string) => void;
 }
 
 export const SignIn: React.FC<SignInProps> = (props) => {
-  const [showPassword, setShowPassword] = useState<Boolean>(false);
-  const [isFocused, setIsFocused] = useState<boolean>(false);
-  const [activeInputField, setActiveInputField] = useState<string>("");
-
-  const onFocusHandler = () => setIsFocused(true);
-  const onBlurHandler = () => setIsFocused(false);
-  const isActiveField = (activeField: string) => {
-    return isFocused && activeInputField === activeField;
+  const [phoneNumberValue, setPhoneNumberValue] = useState<string>("");
+  const [isValidPhoneNumber, setIsValidPhoneNumber] = useState<boolean>(false);
+  const phoneValueChangeHandler = (value: string) => {
+    setPhoneNumberValue(() => value);
   };
+  const isValidPhoneNumberHandler = (value: boolean) => {
+    if (value) setIsValidPhoneNumber(() => true);
+  };
+  const validatePhoneNumber = (phoneNumber: string) =>
+    phoneNumber.trim().startsWith("2567") && phoneNumber.trim().length === 12;
 
-  const {
-    value: phoneNumberValue,
-    hasError: phoneNumberHasError,
-    inputBlurHandler: phoneNumberInputBlurHandler,
-    valueChangeHandler: phoneNumberValueChangeHandler,
-
-    isValid: phoneNumberIsValid,
-  } = useInputValidation(validatePhoneNumber);
-
-  const {
-    value: passwordValue,
-    hasError: passwordHasError,
-    inputBlurHandler: passwordInputBlurHandler,
-    valueChangeHandler: passwordValueChangeHandler,
-
-    isValid: passwordIsValid,
-  } = useInputValidation(validatePassword);
+  const [passwordValue, setPasswordValue] = useState<string>("");
+  const [isValidPassword, setIsValidPassword] = useState<boolean>(false);
+  const passwordValueChangeHandler = (value: string) => {
+    setPasswordValue(() => value);
+  };
+  const isValidPasswordHandler = (value: boolean) => {
+    if (value) setIsValidPassword(() => true);
+  };
+  const validatePassword = (password: string) =>
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/.test(password);
 
   const dispatch: any = useDispatch();
 
@@ -78,7 +67,7 @@ export const SignIn: React.FC<SignInProps> = (props) => {
   const signInHandler = (event: React.FormEvent) => {
     event.preventDefault();
 
-    const formIsValid = phoneNumberIsValid && passwordIsValid;
+    const formIsValid = isValidPhoneNumber && isValidPassword;
     if (!formIsValid) {
       showCardNotification({
         type: "error",
@@ -102,125 +91,27 @@ export const SignIn: React.FC<SignInProps> = (props) => {
           <h1 className="font-bold text-3xl text-gray-dark-3">Welcome back</h1>
           <p>Log into your account</p>
         </div>
-        <div className="flex flex-col justify-center relative space-y-[4px] mb-4">
-          <label
-            htmlFor="phoneNumber"
-            className={`${
-              isActiveField("phoneNumber") ? "text-primary" : "text-gray-800"
-            }`}
-          >
-            Phone number
-          </label>
-          <div className="relative w-full">
-            <input
-              className={`outline-none p-[10px] rounded w-full bg-gray-300 text-sm 
-              ${isActiveField("phoneNumber") && "animate-border"}`}
-              type="text"
-              value={phoneNumberValue}
-              onChange={phoneNumberValueChangeHandler}
-              onBlur={() => {
-                phoneNumberInputBlurHandler(), onBlurHandler();
-              }}
-              onFocus={() => {
-                onFocusHandler(), setActiveInputField(() => "phoneNumber");
-              }}
-              placeholder="Enter your phone number"
-              required
-            />
-            <div className="absolute bottom-[0.5px] inset-x-0 h-[2px] bg-gray-400 x-10" />
-            {isActiveField("phoneNumber") && (
-              <div
-                className="absolute bottom-[0.5px] inset-x-0 h-[3px] bg-primary
-                   animate-radiate z-40"
-              />
-            )}
-          </div>
-          {phoneNumberHasError && (
-            <span className="text-red-500 w-full text-start">
-              Please provide a valid phone number
-            </span>
-          )}
-        </div>
-        <div className="flex flex-col justify-center relative space-y-[4px] mb-4">
-          <label
-            htmlFor="password"
-            className={`${
-              isActiveField("password") ? "text-primary" : "text-gray-800"
-            }`}
-          >
-            Password
-          </label>
-          <span
-            onClick={() => updateAuthLabel("forgotPassword")}
-            className="text-sm text-primary-dark hover:underline focus:underline
-                absolute right-0 top-[-2px] outline-none cursor-pointer"
-          >
-            Forgot password?
-          </span>
-          <div className="flex flex-col justify-center relative">
-            <div className="relative w-full">
-              <input
-                className={`outline-none p-[10px] rounded w-full bg-gray-300 text-sm 
-              ${isActiveField("password") && "animate-border"}`}
-                type={showPassword ? "text" : "password"}
-                value={passwordValue}
-                onChange={passwordValueChangeHandler}
-                placeholder="Enter your password"
-                onBlur={() => {
-                  passwordInputBlurHandler(), onBlurHandler();
-                }}
-                onFocus={() => {
-                  onFocusHandler(), setActiveInputField(() => "password");
-                }}
-                required
-              />
-              <div className="absolute bottom-[0.5px] inset-x-0 h-[2px] bg-gray-400 x-10" />
-              {isActiveField("password") && (
-                <div
-                  className="absolute bottom-[0.5px] inset-x-0 h-[3px] bg-primary
-                   animate-radiate z-40"
-                />
-              )}
-            </div>
-            {!showPassword && (
-              <svg
-                className="w-6 h-6 fill-gray-500 absolute right-3 top-[20%]
-                 cursor-pointer"
-                onClick={() => setShowPassword(!showPassword)}
-              >
-                <use href={`${sprite}#icon-eye`}></use>
-              </svg>
-            )}
-            {showPassword && (
-              <svg
-                className="w-6 h-6 fill-gray-500 absolute right-3 top-[20%]
-               cursor-pointer"
-                onClick={() => setShowPassword(!showPassword)}
-              >
-                <use href={`${sprite}#icon-eyeclosed`}></use>
-              </svg>
-            )}
-          </div>
-          {passwordHasError && (
-            <span className="text-red-500 w-full text-start">
-              Please provide a valid password
-            </span>
-          )}
-        </div>
-        {/* <div
-          className="w-full mt-6 flex items-center justify-center
-                bg-primary rounded py-2"
-        > */}
-        {/* {!isLoading && (
-            <Button className="font-bold" type="submit">
-              Log in
-            </Button>
-          )} */}
-        {/* {!isLoading && <Spinner label="Logging in" className="w-40" />} */}
-        {/* {isLoading && (
-            <Spinner label="Logging in" className="w-5 h-5 text-gray-100" />
-          )} */}
-        {/* </div> */}
+        <InputField
+          label="Your phone number"
+          type="text"
+          required={true}
+          placeholder="Password"
+          validateInputValue={validatePhoneNumber}
+          inputValueHandler={phoneValueChangeHandler}
+          isValidInputHandler={isValidPhoneNumberHandler}
+          errorMessage="Please provide valid phone number"
+          className="w-full"
+        />
+        <InputFieldPassword
+          label="Password"
+          required={true}
+          placeholder="Enter your password"
+          validateInputValue={validatePassword}
+          inputValueHandler={passwordValueChangeHandler}
+          isValidInputHandler={isValidPasswordHandler}
+          errorMessage="Please provide valid password"
+          className="w-full"
+        />
         <div
           className="w-full mt-6 flex items-center justify-center
           bg-primary rounded py-[2px]"
