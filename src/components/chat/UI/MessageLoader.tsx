@@ -9,7 +9,7 @@ export const MessageLoader: React.FC = () => {
             justify-center rounded-[50%] absolute left-[43%] top-[29%]
             z-[20]"
       >
-        <Spinner className="before:-left-3" />
+        <Spinner className="w-6 h-6 text-gray-100 ml-2" />
       </div>
     </Fragment>
   );
