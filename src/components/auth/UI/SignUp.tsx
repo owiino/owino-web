@@ -1,4 +1,4 @@
-import React, { Fragment, ChangeEvent, useState } from "react";
+import React, { Fragment, useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { useDispatch } from "react-redux";
 import { signUp } from "../../../API/auth";
@@ -10,80 +10,70 @@ import {
 import { Spinner } from "../../shared/UI/Loader/Spinner";
 import { Button } from "../../shared/UI/Button";
 import { TAuth } from "../../../types/auth";
-import sprite from "../../../assets/icons/sprite.svg";
-import { useInputValidation } from "../../../hooks/useInputValidation";
+import { InputField } from "../../shared/UI/InputField";
+import { InputFieldPassword } from "../../shared/UI/InputFieldPassword";
 
 interface SignUpProps {
   onUpdateLabel: (label: string) => void;
 }
 
-const validateFirstName = (firstName: string) => firstName.trim() !== "";
-const validateLastName = (lastName: string) => lastName.trim() !== "";
-const validatePhoneNumber = (phoneNumber: string) =>
-  phoneNumber.trim().startsWith("2567") && phoneNumber.trim().length === 12;
-const validatePassword = (password: string) =>
-  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/.test(password);
-
 export const SignUp: React.FC<SignUpProps> = (props) => {
-  const [showPassword, setShowPassword] = useState<Boolean>(false);
-  const [showConfirmPassword, setShowConfirmPassword] =
-    useState<Boolean>(false);
-  const [isFocused, setIsFocused] = useState<boolean>(false);
-  const [activeInputField, setActiveInputField] = useState<string>("");
-
-  const onFocusHandler = () => setIsFocused(true);
-  const onBlurHandler = () => setIsFocused(false);
-  const isActiveField = (activeField: string) => {
-    return isFocused && activeInputField === activeField;
+  // first name
+  const [firstNameValue, setFirstNameValue] = useState<string>("");
+  const [isValidFirstName, setIsValidFirstName] = useState<boolean>(false);
+  const firstNameValueChangeHandler = (value: string) => {
+    setFirstNameValue(() => value);
   };
-
-  const {
-    value: firstNameValue,
-    hasError: firstNameHasError,
-    inputBlurHandler: firstNameInputBlurHandler,
-    valueChangeHandler: firstNameValueChangeHandler,
-
-    isValid: firstNameIsValid,
-  } = useInputValidation(validateFirstName);
-
-  const {
-    value: lastNameValue,
-    hasError: lastNameHasError,
-    inputBlurHandler: lastNameInputBlurHandler,
-    valueChangeHandler: lastNameValueChangeHandler,
-
-    isValid: lastNameIsValid,
-  } = useInputValidation(validateLastName);
-
-  const {
-    value: phoneNumberValue,
-    hasError: phoneNumberHasError,
-    inputBlurHandler: phoneNumberInputBlurHandler,
-    valueChangeHandler: phoneNumberValueChangeHandler,
-
-    isValid: phoneNumberIsValid,
-  } = useInputValidation(validatePhoneNumber);
-
-  const {
-    value: passwordValue,
-    hasError: passwordHasError,
-    inputBlurHandler: passwordInputBlurHandler,
-    valueChangeHandler: passwordValueChangeHandler,
-
-    isValid: passwordIsValid,
-  } = useInputValidation(validatePassword);
-
-  const [passwordMatch, setPasswordMatch] = useState<Boolean>(false);
-  const [confirmPasswordValue, setConfirmPasswordValue] = useState<String>("");
-
-  const confirmPasswordValueChangeHandler = (
-    event: ChangeEvent<HTMLInputElement>
-  ) => {
-    setConfirmPasswordValue(event.target.value);
-    setPasswordMatch(() => {
-      return passwordValue === event.target.value;
-    });
+  const isValidFirstNameHandler = (value: boolean) => {
+    if (value) setIsValidFirstName(() => true);
   };
+  const validateFirstName = (firstName: string) => firstName.trim() !== "";
+
+  // last name
+  const [lastNameValue, setLastNameValue] = useState<string>("");
+  const [isValidLastName, setIsValidLastName] = useState<boolean>(false);
+  const lastNameValueChangeHandler = (value: string) => {
+    setLastNameValue(() => value);
+  };
+  const isValidLastNameHandler = (value: boolean) => {
+    if (value) setIsValidLastName(() => true);
+  };
+  const validateLastName = (lastName: string) => lastName.trim() !== "";
+  // phone number
+  const [phoneNumberValue, setPhoneNumberValue] = useState<string>("");
+  const [isValidPhoneNumber, setIsValidPhoneNumber] = useState<boolean>(false);
+  const phoneValueChangeHandler = (value: string) => {
+    setPhoneNumberValue(() => value);
+  };
+  const isValidPhoneNumberHandler = (value: boolean) => {
+    if (value) setIsValidPhoneNumber(() => true);
+  };
+  const validatePhoneNumber = (phoneNumber: string) =>
+    phoneNumber.trim().startsWith("2567") && phoneNumber.trim().length === 12;
+  // password
+  const [passwordValue, setPasswordValue] = useState<string>("");
+  const [isValidPassword, setIsValidPassword] = useState<boolean>(false);
+  const passwordValueChangeHandler = (value: string) => {
+    setPasswordValue(() => value);
+  };
+  const isValidPasswordHandler = (value: boolean) => {
+    if (value) setIsValidPassword(() => true);
+  };
+  const validatePassword = (password: string) =>
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/.test(password);
+  // confirm password
+  const [_, setConfirmPasswordValue] = useState<string>("");
+  const [isValidConfirmPassword, setIsValidConfirmPassword] =
+    useState<boolean>(false);
+  const confirmPasswordValueChangeHandler = (value: string) => {
+    setConfirmPasswordValue(() => value);
+  };
+  const isValidConfirmPasswordHandler = (value: boolean) => {
+    if (value) setIsValidConfirmPassword(() => true);
+  };
+  const validateConfirmPassword = (confirmPassword: string) =>
+    confirmPassword.trim() !== "" && confirmPassword === passwordValue;
+
   const dispatch: any = useDispatch();
 
   const { isLoading, mutate } = useMutation({
@@ -112,11 +102,11 @@ export const SignUp: React.FC<SignUpProps> = (props) => {
     event.preventDefault();
 
     const formIsValid =
-      firstNameIsValid &&
-      lastNameIsValid &&
-      phoneNumberIsValid &&
-      passwordIsValid &&
-      passwordMatch;
+      isValidFirstName &&
+      isValidLastName &&
+      isValidPhoneNumber &&
+      isValidPassword &&
+      isValidConfirmPassword;
 
     if (!formIsValid) {
       showCardNotification({
@@ -144,241 +134,59 @@ export const SignUp: React.FC<SignUpProps> = (props) => {
           <p>Lets create your account</p>
         </div>
         <div className="overflow-x-hidden h-44 pr-2">
-          <div className="flex flex-col justify-center relative space-y-[4px] mb-4">
-            <label
-              htmlFor="firstName"
-              className={`${
-                isActiveField("firstName") ? "text-primary" : "text-gray-800"
-              }`}
-            >
-              First name
-            </label>
-            <div className="relative w-full">
-              <input
-                className={`outline-none p-[10px] rounded w-full bg-gray-300 text-sm 
-              ${isActiveField("firstName") && "animate-border"}`}
-                type="text"
-                value={firstNameValue}
-                onChange={firstNameValueChangeHandler}
-                onBlur={() => {
-                  firstNameInputBlurHandler(), onBlurHandler();
-                }}
-                onFocus={() => {
-                  onFocusHandler(), setActiveInputField(() => "firstName");
-                }}
-                placeholder="Enter your first name"
-                required
-              />
-              <div className="absolute bottom-[0.5px] inset-x-0 h-[2px] bg-gray-400 x-10" />
-              {isActiveField("firstName") && (
-                <div
-                  className="absolute bottom-[0.5px] inset-x-0 h-[3px] bg-primary
-                   animate-radiate z-40"
-                />
-              )}
-            </div>
-            {firstNameHasError && (
-              <span className="text-red-500 w-full text-start">
-                Please provide a valid first name
-              </span>
-            )}
-          </div>
-          <div className="flex flex-col justify-center relative space-y-[4px] mb-4">
-            <label
-              htmlFor="lastName"
-              className={`${
-                isActiveField("lastName") ? "text-primary" : "text-gray-800"
-              }`}
-            >
-              Last name
-            </label>
-            <div className="relative w-full">
-              <input
-                className={`outline-none p-[10px] rounded w-full bg-gray-300 text-sm 
-              ${isActiveField("lastName") && "animate-border"}`}
-                type="text"
-                value={lastNameValue}
-                onChange={lastNameValueChangeHandler}
-                onBlur={() => {
-                  lastNameInputBlurHandler(), onBlurHandler();
-                }}
-                onFocus={() => {
-                  onFocusHandler(), setActiveInputField(() => "lastName");
-                }}
-                placeholder="Enter your last name"
-                required
-              />
-              <div className="absolute bottom-[0.5px] inset-x-0 h-[2px] bg-gray-400 x-10" />
-              {isActiveField("lastName") && (
-                <div
-                  className="absolute bottom-[0.5px] inset-x-0 h-[3px] bg-primary
-                   animate-radiate z-40"
-                />
-              )}
-            </div>
-            {lastNameHasError && (
-              <span className="text-red-500 w-full text-start">
-                Please provide a valid last name
-              </span>
-            )}
-          </div>
-          <div className="flex flex-col justify-center relative space-y-[4px] mb-4">
-            <label
-              htmlFor="email"
-              className={`${
-                isActiveField("phoneNumber") ? "text-primary" : "text-gray-800"
-              }`}
-            >
-              Phone number
-            </label>
-            <div className="relative w-full">
-              <input
-                className={`outline-none p-[10px] rounded w-full bg-gray-300 text-sm 
-              ${isActiveField("phoneNumber") && "animate-border"}`}
-                type="text"
-                value={phoneNumberValue}
-                onChange={phoneNumberValueChangeHandler}
-                onBlur={() => {
-                  phoneNumberInputBlurHandler(), onBlurHandler();
-                }}
-                onFocus={() => {
-                  onFocusHandler(), setActiveInputField(() => "phoneNumber");
-                }}
-                placeholder="Enter your phone number"
-                required
-              />
-              <div className="absolute bottom-[0.5px] inset-x-0 h-[2px] bg-gray-400 x-10" />
-              {isActiveField("phoneNumber") && (
-                <div
-                  className="absolute bottom-[0.5px] inset-x-0 h-[3px] bg-primary
-                   animate-radiate z-40"
-                />
-              )}
-            </div>
-            {phoneNumberHasError && (
-              <span className="text-red-500 w-full text-start">
-                Please provide a valid phone number
-              </span>
-            )}
-          </div>
-          <div className="flex flex-col justify-center relative space-y-[4px] mb-4">
-            <label
-              htmlFor="password"
-              className={`${
-                isActiveField("password") ? "text-primary" : "text-gray-800"
-              }`}
-            >
-              Password
-            </label>
-            <div className="flex flex-col justify-center relative">
-              <div className="relative w-full">
-                <input
-                  className={`outline-none p-[10px] rounded w-full bg-gray-300 text-sm 
-              ${isActiveField("password") && "animate-border"}`}
-                  type={showPassword ? "text" : "password"}
-                  value={passwordValue}
-                  onChange={passwordValueChangeHandler}
-                  onBlur={() => {
-                    passwordInputBlurHandler(), onBlurHandler();
-                  }}
-                  onFocus={() => {
-                    onFocusHandler(), setActiveInputField(() => "password");
-                  }}
-                  placeholder="Enter your password"
-                  required
-                />
-                <div className="absolute bottom-[0.5px] inset-x-0 h-[2px] bg-gray-400 x-10" />
-                {isActiveField("password") && (
-                  <div
-                    className="absolute bottom-[0.5px] inset-x-0 h-[3px] bg-primary
-                   animate-radiate z-40"
-                  />
-                )}
-              </div>
-              {!showPassword && (
-                <svg
-                  className="w-6 h-6 fill-gray-500 absolute right-3 top-[20%]
-                 cursor-pointer"
-                  onClick={() => setShowPassword(!showPassword)}
-                >
-                  <use href={`${sprite}#icon-eye`}></use>
-                </svg>
-              )}
-              {showPassword && (
-                <svg
-                  className="w-6 h-6 fill-gray-500 absolute right-3 top-[20%]
-               cursor-pointer"
-                  onClick={() => setShowPassword(!showPassword)}
-                >
-                  <use href={`${sprite}#icon-eyeclosed`}></use>
-                </svg>
-              )}
-            </div>
-            {passwordHasError && (
-              <span className="text-red-500 w-full text-start">
-                Please provide a valid password
-              </span>
-            )}
-          </div>
-          <div className="flex flex-col justify-center relative space-y-[4px] mb-4">
-            <label
-              htmlFor="confirm password"
-              className={`${
-                isActiveField("confirmPassword")
-                  ? "text-primary"
-                  : "text-gray-800"
-              }`}
-            >
-              Confirm password
-            </label>
-            <div className="flex flex-col justify-center relative">
-              <div className="relative w-full">
-                <input
-                  className={`outline-none p-[10px] rounded w-full bg-gray-300 text-sm 
-              ${isActiveField("confirmPassword") && "animate-border"}`}
-                  type={showConfirmPassword ? "text" : "password"}
-                  onChange={confirmPasswordValueChangeHandler}
-                  onBlur={() => onBlurHandler()}
-                  onFocus={() => {
-                    onFocusHandler(),
-                      setActiveInputField(() => "confirmPassword");
-                  }}
-                  placeholder="Enter confirm password"
-                  required
-                />
-                <div className="absolute bottom-[0.5px] inset-x-0 h-[2px] bg-gray-400 x-10" />
-                {isActiveField("confirmPassword") && (
-                  <div
-                    className="absolute bottom-[0.5px] inset-x-0 h-[3px] bg-primary
-                   animate-radiate z-40"
-                  />
-                )}
-              </div>
-              {!showConfirmPassword && (
-                <svg
-                  className="w-6 h-6 fill-gray-500 absolute right-3 top-[20%]
-                 cursor-pointer"
-                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                >
-                  <use href={`${sprite}#icon-eye`}></use>
-                </svg>
-              )}
-              {showConfirmPassword && (
-                <svg
-                  className="w-6 h-6 fill-gray-500 absolute right-3 top-[20%]
-                cursor-pointer"
-                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                >
-                  <use href={`${sprite}#icon-eyeclosed`}></use>
-                </svg>
-              )}
-            </div>
-            {!passwordMatch && confirmPasswordValue && (
-              <span className="text-red-500 w-full text-start">
-                Passwords don't match
-              </span>
-            )}
-          </div>
+          <InputField
+            label="First name"
+            type="text"
+            required={true}
+            placeholder="First name"
+            validateInputValue={validateFirstName}
+            inputValueHandler={firstNameValueChangeHandler}
+            isValidInputHandler={isValidFirstNameHandler}
+            errorMessage="Please provide valid first name"
+            className="w-full"
+          />
+          <InputField
+            label="Last name"
+            type="text"
+            required={true}
+            placeholder="Last name"
+            validateInputValue={validateLastName}
+            inputValueHandler={lastNameValueChangeHandler}
+            isValidInputHandler={isValidLastNameHandler}
+            errorMessage="Please provide valid last name"
+            className="w-full"
+          />
+          <InputField
+            label="Phone number"
+            type="text"
+            required={true}
+            placeholder="Your phone number"
+            validateInputValue={validatePhoneNumber}
+            inputValueHandler={phoneValueChangeHandler}
+            isValidInputHandler={isValidPhoneNumberHandler}
+            errorMessage="Please provide valid phone number"
+            className="w-full"
+          />
+          <InputFieldPassword
+            label="Password"
+            required={true}
+            placeholder="Enter your password"
+            validateInputValue={validatePassword}
+            inputValueHandler={passwordValueChangeHandler}
+            isValidInputHandler={isValidPasswordHandler}
+            errorMessage="Please provide valid password"
+            className="w-full"
+          />
+          <InputFieldPassword
+            label="confirm password"
+            required={true}
+            placeholder="Enter confirm password"
+            validateInputValue={validateConfirmPassword}
+            inputValueHandler={confirmPasswordValueChangeHandler}
+            isValidInputHandler={isValidConfirmPasswordHandler}
+            errorMessage="Passwords don't match"
+            className="w-full"
+          />
         </div>
         <div
           className="w-full mt-6 flex items-center justify-center
