@@ -31,7 +31,8 @@
     "tailwind-merge": "^1.14.0",
     "use-file-picker": "^1.7.0",
     "video.js": "^8.6.0",
-    "websocket": "^1.0.34"
+    "websocket": "^1.0.34",
+    "ws": "^8.14.2"
   },
   "devDependencies": {
     "@types/node": "^20.5.7",
