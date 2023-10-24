@@ -6,12 +6,19 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3 #Gets the react code
-      - uses: actions/setup-node@v3 #Sets up node environment
+      - uses: actions/checkout@v2 # Use the latest version of checkout action
+      - name: Setup Node.js
+        uses: actions/setup-node@v2 # Use the latest version of setup-node action
         with:
           node-version: 16
-          cache: "npm"
-      - run: "npm install --force && npm run build"
+      - name: Install PNPM
+        run: npm install -g pnpm
+
+      - name: Install Dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Build
+        run: pnpm run build
+
       - name: Deploy to Netlify
         uses: nwtgck/actions-netlify@v2.0.0
         with:
