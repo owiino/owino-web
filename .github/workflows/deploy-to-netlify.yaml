@@ -6,9 +6,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2 # Use the latest version of checkout action
-      - name: Setup Node.js
-        uses: actions/setup-node@v2 # Use the latest version of setup-node action
+      - uses: actions/checkout@v3 #Gets the react code
+      - uses: actions/setup-node@v3 #Sets up node environment
+
         with:
           node-version: 16
       - name: Install PNPM

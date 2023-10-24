@@ -11,9 +11,9 @@ export const FLVideoPlayer: React.FC = () => {
   // const ws = new WebSocket("wss://localhost:443");
   const ws = new WebSocket("ws://localhost:9000");
 
-  // ws.onopen = function () {
-  //   console.log("Status: Connected\n");
-  // };
+  ws.onopen = function () {
+    console.log("Status: Connected\n");
+  };
 
   // socket.on("connect", () => {
   //   console.log("connected");
