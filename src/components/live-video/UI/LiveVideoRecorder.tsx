@@ -5,13 +5,15 @@ import React, { Fragment, useEffect } from "react";
 
 // import { goSocketUrl } from "../../../store";
 
+// TODO: reconnecting webSockets based on internet connectivity state
 // TODO: rename the component to VideoRecorder
-export const FLVideoPlayer: React.FC = () => {
+export const LiveVideoRecorder: React.FC = () => {
   // const socket: Socket = io(goSocketUrl);
   // const ws = new WebSocket("wss://localhost:443");
-  const ws = new WebSocket("ws://localhost:9000");
+  const socket = new WebSocket("wss://owino-backend-go.onrender.com/ws");
 
-  ws.onopen = function () {
+  socket.onopen = function () {
+    // check connectivity here
     console.log("Status: Connected\n");
   };
 
@@ -49,13 +51,9 @@ export const FLVideoPlayer: React.FC = () => {
 
   const sendMessage = () => {
     console.log("clicked send message");
-    // socket.emit(
-    //   "chat",
-    //   "An excited hello of connection of socket for 1 week",
-    //   (response: any) => {
-    //     console.log(response.status); // ok
-    //   }
-    // );
+
+    socket.send("Hello Server!");
+
     console.log("Believe it has sent");
   };
 

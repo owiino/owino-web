@@ -1,12 +1,12 @@
 import React, { Fragment } from "react";
-import { FLVideoPlayer } from "./FLVideoPlayer";
+import { LiveVideoRecorder } from "./LiveVideoRecorder";
 
 export const GoLive: React.FC = () => {
   return (
     <Fragment>
       <div>
         <h1>GoLive</h1>
-        <FLVideoPlayer />
+        <LiveVideoRecorder />
       </div>
     </Fragment>
   );
