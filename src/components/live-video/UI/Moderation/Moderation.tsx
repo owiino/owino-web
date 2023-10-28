@@ -1,9 +1,15 @@
 import React, { Fragment } from "react";
+import { ModerationMessage } from "./ModerationMessage";
 
-export const ChatModeration: React.FC = () => {
+export const Moderation: React.FC = () => {
+  const message = [1, 2, 3, 4];
   return (
     <Fragment>
-      <div>ChatModeration</div>
+      <div className="space-y-4">
+        {message.map(() => {
+          return <ModerationMessage />;
+        })}
+      </div>
     </Fragment>
   );
 };

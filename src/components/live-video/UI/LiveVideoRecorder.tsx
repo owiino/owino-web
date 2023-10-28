@@ -1,4 +1,5 @@
 import React, { Fragment, useEffect } from "react";
+import { Moderation } from "./Moderation/Moderation";
 // import WebSocket from 'ws';
 
 // import { io, Socket } from "socket.io-client";
@@ -67,6 +68,9 @@ export const LiveVideoRecorder: React.FC = () => {
             className="w-72 h-72 border-2 border-gray-500"
           ></video>
           <button onClick={() => sendMessage()}>Send message</button>
+        </div>
+        <div>
+          <Moderation />
         </div>
       </div>
     </Fragment>
