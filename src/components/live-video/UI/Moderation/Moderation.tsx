@@ -7,3 +7,5 @@ export const ChatModeration: React.FC = () => {
     </Fragment>
   );
 };
+
+// AIzaSyCxcExxoxxxyJis2HMUt5aNufc_wlsOHr0 //Map api key
