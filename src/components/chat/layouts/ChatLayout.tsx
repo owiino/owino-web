@@ -34,8 +34,8 @@ export const ChatLayout: React.FC<ChatLayoutProps> = (props) => {
   return (
     <Fragment>
       <div
-        className="w-[100%] sm:w-[600px] h-[0vh] 
-         fixed bottom-[0vh] sm:bottom-[5vh] z-[600] sm:right-[5%]
+        className="w-[100%] sm:w-[600px] h-[0vh]s  h-auto
+         fixed top-0 sm:top-auto bottom-[0vh]s sm:bottom-[5vh] z-[600] sm:right-[5%]
          lg:right-[15%] flex items-end justify-center gap-x-2
          transition-all"
       >
