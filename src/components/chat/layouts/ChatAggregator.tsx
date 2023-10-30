@@ -124,9 +124,9 @@ export const ChatAggregator: React.FC<ChatAggregatorProps> = (props) => {
   return (
     <Fragment>
       <div
-        className="w-full sm:w-96 bg-gray-50 rounded-md shadow-2xl p-4 pt-3 borders-[1px]
-         border-gray-200 space-y-4 flex flex-col items-start  h-auto animate-opacityZeroToFull
-           relative"
+        className="w-full sm:w-96 bg-gray-50 sm:rounded-md shadow-2xl
+         p-4 pt-3 borders-[1px] border-gray-200 space-y-4 flex flex-col
+          items-start h-[100vh] sm:h-auto animate-opacityZeroToFull relative"
       >
         <ChatHeader
           recipientName={`${recipient.firstName} ${recipient.lastName}`}

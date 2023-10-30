@@ -34,8 +34,9 @@ export const ChatLayout: React.FC<ChatLayoutProps> = (props) => {
   return (
     <Fragment>
       <div
-        className="w-[90%] sm:w-96s sm:w-[600px] h-[0vh] fixed bottom-[5vh] z-[600]
-         right-[5%] md:right-[8%]s lg:right-[15%] flex items-end justify-center gap-x-2
+        className="w-[100%] sm:w-[600px] h-[0vh] 
+         fixed bottom-[0vh] sm:bottom-[5vh] z-[600] sm:right-[5%]
+         lg:right-[15%] flex items-end justify-center gap-x-2
          transition-all"
       >
         {showChatRecipientListValue && (

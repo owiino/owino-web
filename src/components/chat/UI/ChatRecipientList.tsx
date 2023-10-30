@@ -107,7 +107,7 @@ export const ChatRecipientList: React.FC<ChatRecipientListProps> = (props) => {
     <Fragment>
       <div
         className="w-full sm:w-60 border-[1px] border-gray-ligh
-            rounded-md rounded-tl-lgs shadow-2xl animate-opacityZeroToFull"
+            sm:rounded-md rounded-tl-lgs shadow-2xl animate-opacityZeroToFull"
       >
         <div
           className="flex items-center justify-between border-b-[1px] 
