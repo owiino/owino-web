@@ -1,61 +1,144 @@
-import React, { Fragment, useEffect } from "react";
-import { Moderation } from "./Moderation/Moderation";
-// import WebSocket from 'ws';
+import React, { Fragment, useEffect, useState } from "react";
 
-// import { io, Socket } from "socket.io-client";
-
-// import { goSocketUrl } from "../../../store";
-
-// TODO: reconnecting webSockets based on internet connectivity state
-// TODO: rename the component to VideoRecorder
 export const LiveVideoRecorder: React.FC = () => {
-  // const socket: Socket = io(goSocketUrl);
-  // const ws = new WebSocket("wss://localhost:443");
-  const socket = new WebSocket("wss://owino-backend-go.onrender.com/ws");
+  // const [stream, setStream] = useState<MediaStream | null>(null);
+  const [stream, setStream] = useState<any>();
+  const [mediaRecorder, setMediaRecorder] = useState<MediaRecorder | null>(
+    null
+  );
+  const [count, setCount] = useState(0);
+  const ws = new WebSocket("wss://owino-backend-go.onrender.com/ws");
+  const ws1 = new WebSocket("wss://owino-backend-go.onrender.com/ws1");
 
-  socket.onopen = function () {
-    // check connectivity here
-    console.log("Status: Connected\n");
+  const appendStreamToVideoPlayer = (videoStream: MediaStream) => {
+    const videoElement = document.getElementById(
+      "video-element"
+    ) as HTMLVideoElement;
+    videoElement.srcObject = videoStream;
   };
 
-  // socket.on("connect", () => {
-  //   console.log("connected");
-  // });
-
+  //ws connection status and reconnection
   useEffect(() => {
-    // dispatch action to authorize media access(video and audio)
-    // dispatch another action to start sending video streams to the server
-    // dispatch action to stop sending video streams to the server a
-    navigator.mediaDevices
-      .getUserMedia({ video: true, audio: true })
-      .then(function (stream) {
-        const videoElement = document.getElementById(
-          "video-element"
-        ) as HTMLVideoElement;
-        videoElement.srcObject = stream;
+    //Check for connections status
+    ws.onopen = function () {
+      console.log("WebSocket Status: Connected");
+    };
+    // Reconnect here
+    // clean effect
+  }, [ws]);
 
-        // socket.emit("live", stream);
+  //ws connection status and reconnection
+  // useEffect(() => {
+  //   const incrementCountHandler = () => {
+  //     setCount((count) => {
+  //       console.log(count + 1);
+  //       return count + 1;
+  //     });
+  //   };
 
-        // Wait for the loadedmetadata event before calling play()
-        videoElement.addEventListener("loadedmetadata", function () {
-          videoElement.play().catch(function (error) {
-            console.log("Error playing video: ", error);
-          });
+  //   setTimeout(() => {
+  //     incrementCountHandler();
+  //   }, 5000);
+  // }, [count]);
+
+  // useEffect to get video streams from the usermedia
+  useEffect(() => {
+    const accessUserMedia = async () => {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({
+          video: true,
+          audio: true,
         });
-      })
-      .catch(function (error) {
-        console.log("Error accessing camera: ", error.message);
-        // Handle errors
-      });
-    // }, [socket]);
+        setStream(() => stream);
+        appendStreamToVideoPlayer(stream);
+      } catch (error) {
+        console.error("error accessing userMedia", error);
+      }
+      // clean effect
+    };
+    accessUserMedia();
+    // }, []);
   }, []);
 
-  const sendMessage = () => {
-    console.log("clicked send message");
+  //Send video chunks to the server
+  useEffect(() => {
+    const recordSendMediaStream = () => {
+      if (!stream) return;
+      const mediaRecorder = new MediaRecorder(stream);
+      setMediaRecorder(mediaRecorder);
 
-    socket.send("Hello Server!");
+      mediaRecorder.ondataavailable = (event) => {
+        if (event.data.size > 0) {
+          // Send individual video chunks to the server
 
-    console.log("Believe it has sent");
+          console.log("event.data", event.data);
+          ws.send(event.data);
+        }
+      };
+      // clean effect
+    };
+    recordSendMediaStream();
+  }, [stream, count]);
+
+  // useEffect(() => {
+  //   // Open a WebSocket connection to the server
+  //   const ws = new WebSocket("wss://owino-backend-go.onrender.com/ws");
+  //   setSocket(ws);
+
+  //   ws.onopen = function () {
+  //     console.log("WebSocket Status: Connected");
+  //   };
+
+  //   // Request access to video and audio
+  //   navigator.mediaDevices
+  //     .getUserMedia({ video: true, audio: true })
+  //     .then(function (userStream) {
+  //       setStream(userStream);
+  //       const videoElement = document.getElementById(
+  //         "video-element"
+  //       ) as HTMLVideoElement;
+  //       videoElement.srcObject = userStream;
+
+  //       // Set up MediaRecorder to capture video chunks
+  //       const mediaRecorder = new MediaRecorder(userStream);
+  //       setMediaRecorder(mediaRecorder);
+
+  //       mediaRecorder.ondataavailable = (event) => {
+  //         if (event.data.size > 0) {
+  //           // Send individual video chunks to the server
+  //           console.log("event.data", event.data);
+  //           ws.send(event.data);
+  //         }
+  //       };
+
+  //       mediaRecorder.start();
+  //     })
+  //     .catch(function (error) {
+  //       console.error("Error accessing camera: ", error.message);
+  //       // Handle errors
+  //     });
+
+  //   return () => {
+  //     // Cleanup: Stop recording and close WebSocket when the component unmounts
+  //     if (mediaRecorder) {
+  //       mediaRecorder.stop();
+  //     }
+  //     if (ws) {
+  //       ws.close();
+  //     }
+  //     if (stream) {
+  //       stream.getTracks().forEach((track) => track.stop());
+  //     }
+  //   };
+  // }, []);
+
+  const stopRecording = () => {
+    // if (mediaRecorder) {
+    //   mediaRecorder.stop();
+    // }
+    // if (socket) {
+    //   socket.close();
+    // }
   };
 
   return (
@@ -66,11 +149,9 @@ export const LiveVideoRecorder: React.FC = () => {
           <video
             id="video-element"
             className="w-72 h-72 border-2 border-gray-500"
+            autoPlay
           ></video>
-          <button onClick={() => sendMessage()}>Send message</button>
-        </div>
-        <div>
-          <Moderation />
+          <button onClick={() => stopRecording()}>Stop Recording</button>
         </div>
       </div>
     </Fragment>

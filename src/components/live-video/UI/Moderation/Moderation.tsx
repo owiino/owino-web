@@ -6,8 +6,12 @@ export const Moderation: React.FC = () => {
   return (
     <Fragment>
       <div className="space-y-4">
-        {message.map(() => {
-          return <ModerationMessage />;
+        {message.map((_, index) => {
+          return (
+            <div key={index}>
+              <ModerationMessage />
+            </div>
+          );
         })}
       </div>
     </Fragment>
