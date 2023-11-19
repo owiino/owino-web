@@ -3,6 +3,7 @@ import { ModerationMessage } from "./ModerationMessage";
 
 export const Moderation: React.FC = () => {
   const message = [1, 2, 3, 4, 5];
+  // TODO: To be changed actual message types"
   return (
     <Fragment>
       <div className="space-y-4">
