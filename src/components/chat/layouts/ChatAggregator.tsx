@@ -31,6 +31,12 @@ export const ChatAggregator: React.FC<ChatAggregatorProps> = (props) => {
     message: "",
     type: "",
   });
+  const [showChatNotification, setShowChatNotification] =
+    useState<boolean>(true);
+
+  const onChatNotificationClose = (show: boolean) => {
+    setShowChatNotification(() => show);
+  };
 
   const onSubmitHandler = (message: string) => {
     setChatMessage(message);
@@ -134,12 +140,15 @@ export const ChatAggregator: React.FC<ChatAggregatorProps> = (props) => {
           recipientImageUrl={`${recipient.imageUrl}`}
           onChatClose={() => {}}
         />
-        <ChatNotification
-          message={
-            alertMessage.message ? alertMessage.message : notificationMessage
-          }
-          type={alertMessage.type ? alertMessage.type : "default"}
-        />
+        {showChatNotification && (
+          <ChatNotification
+            onShow={onChatNotificationClose}
+            message={
+              alertMessage.message ? alertMessage.message : notificationMessage
+            }
+            type={alertMessage.type ? alertMessage.type : "default"}
+          />
+        )}
         {isLoading && <MessageLoader />}
         <ChatMessages messages={messageList} />
         <ChatForm onSubmit={onSubmitHandler} />
