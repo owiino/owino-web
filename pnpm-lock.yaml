@@ -14,6 +14,9 @@ dependencies:
   '@tanstack/react-query-devtools':
     specifier: ^4.29.19
     version: 4.36.1(@tanstack/react-query@4.36.1)(react-dom@18.2.0)(react@18.2.0)
+  '@types/event-source-polyfill':
+    specifier: ^1.0.5
+    version: 1.0.5
   currency-list:
     specifier: ^1.0.8
     version: 1.0.8
@@ -782,6 +785,10 @@ packages:
     dependencies:
       '@babel/types': 7.23.0
     dev: true
+
+  /@types/event-source-polyfill@1.0.5:
+    resolution: {integrity: sha512-iaiDuDI2aIFft7XkcwMzDWLqo7LVDixd2sR6B4wxJut9xcp/Ev9bO4EFg4rm6S9QxATLBj5OPxdeocgmhjwKaw==}
+    dev: false
 
   /@types/hoist-non-react-statics@3.3.4:
     resolution: {integrity: sha512-ZchYkbieA+7tnxwX/SCBySx9WwvWR8TaP5tb2jRAzwvLb/rWchGw3v0w3pqUbUvj0GCwW2Xz/AVPSk6kUGctXQ==}
