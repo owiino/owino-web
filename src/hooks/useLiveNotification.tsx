@@ -19,7 +19,7 @@ export const useLiveNotification = async () => {
       `${url}/notifications/get-live-notifications`,
       {
         headers: {
-          authorization: `Bearer ${accessToken}`,
+          Authorization: `Bearer ${accessToken}`,
         },
       }
     );

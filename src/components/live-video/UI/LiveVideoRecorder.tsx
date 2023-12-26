@@ -3,12 +3,10 @@ import React, { Fragment, useEffect, useState } from "react";
 export const LiveVideoRecorder: React.FC = () => {
   // const [stream, setStream] = useState<MediaStream | null>(null);
   const [stream, setStream] = useState<any>();
-  const [mediaRecorder, setMediaRecorder] = useState<MediaRecorder | null>(
-    null
-  );
-  const [count, setCount] = useState(0);
+  const [, setMediaRecorder] = useState<MediaRecorder | null>(null);
+  const [count, _] = useState(0);
   const ws = new WebSocket("wss://owino-backend-go.onrender.com/ws");
-  const ws1 = new WebSocket("wss://owino-backend-go.onrender.com/ws1");
+  // const ws1 = new WebSocket("wss://owino-backend-go.onrender.com/ws1");
 
   const appendStreamToVideoPlayer = (videoStream: MediaStream) => {
     const videoElement = document.getElementById(
