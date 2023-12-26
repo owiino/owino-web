@@ -19,6 +19,7 @@ import { Profile } from "../components/Profile/pages/Profile";
 import { MyShop } from "../components/products/Pages/MyShop";
 import { AddProduct } from "../components/products/Pages/AddProduct";
 import { ProductPage } from "../components/products/Pages/ProductPage";
+import { useLiveNotification } from "../hooks/useLiveNotification";
 
 export const AppRouter: React.FC = () => {
   const auth = useSelector((state: TAuthState) => state.auth);
@@ -36,6 +37,8 @@ export const AppRouter: React.FC = () => {
   const closeCardHandler = () => {
     dispatch(notificationActions.hideCardNotification());
   };
+
+  useLiveNotification();
 
   useEffect(() => {
     setTimeout(() => {
