@@ -28,6 +28,7 @@ export const NavDropDown: React.FC<NavDropDownProps> = (props) => {
   const dispatch: any = useDispatch();
 
   const logOutHandler = () => {
+    //TODO: make an api call to server to logout endpoint
     dispatch(dispatch(logOut()));
   };
   return (
