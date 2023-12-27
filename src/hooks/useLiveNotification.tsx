@@ -15,6 +15,7 @@ export const useLiveNotification = async () => {
   const dispatch: any = useDispatch();
 
   useEffect(() => {
+    if (!accessToken) return;
     const eventSource = new EventSourcePolyfill(
       `${url}/notifications/get-live-notifications`,
       {
@@ -45,7 +46,7 @@ export const useLiveNotification = async () => {
 
     eventSource.onmessage = onmessage;
     eventSource.onerror = onerror;
-  }, [dispatch]);
+  }, [dispatch, accessToken]);
 
   return {};
 };
