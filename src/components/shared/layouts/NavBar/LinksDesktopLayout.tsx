@@ -5,6 +5,10 @@ import { useSelector, useDispatch } from "react-redux";
 import { AuthLayout } from "../../../auth/layouts/AuthLayout";
 import { NavDropDown } from "../../UI/NavDropDown";
 import { showChatRecipientList } from "../../../../store/actions/chat";
+import {
+  TLiveNotificationState,
+  TLiveNotification,
+} from "../../../../types/liveNotification";
 
 export const LinksDesktopLayout: React.FC = () => {
   const isLoggedIn: boolean = useSelector(
@@ -12,6 +16,19 @@ export const LinksDesktopLayout: React.FC = () => {
   );
   const user = useSelector((state: any) => state.auth.user);
   const dispatch: any = useDispatch();
+  const notifications: TLiveNotification[] = useSelector(
+    (state: TLiveNotificationState) => state.notifications
+  );
+
+  const notificationCountStrBuilder = (): string => {
+    const notificationCount: number = notifications?.length
+      ? notifications?.length
+      : 0;
+    if (notificationCount > 9 && notificationCount < 99) return "9+";
+    if (notificationCount > 99) return "99+";
+
+    return notificationCount.toString();
+  };
 
   const showChatRecipientListHandler = () => {
     dispatch(showChatRecipientList());
@@ -34,11 +51,20 @@ export const LinksDesktopLayout: React.FC = () => {
                 </span>
               </NavLink>
             </li>
-            <li className="w-full">
+            <li className="w-full relative">
               <NavLink
                 to="/notifications"
                 className="flex items-center gap-x-2"
               >
+                <span
+                  className="absolute -top-4 -right-1 text-[12px] 
+                  font-semibold text-gray-50 bg-red-700 rounded-[50%] 
+                  grid place-items-center min-w-6 min-h-6 px-1
+                  animate-opacityZeroToFull"
+                  key={notificationCountStrBuilder()}
+                >
+                  {notificationCountStrBuilder()}
+                </span>
                 <span className="bg-gray-100 p-1 grid place-items-center rounded-[50%]">
                   <svg className="w-5 h-5 fill-gray-600 ">
                     <use href={`${sprite}#icon-notification-filled`}></use>
