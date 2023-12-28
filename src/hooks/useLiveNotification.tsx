@@ -7,17 +7,21 @@ import {
 import { TAuthState } from "../types/auth";
 import { url } from "../store";
 import { EventSourcePolyfill } from "event-source-polyfill";
+import { updateLiveNotification } from "../store/actions/liveNotification";
+import { TLiveNotification } from "../types/liveNotification";
 
 export const useLiveNotification = async () => {
   const accessToken = useSelector(
     (state: TAuthState) => state.auth.accessToken
   );
+  const userId = useSelector((state: TAuthState) => state.auth.user?.userId);
+
   const dispatch: any = useDispatch();
 
   useEffect(() => {
-    if (!accessToken) return;
+    if (!accessToken || !userId) return;
     const eventSource = new EventSourcePolyfill(
-      `${url}/notifications/get-live-notifications`,
+      `${url}/notifications/get-live-notifications/${userId}`,
       {
         headers: {
           Authorization: `Bearer ${accessToken}`,
@@ -26,9 +30,14 @@ export const useLiveNotification = async () => {
     );
 
     const onmessage = async (event: any) => {
-      //   const parsedData = JSON.parse(event.data);
       console.log("event data", event);
-      // dispatch action to update live notifications in the store
+      const parsedData = JSON.parse(event.data) as TLiveNotification;
+      const message = parsedData.message;
+      const parsedUserId = parsedData.userId;
+      if (message === "heartbeat" || message === "warmup") return;
+      if (parsedUserId !== userId) return;
+
+      dispatch(updateLiveNotification(parsedData));
     };
 
     const onerror = async (error: any) => {
