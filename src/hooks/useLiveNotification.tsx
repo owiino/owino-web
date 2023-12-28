@@ -12,12 +12,14 @@ export const useLiveNotification = async () => {
   const accessToken = useSelector(
     (state: TAuthState) => state.auth.accessToken
   );
+  const userId = useSelector((state: TAuthState) => state.auth.user?.userId);
+
   const dispatch: any = useDispatch();
 
   useEffect(() => {
-    if (!accessToken) return;
+    if (!accessToken || !userId) return;
     const eventSource = new EventSourcePolyfill(
-      `${url}/notifications/get-live-notifications`,
+      `${url}/notifications/get-live-notifications/${userId}`,
       {
         headers: {
           Authorization: `Bearer ${accessToken}`,
