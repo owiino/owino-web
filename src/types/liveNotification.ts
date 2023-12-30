@@ -3,6 +3,10 @@ export type TLiveNotification = {
   message: string;
 };
 
-export type TLiveNotificationState = {
+export type TLiveNotificationList = {
   notifications: TLiveNotification[];
+};
+
+export type TLiveNotificationState = {
+  liveNotification: TLiveNotificationList;
 };
