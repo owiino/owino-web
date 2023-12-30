@@ -1,6 +1,7 @@
 import React, { Fragment } from "react";
 import { PageLayoutClassic } from "../../shared/layouts/PageLayoutClassic";
 import { UserNotificationsList } from "../UI/UserNotificationsList";
+import { UserNotificationsHeader } from "../UI/UserNotificationsHeader";
 import { TPageLink } from "../../../types/page";
 
 export const UserNotifications: React.FC = () => {
@@ -8,6 +9,7 @@ export const UserNotifications: React.FC = () => {
     {
       linkName: "Notifications",
       linkValue: "notifications#notifications",
+      linkContentHeader: <UserNotificationsHeader />,
       linkComponent: <UserNotificationsList />,
     },
   ];

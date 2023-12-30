@@ -56,12 +56,14 @@ export const PageContentLayout: React.FC<PageContentLayoutProps> = (props) => {
             </ul>
           </aside>
           <main className="flex-1 border-[1px] p-6 border-gray-300 rounded-md">
-            <p
+            <div
               className="font-semibold text-lg border-b-[1px] border-b-gray-300
                 pb-6 mb-6"
             >
-              {activePageLink.linkName}
-            </p>
+              {activePageLink.linkContentHeader
+                ? activePageLink.linkContentHeader
+                : activePageLink.linkName}
+            </div>
             <div className="mb-6 z-20">{activePageLink.linkComponent}</div>
           </main>
         </div>
