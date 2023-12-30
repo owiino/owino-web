@@ -1,10 +1,10 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import {
   TLiveNotification,
-  TLiveNotificationState,
+  TLiveNotificationList,
 } from "../../types/liveNotification";
 
-const initialState: TLiveNotificationState = {
+const initialState: TLiveNotificationList = {
   notifications: [],
 };
 

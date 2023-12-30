@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import sprite from "../../../../assets/icons/sprite.svg";
 import { useSelector, useDispatch } from "react-redux";
@@ -17,22 +17,32 @@ export const LinksDesktopLayout: React.FC = () => {
   const user = useSelector((state: any) => state.auth.user);
   const dispatch: any = useDispatch();
   const notifications: TLiveNotification[] = useSelector(
-    (state: TLiveNotificationState) => state.notifications
+    (state: TLiveNotificationState) => state.liveNotification.notifications
   );
-
-  const notificationCountStrBuilder = (): string => {
-    const notificationCount: number = notifications?.length
-      ? notifications?.length
-      : 0;
-    if (notificationCount > 9 && notificationCount < 99) return "9+";
-    if (notificationCount > 99) return "99+";
-
-    return notificationCount.toString();
-  };
+  const [notificationCount, setNotificationCount] = useState<number | string>(
+    notifications?.length
+  );
 
   const showChatRecipientListHandler = () => {
     dispatch(showChatRecipientList());
   };
+
+  useEffect(() => {
+    const notificationCountStrBuilder = () => {
+      const notifCount: number = notifications?.length;
+      if (notifCount > 9 && notifCount < 99) {
+        setNotificationCount(() => "9+");
+        return;
+      }
+      if (notifCount > 99) {
+        setNotificationCount(() => "99+");
+        return;
+      }
+      setNotificationCount(() => notifCount);
+    };
+
+    notificationCountStrBuilder();
+  }, [notifications]);
 
   return (
     <Fragment>
@@ -61,9 +71,9 @@ export const LinksDesktopLayout: React.FC = () => {
                   font-semibold text-gray-50 bg-red-700 rounded-[50%] 
                   grid place-items-center min-w-6 min-h-6 px-1
                   animate-opacityZeroToFull"
-                  key={notificationCountStrBuilder()}
+                  key={notificationCount}
                 >
-                  {notificationCountStrBuilder()}
+                  {notificationCount}
                 </span>
                 <span className="bg-gray-100 p-1 grid place-items-center rounded-[50%]">
                   <svg className="w-5 h-5 fill-gray-600 ">
